@@ -13,3 +13,7 @@ config_version=5
 config/name="LDJAM54_Project"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/composition/plugin.cfg")

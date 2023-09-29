@@ -13,6 +13,18 @@ func _ready():
 func update():
 	queue_redraw()
 
+func set_color(New_Color: Color):
+	color = New_Color
+	update()
+
+func set_width(Width: float):
+	width = Width
+	update()
+
+func set_height(Height: float):
+	height = Height
+	update()
+
 func set_radius(Radius: float):
 	radius = Radius
 	update()
