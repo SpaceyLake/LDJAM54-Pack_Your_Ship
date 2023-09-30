@@ -36,6 +36,7 @@ func _process(delta):
 
 func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 	fuelcells.remove_at(fuelcells.find(fuelcell))
+	fuelcell.queue_free()
 
 func get_fuelcells():
 	for neighbor in neighbors:

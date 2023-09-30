@@ -56,9 +56,9 @@ func _input(event):
 func fire():
 	if not animation_player.is_playing():
 		var proj = projectile.instantiate()
-		turret_muzzel.add_child(proj)
+		add_child(proj)
 		proj.global_position = turret_muzzel.global_position
-		proj.target = target.global_position
+		proj.target = Vector2(1,0).rotated(turret.global_rotation) #target.global_position - global_position
 		animation_player.play("fire")
 
 func debug_distance(event:InputEvent):
