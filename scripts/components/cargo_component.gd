@@ -12,4 +12,4 @@ func _ready():
 
 func on_death():
 	super()
-	value = 0
+	queue_free()
