@@ -34,8 +34,16 @@ func _on_spawn_timer_timeout():
 		position.y = get_viewport().size.y + 32
 		position.x = randi_range(-32, get_viewport().size.x/2)
 	var goal = Vector2.ZERO
-	goal.x = randi_range(32, get_viewport().size.x - 32)
+	goal.x = position.x + randi_range(32, get_viewport().size.x - 32 - position.x)
 	goal.y = randi_range(32, get_viewport().size.y - 32)
+	for other_enemy in enemies:
+		if goal.distance_squared_to(other_enemy.goal) < 64*64:
+			if goal.x > get_viewport().size.x - 96:
+				goal.x -= 64
+			elif goal.x < 96:
+				goal.x -= 64
+			else:
+				goal.x += 64 * sign(float(rng.randi_range(0, 1)) - 0.5)
 	var rnd_enemy = rng.randi_range(0, total_likeliness - 1)
 	var enemy:Enemy
 	for i in enemy_likeliness.size():
@@ -46,9 +54,6 @@ func _on_spawn_timer_timeout():
 			enemy.setup(goal, enemy_killed)
 			enemies.append(enemy)
 			break
-	print("Spawned")
-	print(position)
-	print(goal)
 	spawn_timer.start(rng.randf_range(5 * spawnrate, 15 * spawnrate))
 
 
