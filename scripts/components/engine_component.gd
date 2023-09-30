@@ -7,6 +7,7 @@ signal force_change(old_force, new_force)
 @export var fuel_storage: float
 @export var fuel_max_storage: float
 @export var force: float
+@export var force_max: float
 var fuelcells: Array
 
 func _ready():

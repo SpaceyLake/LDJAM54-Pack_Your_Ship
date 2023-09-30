@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctetuxeiw1hul"]
+
+[ext_resource type="Script" path="res://scenes/components/weapons/laser.gd" id="1_v6cd5"]
+[ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="2_jwklj"]
+
+[node name="laser" type="Node2D" node_paths=PackedStringArray("turret_head", "health", "sprite")]
+script = ExtResource("1_v6cd5")
+turret_head = NodePath("turret")
+health = NodePath("HealthComponent")
+sprite = NodePath("base")
+
+[node name="turret" type="Sprite2D" parent="."]
+
+[node name="base" type="Sprite2D" parent="."]
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_jwklj")

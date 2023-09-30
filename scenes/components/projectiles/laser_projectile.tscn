@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://e2x7um1dl5xp"]
+
+[ext_resource type="Script" path="res://scenes/components/projectiles/laser_projectile.gd" id="1_3b1us"]
+[ext_resource type="Script" path="res://addons/composition/scripts/attack_component.gd" id="2_drvu5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_53sqt"]
+
+[node name="laser_projectile" type="Node2D"]
+script = ExtResource("1_3b1us")
+
+[node name="AttackComponent2D" type="Area2D" parent="."]
+script = ExtResource("2_drvu5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent2D"]
+shape = SubResource("CircleShape2D_53sqt")
