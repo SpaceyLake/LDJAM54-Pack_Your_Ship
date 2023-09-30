@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://ie4ecgtqe5qh"]
+[gd_scene load_steps=6 format=3 uid="uid://ie4ecgtqe5qh"]
 
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="1_vvwg6"]
+[ext_resource type="Script" path="res://scripts/enemies/fighter.gd" id="1_w7qwx"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_4ajxa"]
 [ext_resource type="Texture2D" uid="uid://dhicafya7hf17" path="res://icon.svg" id="3_vyhrf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ntjqi"]
 
 [node name="Fighter" type="Node2D"]
+script = ExtResource("1_w7qwx")
 
 [node name="HurtboxComponent2D" type="Area2D" parent="."]
 script = ExtResource("2_4ajxa")
