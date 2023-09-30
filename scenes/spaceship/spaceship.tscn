@@ -4,6 +4,7 @@
 
 [node name="Spaceship" type="Node2D"]
 script = ExtResource("1_yhtvw")
+size = null
 tiles_text = "tile(0, 0)
 tile(0,1)
 tile(1,0)
