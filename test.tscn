@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://addons/composition/scripts/targeting_component.gd" id="3_5v3v7"]
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("turret_head")]
+position = Vector2(124, 74)
 script = ExtResource("1_in6gr")
 turret_head = NodePath("Sprite2D")
 barrel_rotation_speed = 100.0

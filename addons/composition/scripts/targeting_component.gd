@@ -12,7 +12,7 @@ func _process(delta):
 
 func rotate_towards_target(delta):
 	if target != null:
-		var target_angle = seeker.position.angle_to_point(target.global_position)
+		var target_angle = seeker.global_position.angle_to_point(target.global_position)
 		var _diff = target_angle - seeker.global_rotation
 		_diff = wrap(_diff, -PI, PI)
 		seeker.global_rotation += sign(_diff) * min(rotation_speed * delta, abs(_diff))
