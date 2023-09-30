@@ -32,13 +32,13 @@ shape = SubResource("CircleShape2D_kn5r0")
 script = ExtResource("5_ljtar")
 
 [node name="laser" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
-position = Vector2(263, 253)
+position = Vector2(32, 34)
 target = NodePath("../Target")
 
 [node name="laser2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
-position = Vector2(459, 244)
+position = Vector2(650, 219)
 target = NodePath("../Target")
 
 [node name="laser3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
-position = Vector2(727, 518)
+position = Vector2(1090, 583)
 target = NodePath("../Target")
