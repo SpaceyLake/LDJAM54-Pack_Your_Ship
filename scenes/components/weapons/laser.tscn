@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctetuxeiw1hul"]
+[gd_scene load_steps=13 format=3 uid="uid://ctetuxeiw1hul"]
 
 [ext_resource type="Script" path="res://scenes/components/weapons/laser.gd" id="1_v6cd5"]
+[ext_resource type="PackedScene" uid="uid://cspklbvd4sfqr" path="res://scenes/components/projectiles/laser_projectile.tscn" id="2_17bwn"]
 [ext_resource type="Texture2D" uid="uid://dufogs3qr7aoq" path="res://assets/components/component_turret_laser_base_1.png" id="2_hi253"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="2_jwklj"]
 [ext_resource type="Script" path="res://addons/composition/scripts/targeting_component.gd" id="3_0y4rt"]
@@ -103,9 +104,14 @@ _data = {
 "fire": SubResource("Animation_xke1w")
 }
 
-[node name="laser" type="Node2D" node_paths=PackedStringArray("turret_head", "health", "sprite")]
+[node name="laser" type="Node2D" node_paths=PackedStringArray("targeting", "turret", "turret_muzzel", "animation_player", "health", "sprite")]
 script = ExtResource("1_v6cd5")
-turret_head = NodePath("turret/turret_sprite")
+projectile = ExtResource("2_17bwn")
+targeting = NodePath("TargetingComponent2D")
+turret = NodePath("turret")
+turret_muzzel = NodePath("turret/muzzel")
+animation_player = NodePath("AnimationPlayer")
+type = 2
 health = NodePath("HealthComponent")
 sprite = NodePath("base")
 
@@ -158,8 +164,8 @@ script = ExtResource("2_jwklj")
 
 [node name="TargetingComponent2D" type="Node2D" parent="." node_paths=PackedStringArray("seeker")]
 script = ExtResource("3_0y4rt")
-seeker = NodePath("../turret/turret_sprite")
-rotation_speed = 0.1
+seeker = NodePath("../turret")
+rotation_speed = 1.0
 metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

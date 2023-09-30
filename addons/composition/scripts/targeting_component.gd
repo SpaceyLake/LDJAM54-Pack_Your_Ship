@@ -10,7 +10,7 @@ func _process(delta):
 	if debug:
 		rotate_towards_mouse(delta)
 
-func rotate_towards_target(delta):
+func rotate_towards_target(delta: float):
 	if target != null:
 		var target_angle = seeker.global_position.angle_to_point(target.global_position)
 		var _diff = target_angle - seeker.global_rotation
