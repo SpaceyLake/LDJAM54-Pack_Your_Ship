@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 class_name SpaceShip
 
@@ -17,18 +18,19 @@ func _ready():
 		tile_string = tile_string.rstrip(")")
 		var tile_split = tile_string.rsplit("(")
 		var tile_position : Vector2 = str_to_var("Vector2(" + tile_split[1] + ")")
-		print(tile_position)
-		print(hex_to_pixel(tile_position))
 		tiles.append(ShipTile.new(tile_split[0], hex_to_pixel(tile_position)))
-	queue_redraw()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var hex = pixel_to_hex(get_viewport().get_mouse_position().round())
-#	print(hex)
-	var pixel = hex_to_pixel(hex)
-#	print(pixel)
-#	print(hex_corners(hex))
+	if Input.is_action_just_pressed("ui_accept"):
+		tiles = []
+		var tile_strings = tiles_text.rsplit("\n", false)
+		for tile_string in tile_strings:
+			tile_string = tile_string.rstrip(")")
+			var tile_split = tile_string.rsplit("(")
+			var tile_position : Vector2 = str_to_var("Vector2(" + tile_split[1] + ")")
+			tiles.append(ShipTile.new(tile_split[0], hex_to_pixel(tile_position)))
+		queue_redraw()
 
 func add_structure(structure:Node2D):
 	

@@ -17,5 +17,5 @@ func _init(type:String, position:Vector2):
 		self.type = tile_type.WEAPON
 	else:
 		self.type = tile_type.NORMAL
-	self.texture = load("res://Tiles_Placeholder.png")
-	self.position = position*2 - texture.get_size()/2;
+	self.texture = load("res://assets/Tiles_Placeholder.png")
+	self.position = position*2 - self.texture.get_size()/2;
