@@ -1,23 +1,168 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctetuxeiw1hul"]
+[gd_scene load_steps=12 format=3 uid="uid://ctetuxeiw1hul"]
 
 [ext_resource type="Script" path="res://scenes/components/weapons/laser.gd" id="1_v6cd5"]
+[ext_resource type="Texture2D" uid="uid://dufogs3qr7aoq" path="res://assets/components/component_turret_laser_base_1.png" id="2_hi253"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="2_jwklj"]
 [ext_resource type="Script" path="res://addons/composition/scripts/targeting_component.gd" id="3_0y4rt"]
+[ext_resource type="Texture2D" uid="uid://c1ysqp05cjn15" path="res://assets/components/component_turret_laser_cannon_1.png" id="3_cbaqx"]
+[ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="4_y7dy6"]
+[ext_resource type="Material" uid="uid://b0fgt23bfp4sx" path="res://materials/particles/laser_cannon_flash.tres" id="5_jofbv"]
+[ext_resource type="Texture2D" uid="uid://bu6ooss6yicf6" path="res://assets/Circle.svg" id="6_m04mc"]
+
+[sub_resource type="Animation" id="Animation_je1oh"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("turret/turret_sprite:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(10, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("turret/turret_sprite:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("turret/muzzel_splash:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_xke1w"]
+resource_name = "fire"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("turret/turret_sprite:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(10, -0.25, 0, 0.01, 0, 0, -0.25, 0, 0.5, 0, 10, -0.5, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("turret/turret_sprite:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 1)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("turret/muzzel_splash:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("turret/muzzel_splash")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"restart"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ghdr5"]
+_data = {
+"RESET": SubResource("Animation_je1oh"),
+"fire": SubResource("Animation_xke1w")
+}
 
 [node name="laser" type="Node2D" node_paths=PackedStringArray("turret_head", "health", "sprite")]
 script = ExtResource("1_v6cd5")
-turret_head = NodePath("turret")
+turret_head = NodePath("turret/turret_sprite")
 health = NodePath("HealthComponent")
 sprite = NodePath("base")
 
-[node name="turret" type="Sprite2D" parent="."]
-
 [node name="base" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hi253")
+
+[node name="turret" type="Node2D" parent="."]
+
+[node name="turret_sprite" type="Sprite2D" parent="turret"]
+position = Vector2(10, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_cbaqx")
+
+[node name="AmmoBar" type="TextureProgressBar" parent="turret/turret_sprite"]
+anchors_preset = -1
+anchor_left = 0.079
+anchor_top = 0.429
+anchor_right = 0.211
+anchor_bottom = 0.571
+offset_left = -75.7917
+offset_top = -28.024
+offset_right = -75.8557
+offset_bottom = -27.976
+max_value = 1.0
+step = 0.01
+value = 0.6
+fill_mode = 1
+nine_patch_stretch = true
+texture_progress = ExtResource("4_y7dy6")
+tint_progress = Color(0.882353, 0.32549, 0.290196, 1)
+
+[node name="muzzel_splash" type="GPUParticles2D" parent="turret"]
+position = Vector2(46, 0)
+emitting = false
+amount = 50
+process_material = ExtResource("5_jofbv")
+texture = ExtResource("6_m04mc")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+trail_sections = 20
+
+[node name="muzzel" type="Marker2D" parent="turret"]
+position = Vector2(46, 0)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2_jwklj")
 
 [node name="TargetingComponent2D" type="Node2D" parent="." node_paths=PackedStringArray("seeker")]
 script = ExtResource("3_0y4rt")
-seeker = NodePath("../turret")
+seeker = NodePath("../turret/turret_sprite")
 rotation_speed = 0.1
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ghdr5")
+}
