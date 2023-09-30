@@ -11,7 +11,7 @@ class_name WeaponComponent
 @export var turret_muzzel: Marker2D
 @export var barrel_rotation_speed: float
 @export var animation_player: AnimationPlayer
-@export var ammo_gauge: TextureProgressBar
+@export var ammo_bar: TextureProgressBar
 var fire:bool = false
 var ammo_cells: Array
 
@@ -66,8 +66,8 @@ func fire_gun():
 		proj.target = Vector2(1,0).rotated(turret.global_rotation) #target.global_position - global_position
 		animation_player.play("fire")
 		
-		if ammo_gauge != null:
-			ammo_gauge.value = ammo_storage/ammo_max_storage
+		if ammo_bar != null:
+			ammo_bar.value = ammo_storage/ammo_max_storage
 
 func aiming():
 	fire = false
