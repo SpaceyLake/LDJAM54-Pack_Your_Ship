@@ -13,9 +13,14 @@ var noise_i: float = 0.0
 var shake_strength: float = 0.0
 
 func _ready():
+	Global.camera = self
+	
 	noise.seed = rand.randi()
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	noise.frequency = 0.5
+
+func _exit():
+	Global.camera = null
 
 func apply_shake(strength: float = shake_noise_strength) -> void:
 	shake_strength = strength
