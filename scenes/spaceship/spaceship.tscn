@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/spaceship/spaceship.gd" id="1_yhtvw"]
 
 [node name="Spaceship" type="Node2D"]
+scale = Vector2(0.995056, 1)
 script = ExtResource("1_yhtvw")
 tiles_text = "tile(0, 0)
 tile(0,1)
