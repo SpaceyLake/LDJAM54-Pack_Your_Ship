@@ -6,10 +6,12 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xabt"]
 
-[node name="laser_projectile" type="Node2D" node_paths=PackedStringArray("attack")]
+[node name="laser_projectile" type="Node2D" node_paths=PackedStringArray("attack", "sprite", "timer")]
 script = ExtResource("1_3b1us")
 attack = NodePath("AttackComponent2D")
 speed = 1000.0
+sprite = NodePath("Sprite2D")
+timer = NodePath("Timer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.13, 0.13)
@@ -21,3 +23,5 @@ attack = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent2D"]
 shape = SubResource("CircleShape2D_0xabt")
+
+[node name="Timer" type="Timer" parent="."]

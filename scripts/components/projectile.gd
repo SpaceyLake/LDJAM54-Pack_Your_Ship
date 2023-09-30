@@ -6,7 +6,7 @@ class_name Projectile
 @export var target: Vector2
 @export var sprite: Sprite2D
 @export var particel: GPUParticles2D
-var timer:Timer
+@export var timer:Timer
 
 func _ready():
 	attack.hit.connect(Callable(self,"on_hit"))
@@ -20,4 +20,5 @@ func remove():
 
 func on_hit():
 	timer.start(1)
-	sprite.visible = false
+	if sprite != null:
+		sprite.visible = false
