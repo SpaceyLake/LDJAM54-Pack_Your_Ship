@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dp5sjk1125yxd"]
+[gd_scene load_steps=8 format=3 uid="uid://dp5sjk1125yxd"]
 
 [ext_resource type="PackedScene" uid="uid://ctetuxeiw1hul" path="res://scenes/components/weapons/laser.tscn" id="1_w3bvp"]
 [ext_resource type="Texture2D" uid="uid://dhicafya7hf17" path="res://icon.svg" id="2_xd5r4"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="4_74slv"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="5_ljtar"]
+[ext_resource type="PackedScene" uid="uid://cjghh4y5mjr57" path="res://scenes/spaceship/spaceship.tscn" id="5_rikf0"]
 
 [sub_resource type="GDScript" id="GDScript_bu0gm"]
 script/source = "extends Node2D
@@ -18,7 +19,7 @@ func _ready():
 script = SubResource("GDScript_bu0gm")
 
 [node name="Target" type="Sprite2D" parent="."]
-position = Vector2(391, 516)
+position = Vector2(-351, 120)
 texture = ExtResource("2_xd5r4")
 
 [node name="HurtboxComponent2D" type="Area2D" parent="Target" node_paths=PackedStringArray("health_component")]
@@ -31,14 +32,16 @@ shape = SubResource("CircleShape2D_kn5r0")
 [node name="HealthComponent" type="Node" parent="Target"]
 script = ExtResource("5_ljtar")
 
+[node name="Spaceship" parent="." instance=ExtResource("5_rikf0")]
+
 [node name="laser" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
-position = Vector2(32, 34)
+position = Vector2(360, -117)
 target = NodePath("../Target")
 
 [node name="laser2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
-position = Vector2(650, 219)
+position = Vector2(-92, -177)
 target = NodePath("../Target")
 
 [node name="laser3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
-position = Vector2(1090, 583)
+position = Vector2(348, 187)
 target = NodePath("../Target")

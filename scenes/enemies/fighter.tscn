@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="1_vvwg6"]
 [ext_resource type="Script" path="res://scripts/enemies/fighter.gd" id="1_w7qwx"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_4ajxa"]
-[ext_resource type="Texture2D" uid="uid://dhicafya7hf17" path="res://icon.svg" id="3_vyhrf"]
+[ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="4_iv8m4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ntjqi"]
 
@@ -19,6 +19,6 @@ shape = SubResource("RectangleShape2D_ntjqi")
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("1_vvwg6")
 
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.15625, 0.15625)
-texture = ExtResource("3_vyhrf")
+[node name="PirateFighter" type="Sprite2D" parent="."]
+scale = Vector2(0.3125, 0.3125)
+texture = ExtResource("4_iv8m4")

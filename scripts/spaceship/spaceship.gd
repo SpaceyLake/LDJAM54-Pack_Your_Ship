@@ -44,9 +44,10 @@ func _process(delta):
 		_ready()
 		queue_redraw()
 
-func add_structure(structure:Node2D):
+func place_component(component_position):
+	var hex_position:Vector2 = pixel_to_hex(component_position)
 	
-	return recalculate_speed
+	return hex_to_pixel(hex_position)
 
 func calculate_speed():
 	var weight = 0

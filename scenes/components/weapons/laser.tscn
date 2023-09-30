@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctetuxeiw1hul"]
+[gd_scene load_steps=14 format=3 uid="uid://ctetuxeiw1hul"]
 
 [ext_resource type="Script" path="res://scenes/components/weapons/laser.gd" id="1_v6cd5"]
 [ext_resource type="PackedScene" uid="uid://e2x7um1dl5xp" path="res://scenes/components/projectiles/laser_projectile.tscn" id="2_17bwn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="4_y7dy6"]
 [ext_resource type="Material" uid="uid://b0fgt23bfp4sx" path="res://materials/particles/laser_cannon_flash.tres" id="5_jofbv"]
 [ext_resource type="Texture2D" uid="uid://bu6ooss6yicf6" path="res://assets/Circle.svg" id="6_m04mc"]
+[ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="10_4oir4"]
 
 [sub_resource type="Animation" id="Animation_je1oh"]
 length = 0.001
@@ -175,3 +176,5 @@ metadata/_edit_lock_ = true
 libraries = {
 "": SubResource("AnimationLibrary_ghdr5")
 }
+
+[node name="Handle" parent="." instance=ExtResource("10_4oir4")]
