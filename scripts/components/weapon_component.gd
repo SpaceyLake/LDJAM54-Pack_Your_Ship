@@ -11,7 +11,8 @@ class_name WeaponComponent
 @export var barrel_rotation_speed: float
 var ammo_cells: Array
 
-func _ready():
+func setup():
+	super()
 	get_ammo()
 	
 	for ammo_cell in ammo_cells:

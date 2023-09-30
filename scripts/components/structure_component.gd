@@ -18,7 +18,7 @@ enum ComponentType {
 @export var neighbors: Array
 @export var debug: bool = false
 
-func _ready():
+func setup():
 	health.health_depleted.connect(Callable(self, "on_death"))
 
 func on_death():
