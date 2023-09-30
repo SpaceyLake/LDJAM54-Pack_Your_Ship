@@ -1,11 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhm2374yx1fne"]
+[gd_scene load_steps=3 format=3 uid="uid://dhm2374yx1fne"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_spawner.gd" id="1_yb11g"]
+[ext_resource type="Script" path="res://addons/composition/scripts/spawner_component.gd" id="2_tqi3x"]
 
 [node name="EnemySpawner" type="Node"]
 script = ExtResource("1_yb11g")
 
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="SpawnerComponent2D" type="Node2D" parent="."]
+script = ExtResource("2_tqi3x")
+root = NodePath("")
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
