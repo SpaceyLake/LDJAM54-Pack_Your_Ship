@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3j203vd1up5t"]
+
+[ext_resource type="Script" path="res://scenes/components/cargo/standard_cargo.gd" id="1_wujxh"]
+[ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="1_xhmxs"]
+[ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_uk8ps"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mqk56"]
+
+[node name="standard_cargo" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
+script = ExtResource("1_wujxh")
+value = 100.0
+destination_distance = 2
+health = NodePath("HealthComponent")
+weight = 50.0
+sprite = NodePath("Sprite2D")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("1_xhmxs")
+
+[node name="HurtboxComponent2D" type="Area2D" parent="."]
+script = ExtResource("2_uk8ps")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D"]
+shape = SubResource("CircleShape2D_mqk56")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

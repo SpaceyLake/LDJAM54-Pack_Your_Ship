@@ -1,17 +1,15 @@
 extends Node2D
 class_name Projectile
 
-@export var attack: float
+@export var attack: AttackComponent2D
 @export var speed: float
+@export var target: Vector2
 @export var sprite: Sprite2D
 @export var particel: GPUParticles2D
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	target = (target - global_position).normalized() * speed
+	attack.hit.connect(Callable(self,"on_hit"))
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func on_hit():
+	queue_free()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7nhs4mgthj3k"
-path="res://.godot/imported/Tiles_Placeholder.png-4cd607a64d27add2152034029361f239.ctex"
+uid="uid://bu6ooss6yicf6"
+path="res://.godot/imported/Circle.svg-abe4c2d2508aec92c448ea60766af6fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tiles_Placeholder.png"
-dest_files=["res://.godot/imported/Tiles_Placeholder.png-4cd607a64d27add2152034029361f239.ctex"]
+source_file="res://assets/Circle.svg"
+dest_files=["res://.godot/imported/Circle.svg-abe4c2d2508aec92c448ea60766af6fa.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

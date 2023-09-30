@@ -20,16 +20,6 @@ enum ComponentType {
 
 func _ready():
 	health.health_depleted.connect(Callable(self, "on_death"))
-	health.health_depleted.connect(Callable(self, "on_death"))
-
-
-func _process(delta):
-	pass
-
-
-func step(delta):
-	pass
-
 
 func on_death():
 	if debug:

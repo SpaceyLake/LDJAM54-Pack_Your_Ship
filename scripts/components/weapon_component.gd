@@ -12,6 +12,8 @@ class_name WeaponComponent
 var ammo_cells: Array
 
 func _ready():
+	super()
+	type = ComponentType.WEAPON
 	get_ammo()
 	
 	for ammo_cell in ammo_cells:
@@ -36,13 +38,13 @@ func ammo_cell_out_of_fuel(ammo_cell:AmmoComponent):
 
 func get_ammo():
 	for neighbor in neighbors:
-		if neighbor.has_method("drain_fuel"):
+		if neighbor.type == ComponentType.AMMO:
 			ammo_cells.append(neighbor)
 
 func fire():
 	pass
 
-func _input(event):
+func debug_distance(event:InputEvent):
 	if debug:
 		if event is InputEventMouseMotion:
 			print("Distance:", position - get_global_mouse_position())

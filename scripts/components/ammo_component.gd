@@ -6,6 +6,10 @@ signal out_of_ammo(ammo)
 @export var ammo_storage: int
 @export var ammo_max_storage: int
 
+func _ready():
+	super()
+	type = ComponentType.AMMO
+
 func drain_ammo(amount:int):
 	if amount >= ammo_storage:
 		out_of_ammo.emit(self)
