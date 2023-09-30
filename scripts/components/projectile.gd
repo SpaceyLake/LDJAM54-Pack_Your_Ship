@@ -1,13 +1,15 @@
-extends CharacterBody2D
+extends Node2D
 class_name Projectile
 
-@export var attack: float
+@export var attack: AttackComponent2D
 @export var speed: float
 @export var target: Vector2
-@export var velocity_comp: VelocityComponent2D
 @export var sprite: Sprite2D
 @export var particel: GPUParticles2D
 
+func setup():
+	target = (target - global_position).normalized() * speed
+	attack.hit.connect(Callable(self,"on_hit"))
 
-func move_towards_target():
-	pass
+func on_hit():
+	queue_free()

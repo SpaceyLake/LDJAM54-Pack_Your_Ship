@@ -1,6 +1,8 @@
 extends Area2D
 class_name AttackComponent2D
 
+signal hit
+
 @export var attack: float = 1.0
 
 
@@ -11,3 +13,4 @@ func _ready():
 func area_entered(area: Area2D):
 	if area.has_method("damage"):
 		area.damage(attack)
+		hit.emit()

@@ -10,7 +10,8 @@ signal force_change(old_force, new_force)
 @export var force_max: float
 var fuelcells: Array
 
-func _ready():
+func setup():
+	super()
 	get_fuelcells()
 	
 	for fuelcell in fuelcells:
