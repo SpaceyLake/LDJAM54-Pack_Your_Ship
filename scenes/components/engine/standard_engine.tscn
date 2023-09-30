@@ -1,3 +1,34 @@
-[gd_scene format=3 uid="uid://dfs7nlt3ju04q"]
+[gd_scene load_steps=6 format=3 uid="uid://dfs7nlt3ju04q"]
 
-[node name="standard_engine" type="Node2D"]
+[ext_resource type="Script" path="res://scenes/components/engine/standard_engine.gd" id="1_rlowa"]
+[ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_57tly"]
+[ext_resource type="Texture2D" uid="uid://50ysefracsm" path="res://assets/components/component_engine_1.png" id="2_cl6pp"]
+[ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="3_kw3up"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ixua1"]
+radius = 59.3043
+
+[node name="standard_engine" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
+script = ExtResource("1_rlowa")
+fuel_drain = 60.0
+fuel_storage = 30.0
+fuel_max_storage = 30.0
+force = 100.0
+force_max = 100.0
+health = NodePath("HealthComponent")
+weight = 20.0
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_cl6pp")
+offset = Vector2(-26, 0)
+
+[node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("2_57tly")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D"]
+shape = SubResource("CircleShape2D_ixua1")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_kw3up")

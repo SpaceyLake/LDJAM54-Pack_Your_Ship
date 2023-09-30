@@ -1,15 +1,21 @@
 [gd_scene load_steps=7 format=3 uid="uid://dp5sjk1125yxd"]
 
-[ext_resource type="Script" path="res://test.gd" id="1_77uic"]
 [ext_resource type="PackedScene" uid="uid://ctetuxeiw1hul" path="res://scenes/components/weapons/laser.tscn" id="1_w3bvp"]
 [ext_resource type="Texture2D" uid="uid://dhicafya7hf17" path="res://icon.svg" id="2_xd5r4"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="4_74slv"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="5_ljtar"]
 
+[sub_resource type="GDScript" id="GDScript_bu0gm"]
+script/source = "extends Node2D
+
+func _ready():
+	$laser/TargetingComponent2D.target = $Target
+"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_kn5r0"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_77uic")
+script = SubResource("GDScript_bu0gm")
 
 [node name="laser" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
 position = Vector2(381, 175)
