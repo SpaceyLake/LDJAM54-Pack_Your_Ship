@@ -1,8 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://cjghh4y5mjr57"]
 
-[ext_resource type="Script" path="res://scripts/spaceship/Spaceship.gd" id="1_htyou"]
+[ext_resource type="Script" path="res://scripts/spaceship/spaceship.gd" id="1_yhtvw"]
 
 [node name="Spaceship" type="Node2D"]
-script = ExtResource("1_htyou")
+script = ExtResource("1_yhtvw")
+size = null
+tiles_text = "tile(0, 0)
+tile(1,1)
+tile(1,2)
+tile(0,1)
+tile(1,0)"
 
 [connection signal="recalculate_speed" from="." to="." method="_on_recalculate_speed"]

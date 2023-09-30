@@ -4,36 +4,44 @@ class_name SpaceShip
 signal recalculate_speed
 
 @export var size:int = 32
+@export_multiline var tiles_text:String = ""
 
 var structures : Array
 var speed : int
+var tiles : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	var tile_strings = tiles_text.rsplit("\n", false)
+	for tile_string in tile_strings:
+		tile_string = tile_string.rstrip(")")
+		var tile_split = tile_string.rsplit("(")
+		var tile_position : Vector2 = str_to_var("Vector2(" + tile_split[1] + ")")
+		print(tile_position)
+		print(hex_to_pixel(tile_position))
+		tiles.append(ShipTile.new(tile_split[0], hex_to_pixel(tile_position)))
+	queue_redraw()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var hex = pixel_to_hex(get_viewport().get_mouse_position().round())
-	print(hex)
+#	print(hex)
 	var pixel = hex_to_pixel(hex)
-	print(pixel)
-	print(hex_corners(hex))
+#	print(pixel)
+#	print(hex_corners(hex))
 
 func add_structure(structure:Node2D):
 	
 	return recalculate_speed
 
 func calculate_speed():
-	pass
-#	var weight = 0
-#	var force = 0
-#	for structure in structures:
-#		weight += structure.weight()
-#		if structure is EngineComponent:
-#			force += structure.force()
-#	return force / weight
+	var weight = 0
+	var force = 0
+	for structure in structures:
+		weight += structure.weight()
+		if structure is EngineComponent:
+			force += structure.force()
+	return force / weight
 
 func hex_corners(hex:Vector2):
 	var hex_position = hex_to_pixel(hex)
@@ -92,3 +100,9 @@ func axial_to_cube(hex:Vector2):
 
 func _on_recalculate_speed():
 	speed = calculate_speed()
+
+func _draw():
+	for tile in tiles:
+		draw_set_transform(Vector2.ZERO, 0, Vector2(0.5, 0.5))
+		draw_texture(tile.texture, tile.position)
+
