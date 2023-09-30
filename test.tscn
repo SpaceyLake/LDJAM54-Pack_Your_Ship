@@ -1,12 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://b654m0kpg26bi"]
+[gd_scene load_steps=4 format=3 uid="uid://dp5sjk1125yxd"]
 
-[ext_resource type="Script" path="res://test_turret.gd" id="1_in6gr"]
 [ext_resource type="Texture2D" uid="uid://dhicafya7hf17" path="res://icon.svg" id="2_xd5r4"]
 [ext_resource type="Script" path="res://addons/composition/scripts/targeting_component.gd" id="3_5v3v7"]
 
+[sub_resource type="GDScript" id="GDScript_atfkh"]
+script/source = "extends WeaponComponent
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	rotate_towards_mouse(delta)
+"
+
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("turret_head")]
 position = Vector2(124, 74)
-script = ExtResource("1_in6gr")
+script = SubResource("GDScript_atfkh")
 turret_head = NodePath("Sprite2D")
 barrel_rotation_speed = 100.0
 
