@@ -105,13 +105,16 @@ _data = {
 "fire": SubResource("Animation_xke1w")
 }
 
-[node name="laser" type="Node2D" node_paths=PackedStringArray("targeting", "turret", "turret_muzzel", "animation_player", "health", "sprite")]
+[node name="laser" type="Node2D" node_paths=PackedStringArray("targeting", "turret", "turret_muzzel", "animation_player", "ammo_gauge", "health", "sprite")]
 script = ExtResource("1_v6cd5")
 projectile = ExtResource("2_17bwn")
+ammo_storage = 1
+ammo_max_storage = 5
 targeting = NodePath("TargetingComponent2D")
 turret = NodePath("turret")
 turret_muzzel = NodePath("turret/muzzel")
 animation_player = NodePath("AnimationPlayer")
+ammo_gauge = NodePath("turret/turret_sprite/AmmoBar")
 type = 2
 health = NodePath("HealthComponent")
 sprite = NodePath("base")
@@ -139,7 +142,7 @@ offset_right = -75.8557
 offset_bottom = -27.976
 max_value = 1.0
 step = 0.01
-value = 0.6
+value = 1.0
 fill_mode = 1
 nine_patch_stretch = true
 texture_progress = ExtResource("4_y7dy6")

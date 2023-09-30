@@ -11,11 +11,15 @@ class_name WeaponComponent
 @export var turret_muzzel: Marker2D
 @export var barrel_rotation_speed: float
 @export var animation_player: AnimationPlayer
+@export var ammo_bar: TextureProgressBar
+var fire:bool = false
 var ammo_cells: Array
 
 func _ready():
 	super()
 	type = ComponentType.WEAPON
+	targeting.not_ready_to_fire.connect(Callable(self, "aiming"))
+	targeting.ready_to_fire.connect(Callable(self, "aimed"))
 	get_ammo()
 	
 	for ammo_cell in ammo_cells:
@@ -25,6 +29,7 @@ func _process(delta):
 	if target != null:
 		targeting.target = target
 		targeting.rotate_towards_target(delta)
+	fire_gun()
 
 func rotate_towards_mouse(delta):
 	#if target != null:
@@ -51,15 +56,24 @@ func get_ammo():
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		fire()
+		fire_gun()
 
-func fire():
-	if not animation_player.is_playing():
+func fire_gun():
+	if fire and not animation_player.is_playing():
 		var proj = projectile.instantiate()
-		turret_muzzel.add_child(proj)
+		add_child(proj)
 		proj.global_position = turret_muzzel.global_position
-		proj.target = target.global_position
+		proj.target = Vector2(1,0).rotated(turret.global_rotation) #target.global_position - global_position
 		animation_player.play("fire")
+		
+		if ammo_bar != null:
+			ammo_bar.value = ammo_storage/ammo_max_storage
+
+func aiming():
+	fire = false
+
+func aimed():
+	fire = true
 
 func debug_distance(event:InputEvent):
 	if debug:

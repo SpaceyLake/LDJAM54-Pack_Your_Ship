@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://6lop8w4ul5u2"]
+[gd_scene load_steps=7 format=3 uid="uid://6lop8w4ul5u2"]
 
 [ext_resource type="Script" path="res://scenes/components/fuelcells/standard_fuelcell.gd" id="1_xm4se"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_vajeu"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="3_uqv5g"]
 [ext_resource type="Texture2D" uid="uid://d2qjavnwdc6tq" path="res://assets/components/component_fuel_tank_1.png" id="4_tg71l"]
+[ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="5_ls7xf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttgau"]
 
@@ -25,4 +26,22 @@ shape = SubResource("CircleShape2D_ttgau")
 script = ExtResource("3_uqv5g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_tg71l")
+
+[node name="FuelBar" type="TextureProgressBar" parent="Sprite2D"]
+anchors_preset = -1
+anchor_left = 0.182
+anchor_top = 0.417
+anchor_right = 0.818
+anchor_bottom = 0.583
+offset_left = -44.016
+offset_top = -48.032
+offset_right = -43.984
+offset_bottom = -47.968
+max_value = 1.0
+step = 0.01
+value = 1.0
+nine_patch_stretch = true
+texture_progress = ExtResource("5_ls7xf")
+tint_progress = Color(0.246094, 0.777344, 0.46875, 1)

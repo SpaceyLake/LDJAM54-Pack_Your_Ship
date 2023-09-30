@@ -8,6 +8,7 @@ signal force_change(old_force, new_force)
 @export var fuel_max_storage: float
 @export var force: float
 @export var force_max: float
+@export var fuel_bar: TextureProgressBar
 var fuelcells: Array
 
 func _ready():
@@ -33,9 +34,12 @@ func _process(delta):
 		var old = force
 		force = 0
 		force_change.emit(old, force)
+	if fuel_bar != null:
+		fuel_bar.value = fuel_storage/fuel_max_storage
 
 func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 	fuelcells.remove_at(fuelcells.find(fuelcell))
+	fuelcell.queue_free()
 
 func get_fuelcells():
 	for neighbor in neighbors:
