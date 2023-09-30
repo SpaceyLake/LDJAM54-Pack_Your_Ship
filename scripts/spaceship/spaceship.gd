@@ -10,26 +10,38 @@ signal recalculate_speed
 var structures : Array
 var speed : int
 var tiles : Array
+var occupied_tiles : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	for i in 10:
+		occupied_tiles.append([])
+		for j in 10:
+			occupied_tiles[i].append(null)
 	var tile_strings = tiles_text.rsplit("\n", false)
 	for tile_string in tile_strings:
 		tile_string = tile_string.rstrip(")")
 		var tile_split = tile_string.rsplit("(")
 		var tile_position : Vector2 = str_to_var("Vector2(" + tile_split[1] + ")")
-		tiles.append(ShipTile.new(tile_split[0], hex_to_pixel(tile_position)))
+		var type:Global.tile_type
+		if tile_split[0].strip_escapes().to_lower() == "uni":
+			type = Global.tile_type.UNI
+			self.texture.load
+		elif tile_split[0].strip_escapes().to_lower() == "engine":
+			type = Global.tile_type.ENGINE
+		elif tile_split[0].strip_escapes().to_lower() == "weapon":
+			type = Global.tile_type.WEAPON
+		else:
+			type = Global.tile_type.NORMAL
+		occupied_tiles[tile_position.x][tile_position.y]
+		tiles.append(ShipTile.new(type, hex_to_pixel(tile_position)))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		tiles = []
-		var tile_strings = tiles_text.rsplit("\n", false)
-		for tile_string in tile_strings:
-			tile_string = tile_string.rstrip(")")
-			var tile_split = tile_string.rsplit("(")
-			var tile_position : Vector2 = str_to_var("Vector2(" + tile_split[1] + ")")
-			tiles.append(ShipTile.new(tile_split[0], hex_to_pixel(tile_position)))
+		occupied_tiles = []
+		_ready()
 		queue_redraw()
 
 func add_structure(structure:Node2D):
