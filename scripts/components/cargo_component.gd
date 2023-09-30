@@ -9,3 +9,7 @@ class_name CargoComponent
 func _ready():
 	super()
 	type = ComponentType.CARGO
+
+func on_death():
+	super()
+	value = 0

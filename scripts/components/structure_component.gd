@@ -2,6 +2,7 @@ extends Node2D
 class_name StructureComponent
 
 enum ComponentType {
+	NONE,
 	ENGINE,
 	FUELCELL,
 	WEAPON,
