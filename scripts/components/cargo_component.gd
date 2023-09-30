@@ -8,7 +8,7 @@ class_name CargoComponent
 
 func _ready():
 	super()
-	type = ComponentType.CARGO
+	type = Global.ComponentType.CARGO
 
 func on_death():
 	super()

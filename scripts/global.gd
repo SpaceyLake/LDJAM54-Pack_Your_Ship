@@ -1,3 +1,10 @@
 extends Node
 
-enum tile_type {NORMAL, ENGINE, WEAPON, UNI}
+enum ComponentType {
+	NONE,
+	ENGINE,
+	FUELCELL,
+	WEAPON,
+	AMMO,
+	CARGO
+}

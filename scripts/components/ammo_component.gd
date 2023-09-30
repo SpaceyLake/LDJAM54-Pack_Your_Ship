@@ -8,7 +8,7 @@ signal out_of_ammo(ammo)
 
 func _ready():
 	super()
-	type = ComponentType.AMMO
+	type = Global.ComponentType.AMMO
 
 func drain_ammo(amount:int):
 	if amount >= ammo_storage:

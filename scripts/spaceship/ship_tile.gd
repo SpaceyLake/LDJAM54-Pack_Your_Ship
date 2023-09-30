@@ -1,10 +1,17 @@
 class_name ShipTile
 
-var type:Global.tile_type
+var type:Global.ComponentType
 var position:Vector2
+var tile_position:Vector2
 var texture:Texture2D = Texture2D.new()
 
-func _init(type:Global.tile_type, position:Vector2):
+func _init(type:Global.ComponentType, position:Vector2, tile_position:Vector2):
 	self.type = type
-	self.texture = load("res://assets/Tiles_Placeholder.png")
+	if self.type == Global.ComponentType.ENGINE:
+		self.texture = load("res://assets/tiles/tile_engine.png")
+	elif self.type == Global.ComponentType.WEAPON:
+		self.texture = load("res://assets/tiles/tile_weapon.png")
+	else:
+		self.texture = load("res://assets/tiles/tile_normal.png")
+	self.tile_position = tile_position
 	self.position = position*2 - self.texture.get_size()/2;

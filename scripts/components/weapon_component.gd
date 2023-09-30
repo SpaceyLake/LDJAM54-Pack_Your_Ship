@@ -17,7 +17,7 @@ var ammo_cells: Array
 
 func _ready():
 	super()
-	type = ComponentType.WEAPON
+	type = Global.ComponentType.WEAPON
 	targeting.not_ready_to_fire.connect(Callable(self, "aiming"))
 	targeting.ready_to_fire.connect(Callable(self, "aimed"))
 	get_ammo()
@@ -51,7 +51,7 @@ func ammo_cell_out_of_fuel(ammo_cell:AmmoComponent):
 
 func get_ammo():
 	for neighbor in neighbors:
-		if neighbor.type == ComponentType.AMMO:
+		if neighbor.type == Global.ComponentType.AMMO:
 			ammo_cells.append(neighbor)
 
 func _input(event):

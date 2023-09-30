@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Global="*res://scripts/global.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/composition/plugin.cfg")

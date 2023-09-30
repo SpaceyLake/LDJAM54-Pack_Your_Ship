@@ -1,16 +1,7 @@
 extends Node2D
 class_name StructureComponent
 
-enum ComponentType {
-	NONE,
-	ENGINE,
-	FUELCELL,
-	WEAPON,
-	AMMO,
-	CARGO
-}
-
-@export var type: ComponentType
+@export var type: Global.ComponentType
 @export var health: HealthComponent
 @export var weight: float
 @export var shape: Array
@@ -24,7 +15,7 @@ func _ready():
 	health.health_depleted.connect(Callable(self, "on_death"))
 
 func place(new_position:Vector2):
-	var corrected_position = spaceship.place_component(new_position)
+	var corrected_position = spaceship.place_component(self, new_position)
 	if corrected_position == null:
 		return
 	global_position = corrected_position

@@ -13,7 +13,7 @@ var fuelcells: Array
 
 func _ready():
 	super()
-	type = ComponentType.ENGINE
+	type = Global.ComponentType.ENGINE
 	get_fuelcells()
 	
 	for fuelcell in fuelcells:
@@ -43,7 +43,7 @@ func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 
 func get_fuelcells():
 	for neighbor in neighbors:
-		if neighbor.type == ComponentType.FUELCELL:
+		if neighbor.type == Global.ComponentType.FUELCELL:
 			fuelcells.append(neighbor)
 
 func on_death():

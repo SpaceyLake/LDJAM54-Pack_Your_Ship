@@ -1,25 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjghh4y5mjr57"]
+[gd_scene load_steps=2 format=3 uid="uid://cjghh4y5mjr57"]
 
 [ext_resource type="Script" path="res://scripts/spaceship/spaceship.gd" id="1_yhtvw"]
-[ext_resource type="PackedScene" uid="uid://bu8qlxsyanhfj" path="res://scenes/camera.tscn" id="2_5jj0o"]
 
 [node name="Spaceship" type="Node2D"]
 scale = Vector2(0.995056, 1)
 script = ExtResource("1_yhtvw")
-tiles_text = "tile(0, 0)
-tile(0,1)
-tile(1,0)
-tile(1,-1)
-tile(-1,0)
-tile(0,-1)
-tile(-1, 1)
-tile(2,0)
-tile(2,-1)
-tile(1,1)
-tile(-1,-1)
-tile(-2, 0)
-tile(-2,1)"
-
-[node name="camera" parent="." instance=ExtResource("2_5jj0o")]
+tiles_text = "normal(0,0)
+normal(-1,0)
+normal(1,0)
+normal(2,0)
+engine(-2,0)
+engine(-1,-1)
+engine(-2,1)
+weapon(0, -1)
+weapon(1,-1)
+weapon(-1,1)
+weapon(0,1)
+weapon(1,1)
+weapon(2,-1)"
 
 [connection signal="recalculate_speed" from="." to="." method="_on_recalculate_speed"]

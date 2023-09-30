@@ -9,7 +9,7 @@ signal out_of_fuel(cell)
 
 func _ready():
 	super()
-	type = ComponentType.FUELCELL
+	type = Global.ComponentType.FUELCELL
 
 func drain_fuel(amount:float):
 	if amount >= fuel_storage:
