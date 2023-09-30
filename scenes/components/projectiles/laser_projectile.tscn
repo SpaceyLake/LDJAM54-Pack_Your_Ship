@@ -1,19 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://cspklbvd4sfqr"]
+[gd_scene load_steps=7 format=3 uid="uid://e2x7um1dl5xp"]
 
 [ext_resource type="Script" path="res://scenes/components/projectiles/laser_projectile.gd" id="1_3b1us"]
-[ext_resource type="Texture2D" uid="uid://dhicafya7hf17" path="res://icon.svg" id="2_8mna1"]
 [ext_resource type="Script" path="res://addons/composition/scripts/attack_component.gd" id="2_drvu5"]
+[ext_resource type="Material" uid="uid://di253rxiowpyw" path="res://materials/particles/laser_projectile_trail.tres" id="3_s3qil"]
+[ext_resource type="Material" uid="uid://cv0uuweq4tajp" path="res://materials/particles/laser_projectile_explode.tres" id="5_y2d4f"]
+[ext_resource type="Texture2D" uid="uid://bu6ooss6yicf6" path="res://assets/Circle.svg" id="5_y26kx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xabt"]
 
-[node name="laser_projectile" type="Node2D" node_paths=PackedStringArray("attack")]
+[node name="laser_projectile" type="Node2D" node_paths=PackedStringArray("attack", "particel_trail", "particel_explode", "timer")]
 script = ExtResource("1_3b1us")
 attack = NodePath("AttackComponent2D")
 speed = 1000.0
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("2_8mna1")
+particel_trail = NodePath("TrailParticles")
+particel_explode = NodePath("ExplodeParticles")
+timer = NodePath("Timer")
 
 [node name="AttackComponent2D" type="Area2D" parent="."]
 script = ExtResource("2_drvu5")
@@ -21,3 +22,22 @@ attack = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent2D"]
 shape = SubResource("CircleShape2D_0xabt")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="TrailParticles" type="GPUParticles2D" parent="."]
+amount = 100
+process_material = ExtResource("3_s3qil")
+texture = ExtResource("5_y26kx")
+lifetime = 0.5
+fixed_fps = 60
+
+[node name="ExplodeParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 100
+process_material = ExtResource("5_y2d4f")
+texture = ExtResource("5_y26kx")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60

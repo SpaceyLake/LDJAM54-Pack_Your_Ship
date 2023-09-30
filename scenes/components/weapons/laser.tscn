@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://ctetuxeiw1hul"]
 
 [ext_resource type="Script" path="res://scenes/components/weapons/laser.gd" id="1_v6cd5"]
-[ext_resource type="PackedScene" uid="uid://cspklbvd4sfqr" path="res://scenes/components/projectiles/laser_projectile.tscn" id="2_17bwn"]
+[ext_resource type="PackedScene" uid="uid://e2x7um1dl5xp" path="res://scenes/components/projectiles/laser_projectile.tscn" id="2_17bwn"]
 [ext_resource type="Texture2D" uid="uid://dufogs3qr7aoq" path="res://assets/components/component_turret_laser_base_1.png" id="2_hi253"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="2_jwklj"]
 [ext_resource type="Script" path="res://addons/composition/scripts/targeting_component.gd" id="3_0y4rt"]

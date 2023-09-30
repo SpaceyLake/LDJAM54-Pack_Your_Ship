@@ -2,6 +2,7 @@ extends Node2D
 class_name StructureComponent
 
 enum ComponentType {
+	NONE,
 	ENGINE,
 	FUELCELL,
 	WEAPON,
@@ -22,5 +23,4 @@ func _ready():
 	health.health_depleted.connect(Callable(self, "on_death"))
 
 func on_death():
-	if debug:
-		print("DEAD")
+	print(name+":DIED")

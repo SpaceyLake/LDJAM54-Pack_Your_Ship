@@ -12,18 +12,22 @@ var fuelcells: Array
 
 func _ready():
 	super()
+	type = ComponentType.ENGINE
 	get_fuelcells()
 	
 	for fuelcell in fuelcells:
 		fuelcell.out_of_fuel.connect(Callable(self, "fuelcell_out_of_fuel"))
 
-func step(delta):
-	if fuel_storage > 0:
-		if fuelcells.size():
-			fuelcells.sort_custom(func(a, b): return a.fuel_storage < b.fuel_storage)
-			fuelcells[0].drain_fuel(fuel_drain * delta)
-		else:
-			fuel_storage -= fuel_drain * delta
+func _process(delta):
+	if fuel_storage < fuel_max_storage and fuelcells.size() > 0:
+		fuelcells.sort_custom(func(a, b): return a.fuel_storage < b.fuel_storage)
+		fuel_storage += fuelcells[0].drain_fuel(fuel_max_storage-fuel_storage)
+	
+	if fuelcells.size():
+		fuelcells.sort_custom(func(a, b): return a.fuel_storage < b.fuel_storage)
+		fuelcells[0].drain_fuel(fuel_drain * delta)
+	elif fuel_storage > 0:
+		fuel_storage -= fuel_drain * delta
 	else:
 		fuel_storage = 0
 		var old = force
@@ -37,3 +41,7 @@ func get_fuelcells():
 	for neighbor in neighbors:
 		if neighbor.type == ComponentType.FUELCELL:
 			fuelcells.append(neighbor)
+
+func on_death():
+	super()
+	fuel_storage = 0
