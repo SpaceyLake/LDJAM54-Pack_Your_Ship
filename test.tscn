@@ -1,55 +1,43 @@
-[gd_scene load_steps=9 format=3 uid="uid://dp5sjk1125yxd"]
+[gd_scene load_steps=7 format=3 uid="uid://dp5sjk1125yxd"]
 
 [ext_resource type="PackedScene" uid="uid://ctetuxeiw1hul" path="res://scenes/components/weapons/laser.tscn" id="1_w3bvp"]
 [ext_resource type="Texture2D" uid="uid://dhicafya7hf17" path="res://icon.svg" id="2_xd5r4"]
-[ext_resource type="Script" path="res://addons/composition/scripts/targeting_component.gd" id="3_5v3v7"]
-[ext_resource type="PackedScene" uid="uid://cspklbvd4sfqr" path="res://scenes/components/projectiles/laser_projectile.tscn" id="3_ghp3s"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="4_74slv"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="5_ljtar"]
 
-[sub_resource type="GDScript" id="GDScript_atfkh"]
-script/source = "extends WeaponComponent
+[sub_resource type="GDScript" id="GDScript_bu0gm"]
+script/source = "extends Node2D
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	rotate_towards_mouse(delta)
+	$laser/TargetingComponent2D.target = $Target
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_htmew"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_kn5r0"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("turret_head")]
-script = SubResource("GDScript_atfkh")
-turret_head = NodePath("Sprite2D")
-barrel_rotation_speed = 100.0
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_bu0gm")
 
-[node name="laser" parent="." instance=ExtResource("1_w3bvp")]
+[node name="laser" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
+position = Vector2(381, 175)
+target = NodePath("../Target")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1, 0.2)
+[node name="Target" type="Sprite2D" parent="."]
+position = Vector2(391, 516)
 texture = ExtResource("2_xd5r4")
-offset = Vector2(20.795, 0)
 
-[node name="TargetingComponent2D" type="Node2D" parent="." node_paths=PackedStringArray("seeker")]
-script = ExtResource("3_5v3v7")
-seeker = NodePath("../Sprite2D")
-debug = true
-
-[node name="laser_projectile" parent="." instance=ExtResource("3_ghp3s")]
-position = Vector2(591, 281)
-speed = 100.0
-
-[node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent2D" type="Area2D" parent="Target"]
 script = ExtResource("4_74slv")
-health_component = NodePath("HealthComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D"]
-shape = SubResource("CircleShape2D_htmew")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Target/HurtboxComponent2D"]
+shape = SubResource("CircleShape2D_kn5r0")
 
-[node name="HealthComponent" type="Node" parent="HurtboxComponent2D"]
+[node name="HealthComponent" type="Node" parent="Target"]
 script = ExtResource("5_ljtar")
+
+[node name="laser2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
+position = Vector2(712, 419)
+target = NodePath("../Target")
+
+[node name="laser3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_w3bvp")]
+position = Vector2(98, 378)
+target = NodePath("../Target")

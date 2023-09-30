@@ -9,6 +9,7 @@
 [node name="laser_projectile" type="Node2D" node_paths=PackedStringArray("attack")]
 script = ExtResource("1_3b1us")
 attack = NodePath("AttackComponent2D")
+speed = 1000.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.13, 0.13)

@@ -8,8 +8,10 @@ class_name Projectile
 @export var particel: GPUParticles2D
 
 func _ready():
-	target = (target - global_position).normalized() * speed
 	attack.hit.connect(Callable(self,"on_hit"))
+
+func _process(delta):
+	position += Vector2(1, 0) * speed * delta
 
 func on_hit():
 	queue_free()
