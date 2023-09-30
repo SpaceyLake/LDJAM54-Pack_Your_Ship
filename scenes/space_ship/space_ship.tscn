@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl4ya3mvawj6n"]
+
+[ext_resource type="Script" path="res://SpaceShip/SpaceShip.gd" id="1_ig1jy"]
+
+[node name="SpaceShip" type="Node2D"]
+script = ExtResource("1_ig1jy")
+
+[connection signal="recalculate_speed" from="." to="." method="_on_recalculate_speed"]
