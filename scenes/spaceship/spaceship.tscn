@@ -4,6 +4,7 @@
 
 [node name="Spaceship" type="Node2D"]
 script = ExtResource("1_yhtvw")
+size = null
 tiles_text = "tile(0, 0)
 tile(0,1)
 tile(1,0)
@@ -17,5 +18,7 @@ tile(1,1)
 tile(-1,-1)
 tile(-2, 0)
 tile(-2,1)"
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="recalculate_speed" from="." to="." method="_on_recalculate_speed"]
