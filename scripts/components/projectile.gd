@@ -12,9 +12,10 @@ class_name Projectile
 func _ready():
 	attack.hit.connect(Callable(self,"on_hit"))
 	timer.timeout.connect(Callable(self,"remove"))
+	timer.start(20)
 
 func _process(delta):
-	position += Vector2(1, 0) * speed * delta
+	position += target.normalized() * speed * delta
 
 func remove():
 	queue_free()
