@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfs7nlt3ju04q"]
+[gd_scene load_steps=8 format=3 uid="uid://dfs7nlt3ju04q"]
 
 [ext_resource type="Script" path="res://scenes/components/engine/standard_engine.gd" id="1_rlowa"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_57tly"]
 [ext_resource type="Texture2D" uid="uid://50ysefracsm" path="res://assets/components/component_engine_1.png" id="2_cl6pp"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="3_kw3up"]
+[ext_resource type="Material" uid="uid://cpgd87sn3sj1l" path="res://materials/particles/engine_flame.tres" id="5_50bie"]
+[ext_resource type="Texture2D" uid="uid://cjf7gttg4ggrf" path="res://assets/BigCircle.svg" id="6_14nfi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixua1"]
-radius = 59.3043
+radius = 30.0
 
 [node name="standard_engine" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
 script = ExtResource("1_rlowa")
@@ -20,6 +22,7 @@ weight = 20.0
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_cl6pp")
 offset = Vector2(-26, 0)
 
@@ -28,7 +31,15 @@ script = ExtResource("2_57tly")
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D"]
+visible = false
 shape = SubResource("CircleShape2D_ixua1")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_kw3up")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-56, 0)
+amount = 150
+process_material = ExtResource("5_50bie")
+texture = ExtResource("6_14nfi")
+visibility_rect = Rect2(-250, -100, 300, 200)
