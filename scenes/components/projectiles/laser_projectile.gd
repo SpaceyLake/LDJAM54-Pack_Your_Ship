@@ -1,7 +1,7 @@
 extends Projectile
 
 func _ready():
-	setup()
+	super()
 
 func _process(delta):
 	position += target * delta

@@ -10,7 +10,7 @@ signal force_change(old_force, new_force)
 @export var force_max: float
 var fuelcells: Array
 
-func setup():
+func _ready():
 	super()
 	get_fuelcells()
 	
@@ -35,5 +35,5 @@ func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 
 func get_fuelcells():
 	for neighbor in neighbors:
-		if neighbor.has_method("drain_fuel"):
+		if neighbor.type == ComponentType.FUELCELL:
 			fuelcells.append(neighbor)

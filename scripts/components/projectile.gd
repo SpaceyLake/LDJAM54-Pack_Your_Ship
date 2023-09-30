@@ -7,7 +7,7 @@ class_name Projectile
 @export var sprite: Sprite2D
 @export var particel: GPUParticles2D
 
-func setup():
+func _ready():
 	target = (target - global_position).normalized() * speed
 	attack.hit.connect(Callable(self,"on_hit"))
 
