@@ -95,7 +95,7 @@ func fire_gun():
 			ammo_bar.value = float(ammo_storage)/float(ammo_max_storage)
 	
 	if fire and ray.is_colliding():
-		target = enemies.pick_random()
+		target = null
 	
 	if ammo_storage < 1: 
 		out_of_ammo.visible = true
@@ -110,8 +110,12 @@ func select_target():
 		enemies.append(enemy)
 
 	if enemies.size():
-		enemies.sort_custom(func(a,b): return targeting.get_rotation_needed(a) < targeting.get_rotation_needed(b))
-		target = enemies[0]
+		if fire and ray.is_colliding():
+			enemies.sort_custom(func(a,b): return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position))
+			target = enemies[0]
+		else:
+			enemies.sort_custom(func(a,b): return targeting.get_rotation_needed(a) < targeting.get_rotation_needed(b))
+			target = enemies[0]
 
 func aiming():
 	fire = false
