@@ -10,7 +10,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xabt"]
 
 [node name="laser_projectile" type="Node2D" node_paths=PackedStringArray("attack", "particel_trail", "particel_explode", "timer", "hit_audio")]
-z_index = 100
+z_index = 150
 script = ExtResource("1_3b1us")
 attack = NodePath("AttackComponent2D")
 speed = 1000.0
