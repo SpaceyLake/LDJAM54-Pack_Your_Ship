@@ -55,6 +55,7 @@ polygon = PackedVector2Array(0, -31, 27, -17, 27, 17, 0, 31, -27, 17, -27, -17)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_kw3up")
+current_health = 10.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-56, 0)

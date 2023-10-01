@@ -32,18 +32,18 @@ func _on_spawn_timer_timeout():
 		position.y = 32 + get_viewport().size.y/2
 		position.x = randi_range(-32 - get_viewport().get_visible_rect().size.x/2, 0)
 	var goal = Vector2.ZERO
-	goal.x = position.x + randi_range(96, get_viewport().get_visible_rect().size.x/2 - 96 - position.x)
+	goal.x = position.x + randi_range(160, get_viewport().get_visible_rect().size.x/2 - 96 - position.x)
 	if position.y > spaceship.global_position.y:
-		goal.y = randi_range(int(spaceship.global_position.y) - 90, get_viewport().get_visible_rect().size.y/2 + 96)
+		goal.y = randi_range(int(spaceship.global_position.y) - 160, get_viewport().get_visible_rect().size.y/2 - 160)
 	else:
-		goal.y = randi_range(-get_viewport().get_visible_rect().size.y/2 - 96, int(spaceship.global_position.y) + 90)
+		goal.y = randi_range(-get_viewport().get_visible_rect().size.y/2 + 160, int(spaceship.global_position.y) + 160)
 	position += Global.camera.global_position
 	goal += Global.camera.global_position
 	var tries = 0
 	var original_goal = goal
 	for other_enemy in enemies:
 		if goal.distance_squared_to(other_enemy.goal) < 64*64:
-			if goal.x > (get_viewport().get_visible_rect().size.x/2 + Global.camera.global_position.x) - 96:
+			if goal.x > (get_viewport().get_visible_rect().size.x/2 + Global.camera.global_position.x) - 160:
 				goal.x -= 64
 			elif goal.x < 96:
 				goal.x -= 64
@@ -56,13 +56,10 @@ func _on_spawn_timer_timeout():
 			goal.y = move_toward(goal.x, position.x, 32)
 		else:
 			goal = original_goal
-			position = original_goal + Vector2(-rng.randi_range(96, -get_viewport().get_visible_rect().size.x/2 + original_goal.x), (get_viewport().get_visible_rect().size.y/2 + 96)*sign(original_goal.y - spaceship.global_position.y))
+			position = original_goal + Vector2(-rng.randi_range(96, -get_viewport().get_visible_rect().size.x/2 + original_goal.x), (get_viewport().get_visible_rect().size.y/2 + 160)*sign(original_goal.y - spaceship.global_position.y))
 		tries += 1
-	while spaceship.on_ship(goal):
-		goal.y += move_toward(goal.y, position.y, 90)
-	var target = spaceship.get_closest_component_position(goal)
-	if target == null:
-		target = goal
+	while spaceship.on_ship(goal) or spaceship.on_ship((spaceship.global_position - goal).normalized() * 64 + goal):
+		goal.y += move_toward(goal.y, position.y, 64)
 	var rnd_enemy = rng.randi_range(0, total_likeliness - 1)
 	var enemy:Enemy
 	for i in enemy_likeliness.size():
@@ -70,7 +67,7 @@ func _on_spawn_timer_timeout():
 			enemy = enemy_scenes[i].instantiate()
 			add_child(enemy)
 			enemy.global_position = position
-			enemy.setup(goal, target)
+			enemy.setup(goal, spaceship)
 			enemy.enemy_killed_signal.connect(Callable(self,"_on_enemy_killed"))
 			enemies.append(enemy)
 			break

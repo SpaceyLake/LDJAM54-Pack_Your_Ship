@@ -175,6 +175,7 @@ collide_with_bodies = false
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2_jwklj")
+current_health = 10.0
 
 [node name="TargetingComponent2D" type="Node2D" parent="." node_paths=PackedStringArray("seeker")]
 script = ExtResource("3_0y4rt")

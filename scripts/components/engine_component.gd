@@ -51,6 +51,11 @@ func _process(delta):
 			particles.emitting = false
 			out_of_fuel.visible = true
 
+func get_neighbors():
+	super()
+	fuelcells.clear()
+	get_fuelcells()
+
 func deactivate():
 	set_process(false)
 	particles.emitting = false

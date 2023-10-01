@@ -2,7 +2,8 @@ extends Node2D
 class_name Enemy
 
 var goal:Vector2
-var target:Vector2
+var target:StructureComponent
+var spaceship:SpaceShip
 signal enemy_killed_signal(enemy)
 
 @export var health: HealthComponent
@@ -10,9 +11,9 @@ signal enemy_killed_signal(enemy)
 func _ready():
 	health.health_depleted.connect(Callable(self, "on_death"))
 
-func setup(new_goal:Vector2, new_target:Vector2):
+func setup(new_goal:Vector2, new_spaceship:SpaceShip):
 	self.goal = new_goal
-	self.target = new_target
+	self.spaceship = new_spaceship
 
 func on_death():
 	enemy_killed_signal.emit(self)

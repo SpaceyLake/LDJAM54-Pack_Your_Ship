@@ -67,6 +67,11 @@ func ammo_cell_out_of_fuel(ammo_cell:AmmoComponent):
 	ammo_cells.remove_at(ammo_cells.find(ammo_cell))
 	ammo_cell.queue_free()
 
+func get_neighbors():
+	super()
+	ammo_cells.clear()
+	get_ammo()
+
 func get_ammo():
 	for neighbor in neighbors:
 		if neighbor != null and neighbor.type == Global.ComponentType.AMMO:
