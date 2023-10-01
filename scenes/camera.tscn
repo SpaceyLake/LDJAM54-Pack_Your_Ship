@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwmt88khbkvfv"]
+[gd_scene load_steps=3 format=3 uid="uid://cwmt88khbkvfv"]
 
 [ext_resource type="Script" path="res://scenes/camera.gd" id="1_nig58"]
+[ext_resource type="PackedScene" uid="uid://bq0xj3o16d83b" path="res://scenes/ui/popup.tscn" id="2_sf5q7"]
 
 [node name="camera" type="Node2D"]
 script = ExtResource("1_nig58")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="popup" parent="Camera2D" instance=ExtResource("2_sf5q7")]
+position = Vector2(-576, 324)

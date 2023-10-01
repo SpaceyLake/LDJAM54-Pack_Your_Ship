@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dp5sjk1125yxd"]
+[gd_scene load_steps=15 format=3 uid="uid://dp5sjk1125yxd"]
 
 [ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="1_0g0xl"]
-[ext_resource type="PackedScene" uid="uid://bq0xj3o16d83b" path="res://scenes/ui/popup.tscn" id="3_fkivk"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="4_74slv"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="5_ljtar"]
 [ext_resource type="PackedScene" uid="uid://cjghh4y5mjr57" path="res://scenes/spaceship/spaceship.tscn" id="5_rikf0"]
@@ -78,9 +77,6 @@ fill_mode = 2
 nine_patch_stretch = true
 texture_progress = ExtResource("7_snx33")
 tint_progress = Color(0.628906, 0.933594, 0.472656, 1)
-
-[node name="popup" parent="camera" instance=ExtResource("3_fkivk")]
-position = Vector2(-576, 324)
 
 [node name="Target" type="Sprite2D" parent="."]
 visible = false
