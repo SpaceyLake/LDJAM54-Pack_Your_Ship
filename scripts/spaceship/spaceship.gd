@@ -130,6 +130,10 @@ func ccw(vec_a:Vector2, vec_b:Vector2, vec_c:Vector2):
 func place_component(component:StructureComponent, new_component_position:Vector2):
 	var hex_position:Vector2 = pixel_to_hex(new_component_position)
 	var hex_position_with_offset = hex_position - mapping_offset
+	if hex_position_with_offset.x < 0 or hex_position_with_offset.x > occupied_tiles.size():
+		return null
+	if hex_position_with_offset.y < 0 or hex_position_with_offset.y > occupied_tiles.size():
+		return null
 	if hex_position_with_offset.x >= ship_tiles.size() or hex_position_with_offset.y >= ship_tiles[0].size():
 		return null
 	if occupied_tiles[hex_position_with_offset.x][hex_position_with_offset.y] == true:
