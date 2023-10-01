@@ -2,14 +2,15 @@
 
 [ext_resource type="Script" path="res://scripts/enemies/fighter_projectile.gd" id="1_biixm"]
 [ext_resource type="Script" path="res://addons/composition/scripts/attack_component.gd" id="1_fusv2"]
-[ext_resource type="Material" uid="uid://di253rxiowpyw" path="res://materials/particles/laser_projectile_trail.tres" id="2_jf1r7"]
+[ext_resource type="Material" uid="uid://ceirqt2k826sn" path="res://materials/particles/enemy_laser_projectile_trail.tres" id="3_1chsg"]
 [ext_resource type="Texture2D" uid="uid://bu6ooss6yicf6" path="res://assets/Circle.svg" id="3_87lrt"]
-[ext_resource type="Material" uid="uid://cv0uuweq4tajp" path="res://materials/particles/laser_projectile_explode.tres" id="4_m7l1i"]
+[ext_resource type="Material" uid="uid://cv0uuweq4tajp" path="res://materials/particles/enemy_laser_projectile_explode.tres" id="5_hs8vo"]
 [ext_resource type="AudioStream" uid="uid://v320ho1hk7k7" path="res://assets/sound/explosion_small.wav" id="6_n56ce"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_drsbp"]
 
 [node name="FighterProjectile" type="Node2D" node_paths=PackedStringArray("attack", "particel_trail", "particel_explode", "timer", "hit_audio")]
+z_index = 150
 script = ExtResource("1_biixm")
 attack = NodePath("AttackComponent2D")
 speed = 1000.0
@@ -28,7 +29,7 @@ shape = SubResource("CircleShape2D_drsbp")
 
 [node name="TrailParticles" type="GPUParticles2D" parent="."]
 amount = 100
-process_material = ExtResource("2_jf1r7")
+process_material = ExtResource("3_1chsg")
 texture = ExtResource("3_87lrt")
 lifetime = 0.5
 fixed_fps = 60
@@ -36,7 +37,7 @@ fixed_fps = 60
 [node name="ExplodeParticles" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 100
-process_material = ExtResource("4_m7l1i")
+process_material = ExtResource("5_hs8vo")
 texture = ExtResource("3_87lrt")
 lifetime = 0.5
 one_shot = true
