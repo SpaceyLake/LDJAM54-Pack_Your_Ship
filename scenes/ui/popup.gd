@@ -5,6 +5,7 @@ class_name PopupDialog
 @export var timer: Timer
 @export var text_holder: RichTextLabel
 @export var animation_player: AnimationPlayer
+@export var audios:Array[AudioStream]
 
 @export var text_delay: float = 5
 @export var character_delay: float = 0.1
@@ -60,6 +61,8 @@ func _on_timer_timeout():
 		next_text()
 		return
 	if text_holder.visible_ratio < 1:
+		$AudioStreamPlayer.stream = audios.pick_random()
+		$AudioStreamPlayer.play(0)
 		text_holder.visible_characters = text_holder.visible_characters+1
 		timer.start(character_delay)
 	else:
