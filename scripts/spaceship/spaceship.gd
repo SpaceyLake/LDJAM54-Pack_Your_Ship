@@ -68,33 +68,39 @@ func _ready():
 			match ship_tiles[x][y]:
 				Global.ComponentType.AMMO: 
 					var temp = standard_ammo.instantiate()
+					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
 				Global.ComponentType.CARGO: 
 					var temp = standard_ammo.instantiate()
+					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
 				Global.ComponentType.ENGINE: 
 					var temp = standard_engine.instantiate()
+					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
 				Global.ComponentType.FUELCELL: 
 					var temp = standard_fuelcell.instantiate()
+					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
 				Global.ComponentType.WEAPON: 
 					var temp = laser.instantiate()
+					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		crosses_ship(Vector2.ONE * 300, get_global_mouse_position())
-		tiles = []
-		ship_tiles = []
-		_ready()
-		queue_redraw()
+#func _process(delta):
+#	if Input.is_action_just_pressed("ui_accept"):
+#		crosses_ship(Vector2.ONE * 300, get_global_mouse_position())
+#		tiles = []
+#		ship_tiles = []
+#		occupied_tiles = []
+#		_ready()
+#		queue_redraw()
 
 func _input(event):
 	if event.is_action_pressed("interact"):

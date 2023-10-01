@@ -9,7 +9,7 @@ class_name StructureComponent
 @export var sprite: Sprite2D
 @export var neighbors: Array
 @export var debug: bool = false
-@onready var spaceship:SpaceShip = get_parent()
+@onready var spaceship:SpaceShip = get_parent() if get_parent() is SpaceShip else null
 
 func _ready():
 	health.health_depleted.connect(Callable(self, "on_death"))

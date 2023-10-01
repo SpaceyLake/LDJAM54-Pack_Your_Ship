@@ -29,4 +29,4 @@ func on_hit():
 		particel_explode.set_emitting(true)
 	if sprite != null:
 		sprite.visible = false
-	attack.monitoring = false
+	attack.set_deferred("monitoring", false)
