@@ -14,6 +14,11 @@ func _process(delta):
 	if debug:
 		rotate_towards_mouse(delta)
 
+func get_rotation_needed(check_target: Node2D) -> float:
+	var target_angle = seeker.global_position.angle_to_point(check_target.global_position)
+	var _diff:float = target_angle - seeker.global_rotation
+	return _diff*_diff
+
 func rotate_towards_target(delta: float):
 	if target != null:
 		var target_angle = seeker.global_position.angle_to_point(target.global_position)

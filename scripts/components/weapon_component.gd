@@ -110,7 +110,7 @@ func select_target():
 		enemies.append(enemy)
 
 	if enemies.size():
-		enemies.sort_custom(func(a,b): return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position))
+		enemies.sort_custom(func(a,b): return targeting.get_rotation_needed(a) < targeting.get_rotation_needed(b))
 		target = enemies[0]
 
 func aiming():
