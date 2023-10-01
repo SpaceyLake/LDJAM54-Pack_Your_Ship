@@ -13,8 +13,8 @@
 [node name="standard_engine" type="Node2D" node_paths=PackedStringArray("fuel_bar", "out_of_fuel", "particles", "health", "sprite")]
 script = ExtResource("1_rlowa")
 fuel_drain = 60.0
-fuel_storage = 30.0
-fuel_max_storage = 30.0
+fuel_storage = 60.0
+fuel_max_storage = 60.0
 force = 100.0
 force_max = 100.0
 fuel_bar = NodePath("Sprite2D/FuelBar")
