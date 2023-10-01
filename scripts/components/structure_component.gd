@@ -36,10 +36,10 @@ func get_neighbors():
 
 func on_hit(node:Node2D):
 	if node is AttackComponent2D:
-		Global.screen_shake(5)
+		Global.screen_shake(2)
 
 func on_death():
-	Global.screen_shake(40)
+	Global.screen_shake(30)
 	death_audio.play(0)
 	print(name+": DIED of type " + Global.ComponentType.keys()[type])
 
