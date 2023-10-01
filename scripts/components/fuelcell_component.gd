@@ -17,7 +17,7 @@ func drain_fuel(amount:float):
 		if amount > fuel_storage:
 			amount = fuel_storage
 	fuel_storage -= amount
-	print(fuel_storage)
+	
 	if fuel_bar != null:
 		fuel_bar.value = fuel_storage/fuel_max_storage
 	
