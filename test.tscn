@@ -6,20 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://cjghh4y5mjr57" path="res://scenes/spaceship/spaceship.tscn" id="5_rikf0"]
 [ext_resource type="PackedScene" uid="uid://dhm2374yx1fne" path="res://scenes/enemies/enemy_spawner.tscn" id="6_e8xti"]
 [ext_resource type="PackedScene" uid="uid://cwmt88khbkvfv" path="res://scenes/camera.tscn" id="7_acphv"]
-
-[sub_resource type="GDScript" id="GDScript_bu0gm"]
-script/source = "extends Node2D
-
-"
+[ext_resource type="PackedScene" uid="uid://pnhhd10wghol" path="res://scenes/Spacestation/spacestation.tscn" id="7_vr1la"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kn5r0"]
 
 [node name="TestScene" type="Node2D"]
-script = SubResource("GDScript_bu0gm")
 
 [node name="camera" parent="." instance=ExtResource("7_acphv")]
 
 [node name="Target" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-351, 120)
 texture = ExtResource("1_0g0xl")
 
@@ -53,3 +49,7 @@ normal(2,-1)"
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("space_ship") instance=ExtResource("6_e8xti")]
 space_ship = NodePath("../Spaceship")
+
+[node name="Spacestation" parent="." node_paths=PackedStringArray("spaceship") instance=ExtResource("7_vr1la")]
+position = Vector2(0, 281)
+spaceship = NodePath("../Spaceship")

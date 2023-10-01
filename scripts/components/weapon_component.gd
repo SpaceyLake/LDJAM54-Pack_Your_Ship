@@ -21,6 +21,7 @@ var enemies: Array
 
 func _ready():
 	super()
+	deactivate()
 	type = Global.ComponentType.WEAPON
 	targeting.not_ready_to_fire.connect(Callable(self, "aiming"))
 	targeting.ready_to_fire.connect(Callable(self, "aimed"))
@@ -41,6 +42,12 @@ func _process(delta):
 			targeting.target = target
 			targeting.rotate_towards_target(delta)
 	fire_gun()
+
+func deactivate():
+	set_process(false)
+
+func activate():
+	set_process(true)
 
 func rotate_towards_mouse(delta):
 	#if target != null:
@@ -97,6 +104,8 @@ func fire_gun():
 
 func select_target():
 	enemies.clear()
+	if not spaceship is SpaceShip:
+		return
 	for enemy in spaceship.enemies_node.enemies:
 		enemies.append(enemy)
 

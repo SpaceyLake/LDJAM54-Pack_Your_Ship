@@ -108,6 +108,7 @@ _data = {
 }
 
 [node name="laser" type="Node2D" node_paths=PackedStringArray("targeting", "turret", "turret_muzzel", "animation_player", "ammo_bar", "out_of_ammo", "ray", "health", "sprite")]
+z_index = 10
 script = ExtResource("1_v6cd5")
 projectile = ExtResource("2_17bwn")
 ammo_storage = 5

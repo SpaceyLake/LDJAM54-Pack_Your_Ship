@@ -1,3 +1,27 @@
-[gd_scene format=3 uid="uid://pnhhd10wghol"]
+[gd_scene load_steps=2 format=3 uid="uid://pnhhd10wghol"]
+
+[ext_resource type="Script" path="res://scripts/spacestation/spacestation.gd" id="1_4mw16"]
 
 [node name="Spacestation" type="Node2D"]
+script = ExtResource("1_4mw16")
+tiles_text = "normal(1,0)
+normal(0,0)
+normal(-1,0)
+normal(-2,0)
+normal(2,0)
+normal(-3,0)
+normal(3,0)
+normal(0,-1)
+normal(1,-1)
+normal(2,-1)
+normal(-1,-1)
+normal(-2,-1)
+normal(3,-1)
+normal(4,-1)
+normal(-3,-1)
+normal(-2,-2)
+normal(-1,-2)
+normal(4,-2)
+normal(3,-2)"
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

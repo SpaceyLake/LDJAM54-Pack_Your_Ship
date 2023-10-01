@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3j203vd1up5t"]
+[gd_scene load_steps=6 format=3 uid="uid://d3j203vd1up5t"]
 
 [ext_resource type="Script" path="res://scenes/components/cargo/standard_cargo.gd" id="1_wujxh"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="1_xhmxs"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_uk8ps"]
 [ext_resource type="Texture2D" uid="uid://b3yqkc1ibtb81" path="res://assets/components/component_cargo_1.png" id="4_t03v4"]
+[ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="5_bfqg6"]
 
 [node name="standard_cargo" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
 script = ExtResource("1_wujxh")
@@ -25,3 +26,7 @@ polygon = PackedVector2Array(0, -31, 27, -17, 27, 17, 0, 31, -27, 17, -27, -17)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_t03v4")
+
+[node name="Handle" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_bfqg6")]
+z_index = 10
+parent = NodePath("..")

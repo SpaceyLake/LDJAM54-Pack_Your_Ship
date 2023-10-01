@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://6lop8w4ul5u2"]
+[gd_scene load_steps=7 format=3 uid="uid://6lop8w4ul5u2"]
 
 [ext_resource type="Script" path="res://scenes/components/fuelcells/standard_fuelcell.gd" id="1_xm4se"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_vajeu"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="3_uqv5g"]
 [ext_resource type="Texture2D" uid="uid://d2qjavnwdc6tq" path="res://assets/components/component_fuel_tank_1.png" id="4_tg71l"]
 [ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="5_ls7xf"]
+[ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="6_ejvtu"]
 
 [node name="standard_fuelcell" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
 script = ExtResource("1_xm4se")
@@ -41,3 +42,7 @@ value = 1.0
 nine_patch_stretch = true
 texture_progress = ExtResource("5_ls7xf")
 tint_progress = Color(0.246094, 0.777344, 0.46875, 1)
+
+[node name="Handle" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_ejvtu")]
+z_index = 10
+parent = NodePath("..")

@@ -15,7 +15,7 @@ var fuelcells: Array
 
 func _ready():
 	super()
-	
+	deactivate()
 	type = Global.ComponentType.ENGINE
 	
 	for fuelcell in fuelcells:
@@ -51,6 +51,14 @@ func _process(delta):
 		else:
 			particles.emitting = false
 			out_of_fuel.visible = true
+
+func deactivate():
+	set_process(false)
+	particles.emitting = false
+
+func activate():
+	set_process(true)
+	particles.emitting = true
 
 func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 	fuelcells.remove_at(fuelcells.find(fuelcell))

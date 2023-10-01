@@ -16,46 +16,6 @@ var structures : Array
 var speed : int
 var components: Array
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	super()
-	for x in structure_map.size():
-		var y_size = structure_map[x].size()
-		for y in y_size:
-			match structure_map[x][y]:
-				Global.ComponentType.AMMO: 
-					var temp = standard_ammo.instantiate()
-					component_map[x][y] = temp
-					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
-				Global.ComponentType.CARGO: 
-					var temp = standard_ammo.instantiate()
-					component_map[x][y] = temp
-					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
-				Global.ComponentType.ENGINE: 
-					var temp = standard_engine.instantiate()
-					component_map[x][y] = temp
-					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
-				Global.ComponentType.FUELCELL: 
-					var temp = standard_fuelcell.instantiate()
-					component_map[x][y] = temp
-					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
-				Global.ComponentType.WEAPON: 
-					var temp = laser.instantiate()
-					component_map[x][y] = temp
-					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	if Input.is_action_just_pressed("ui_accept"):
-#		crosses_ship(Vector2.ONE * 300, get_global_mouse_position())
-#		super._ready()
-#		queue_redraw()
-
 func _input(event):
 	if event.is_action_pressed("interact"):
 		pass # Grab component
@@ -102,3 +62,6 @@ func calculate_speed():
 func _on_recalculate_speed():
 	speed = calculate_speed()
 
+func _on_child_entered_tree(node):
+	if node is StructureComponent:
+		node.activate()

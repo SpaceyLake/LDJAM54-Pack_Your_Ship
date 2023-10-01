@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfs7nlt3ju04q"]
+[gd_scene load_steps=10 format=3 uid="uid://dfs7nlt3ju04q"]
 
 [ext_resource type="Script" path="res://scenes/components/engine/standard_engine.gd" id="1_rlowa"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_57tly"]
@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://cpgd87sn3sj1l" path="res://materials/particles/engine_flame.tres" id="5_50bie"]
 [ext_resource type="Texture2D" uid="uid://cjf7gttg4ggrf" path="res://assets/BigCircle.svg" id="6_14nfi"]
 [ext_resource type="Texture2D" uid="uid://tc37opw7tyxy" path="res://assets/alerts/alert_out_of_fuel.png" id="8_krobg"]
+[ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="9_7pscj"]
 
 [node name="standard_engine" type="Node2D" node_paths=PackedStringArray("fuel_bar", "out_of_fuel", "particles", "health", "sprite")]
 script = ExtResource("1_rlowa")
@@ -66,3 +67,7 @@ visibility_rect = Rect2(-250, -100, 300, 200)
 visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_krobg")
+
+[node name="Handle" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("9_7pscj")]
+z_index = 10
+parent = NodePath("..")

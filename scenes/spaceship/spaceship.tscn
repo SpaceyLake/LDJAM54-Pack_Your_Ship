@@ -19,4 +19,5 @@ weapon(0,1)
 weapon(1,1)
 weapon(2,-1)"
 
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="recalculate_speed" from="." to="." method="_on_recalculate_speed"]
