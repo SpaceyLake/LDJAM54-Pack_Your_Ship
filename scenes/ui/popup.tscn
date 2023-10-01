@@ -13,3 +13,5 @@ offset_bottom = 8.0
 offset_right = 8.0
 offset_bottom = 8.0
 editable = false
+
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

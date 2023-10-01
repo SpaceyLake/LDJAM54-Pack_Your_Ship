@@ -18,3 +18,7 @@ func show_popup():
 		text.remove_at(0)
 	else:
 		visible = false
+
+
+func _on_button_button_up():
+	show_popup()
