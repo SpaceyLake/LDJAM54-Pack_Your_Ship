@@ -26,10 +26,6 @@ func _exit():
 func apply_shake(strength: float = shake_noise_strength) -> void:
 	shake_strength = strength
 
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		apply_shake()
-
 func _process(delta: float) -> void:
 	shake_strength = lerp(shake_strength, 0.0, shake_decay_rate * delta)
 	camera.offset = get_noise_offset(delta)
