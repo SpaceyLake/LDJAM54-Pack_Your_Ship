@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cub6m24x8hwio"]
+
+[ext_resource type="Script" path="res://scenes/components/ammo/standard_ammo.gd" id="1_fm13y"]
+[ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_a8tme"]
+[ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="3_um73m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_msfuh"]
+
+[node name="standard_ammo" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
+script = ExtResource("1_fm13y")
+health = NodePath("HealthComponent")
+sprite = NodePath("Sprite2D")
+
+[node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("2_a8tme")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D"]
+shape = SubResource("CircleShape2D_msfuh")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_um73m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

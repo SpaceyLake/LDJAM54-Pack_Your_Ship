@@ -11,5 +11,4 @@ enemy_likeliness = Array[float]([1.0])
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="enemy_killed" from="." to="." method="_on_enemy_killed"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

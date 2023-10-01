@@ -17,6 +17,8 @@ particel_explode = NodePath("ExplodeParticles")
 timer = NodePath("Timer")
 
 [node name="AttackComponent2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("2_drvu5")
 attack = 100.0
 

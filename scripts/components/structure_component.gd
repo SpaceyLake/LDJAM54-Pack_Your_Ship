@@ -9,7 +9,7 @@ class_name StructureComponent
 @export var sprite: Sprite2D
 @export var neighbors: Array
 @export var debug: bool = false
-@onready var spaceship:SpaceShip = get_node("/root/Node2D/Spaceship")
+@onready var spaceship:SpaceShip = get_parent()
 
 func _ready():
 	health.health_depleted.connect(Callable(self, "on_death"))
@@ -21,4 +21,4 @@ func place(new_position:Vector2):
 	global_position = corrected_position
 
 func on_death():
-	print(name+":DIED")
+	print(name+": DIED of type " + Global.ComponentType.keys()[type])

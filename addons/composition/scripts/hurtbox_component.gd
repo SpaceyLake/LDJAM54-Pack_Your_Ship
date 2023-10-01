@@ -7,4 +7,4 @@ func damage(Attack: float):
 	if health_component:
 		health_component.damage(Attack)
 	else:
-		print(name + ": No HealthComponent selected")
+		print(name + ": No HealthComponent selected " + get_parent().name)

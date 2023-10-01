@@ -6,11 +6,19 @@ signal recalculate_speed
 
 @export var size:int = 32
 @export_multiline var tiles_text:String = ""
+@export var enemies_node:Node
+
+@onready var standard_ammo = preload("res://scenes/components/ammo/standard_ammo.tscn")
+@onready var standard_cargo = preload("res://scenes/components/cargo/standard_cargo.tscn")
+@onready var standard_engine = preload("res://scenes/components/engine/standard_engine.tscn")
+@onready var standard_fuelcell = preload("res://scenes/components/fuelcells/standard_fuelcell.tscn")
+@onready var laser = preload("res://scenes/components/weapons/laser.tscn")
 
 var structures : Array
 var speed : int
 var tiles : Array
 var ship_tiles : Array
+var components: Array
 var occupied_tiles : Array
 var mapping_offset : Vector2
 var mapping_max : Vector2
@@ -44,12 +52,40 @@ func _ready():
 	for x in mapping_max.x - mapping_offset.x:
 		ship_tiles.append([])
 		occupied_tiles.append([])
+		components.append([])
 		for y in mapping_max.y - mapping_offset.y:
 			ship_tiles[x].append(null)
 			occupied_tiles[x].append(false)
+			components[x].append(null)
 	for tile in tiles:
 		var tile_with_offset = tile.hex_position - mapping_offset
 		ship_tiles[tile_with_offset.x][tile_with_offset.y] = tile.type
+	for x in ship_tiles.size():
+		var y_size = ship_tiles[x].size()
+		for y in y_size:
+			var x_hex = x-ship_tiles.size()/2
+			var y_hex = y-y_size/2
+			match ship_tiles[x][y]:
+				Global.ComponentType.AMMO: 
+					var temp = standard_ammo.instantiate()
+					add_child(temp)
+					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+				Global.ComponentType.CARGO: 
+					var temp = standard_ammo.instantiate()
+					add_child(temp)
+					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+				Global.ComponentType.ENGINE: 
+					var temp = standard_engine.instantiate()
+					add_child(temp)
+					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+				Global.ComponentType.FUELCELL: 
+					var temp = standard_fuelcell.instantiate()
+					add_child(temp)
+					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+				Global.ComponentType.WEAPON: 
+					var temp = laser.instantiate()
+					add_child(temp)
+					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -59,6 +95,12 @@ func _process(delta):
 		ship_tiles = []
 		_ready()
 		queue_redraw()
+
+func _input(event):
+	if event.is_action_pressed("interact"):
+		pass # Grab component
+	if event.is_action_released("interact"):
+		pass # Place component
 
 func on_ship(point:Vector2):
 	var hex_point = pixel_to_hex(point) - mapping_offset

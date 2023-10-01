@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctetuxeiw1hul"]
+[gd_scene load_steps=15 format=3 uid="uid://ctetuxeiw1hul"]
 
 [ext_resource type="Script" path="res://scenes/components/weapons/laser.gd" id="1_v6cd5"]
 [ext_resource type="PackedScene" uid="uid://e2x7um1dl5xp" path="res://scenes/components/projectiles/laser_projectile.tscn" id="2_17bwn"]
@@ -10,6 +10,7 @@
 [ext_resource type="Material" uid="uid://b0fgt23bfp4sx" path="res://materials/particles/laser_cannon_flash.tres" id="5_jofbv"]
 [ext_resource type="Texture2D" uid="uid://bu6ooss6yicf6" path="res://assets/Circle.svg" id="6_m04mc"]
 [ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="10_4oir4"]
+[ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="11_2cu1h"]
 
 [sub_resource type="Animation" id="Animation_je1oh"]
 length = 0.001
@@ -105,7 +106,7 @@ _data = {
 "fire": SubResource("Animation_xke1w")
 }
 
-[node name="laser" type="Node2D" node_paths=PackedStringArray("targeting", "turret", "turret_muzzel", "animation_player", "ammo_gauge", "health", "sprite")]
+[node name="laser" type="Node2D" node_paths=PackedStringArray("targeting", "turret", "turret_muzzel", "animation_player", "ammo_bar", "ray", "health", "sprite")]
 script = ExtResource("1_v6cd5")
 projectile = ExtResource("2_17bwn")
 ammo_storage = 1
@@ -114,7 +115,8 @@ targeting = NodePath("TargetingComponent2D")
 turret = NodePath("turret")
 turret_muzzel = NodePath("turret/muzzel")
 animation_player = NodePath("AnimationPlayer")
-ammo_gauge = NodePath("turret/turret_sprite/AmmoBar")
+ammo_bar = NodePath("turret/turret_sprite/AmmoBar")
+ray = NodePath("turret/muzzel/RayCast2D")
 type = 2
 health = NodePath("HealthComponent")
 sprite = NodePath("base")
@@ -163,6 +165,11 @@ trail_sections = 20
 [node name="muzzel" type="Marker2D" parent="turret"]
 position = Vector2(46, 0)
 
+[node name="RayCast2D" type="RayCast2D" parent="turret/muzzel"]
+target_position = Vector2(2000, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2_jwklj")
 
@@ -170,11 +177,20 @@ script = ExtResource("2_jwklj")
 script = ExtResource("3_0y4rt")
 seeker = NodePath("../turret")
 rotation_speed = 1.0
-metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ghdr5")
 }
 
-[node name="Handle" parent="." instance=ExtResource("10_4oir4")]
+[node name="Handle" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("10_4oir4")]
+collision_layer = 16
+collision_mask = 16
+parent = NodePath("..")
+
+[node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("11_2cu1h")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtboxComponent2D"]
+polygon = PackedVector2Array(0, -31, 27, -17, 27, 17, 0, 31, -27, 17, -27, -17)
