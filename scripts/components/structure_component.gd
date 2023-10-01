@@ -9,7 +9,7 @@ class_name StructureComponent
 @export var sprite: Sprite2D
 @export var neighbors: Array
 @export var debug: bool = false
-@onready var spaceship:SpaceShip = get_parent().get_node("Spaceship")
+@onready var spaceship:SpaceShip = get_node("/root/Node2D/Spaceship")
 
 func _ready():
 	health.health_depleted.connect(Callable(self, "on_death"))
