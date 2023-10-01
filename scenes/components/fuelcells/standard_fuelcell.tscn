@@ -7,10 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="5_ls7xf"]
 [ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="6_ejvtu"]
 
-[node name="standard_fuelcell" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
+[node name="standard_fuelcell" type="Node2D" node_paths=PackedStringArray("fuel_bar", "health", "sprite")]
 script = ExtResource("1_xm4se")
-fuel_storage = 3000.0
-fuel_max_storage = 3000.0
+fuel_storage = 300.0
+fuel_max_storage = 300.0
+fuel_bar = NodePath("Sprite2D/FuelBar")
 health = NodePath("HealthComponent")
 sprite = NodePath("Sprite2D")
 

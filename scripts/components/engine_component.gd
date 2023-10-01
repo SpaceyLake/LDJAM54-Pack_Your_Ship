@@ -17,9 +17,6 @@ func _ready():
 	super()
 	deactivate()
 	type = Global.ComponentType.ENGINE
-	
-	for fuelcell in fuelcells:
-		fuelcell.out_of_fuel.connect(Callable(self, "fuelcell_out_of_fuel"))
 
 func _process(delta):
 	if fuelcells.is_empty():
@@ -31,9 +28,11 @@ func _process(delta):
 		fuel_storage += fuelcells[0].drain_fuel(fuel_max_storage-fuel_storage)
 	
 	if fuelcells.size():
+		force = force_max
 		fuelcells.sort_custom(func(a, b): return a.fuel_storage < b.fuel_storage)
 		fuelcells[0].drain_fuel(fuel_drain * delta)
 	elif fuel_storage > 0:
+		force = force_max
 		fuel_storage -= fuel_drain * delta
 	else:
 		fuel_storage = 0
@@ -67,6 +66,7 @@ func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 func get_fuelcells():
 	for neighbor in neighbors:
 		if neighbor != null and neighbor.type == Global.ComponentType.FUELCELL:
+			neighbor.out_of_fuel.connect(Callable(self, "fuelcell_out_of_fuel"))
 			fuelcells.append(neighbor)
 
 func on_death():
