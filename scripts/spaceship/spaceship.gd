@@ -48,16 +48,38 @@ func _ready():
 			ship_tiles[x].append(null)
 			occupied_tiles[x].append(false)
 	for tile in tiles:
-		var tile_with_offset = tile.tile_position - mapping_offset
+		var tile_with_offset = tile.hex_position - mapping_offset
 		ship_tiles[tile_with_offset.x][tile_with_offset.y] = tile.type
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
+		crosses_ship(Vector2.ONE * 300, get_global_mouse_position())
 		tiles = []
 		ship_tiles = []
 		_ready()
 		queue_redraw()
+
+func on_ship(point:Vector2):
+	var hex_point = pixel_to_hex(point) - mapping_offset
+	if hex_point.x >= ship_tiles.size() or hex_point.y >= ship_tiles[0].size() or hex_point.x < 0 or hex_point.y < 0:
+		return false
+	if ship_tiles[hex_point.x][hex_point.y] != null:
+		return true
+	return false
+
+func crosses_ship(start_point:Vector2, goal_point:Vector2):
+	for tile in tiles:
+		var hex_position = hex_to_pixel(tile.hex_position)
+		var crossing_unit:Vector2 = (goal_point - start_point).normalized()
+		var ship_reference:Vector2 = hex_position + Vector2(crossing_unit.y, -crossing_unit.x) * (hex_position.y / crossing_unit.x)
+		var tile_point = hex_position + (hex_position - ship_reference).normalized() * size
+		if ccw(start_point, goal_point, tile_point) != ccw(goal_point, ship_reference, tile_point) and ccw(start_point, goal_point, ship_reference) != ccw(start_point, goal_point, tile_point):
+			return true
+	return false
+
+func ccw(vec_a:Vector2, vec_b:Vector2, vec_c:Vector2):
+	return (vec_c.y - vec_a.y) * (vec_b.x - vec_a.x) > (vec_b.y - vec_a.y) * (vec_c.x - vec_a.x)
 
 func place_component(component:StructureComponent, new_component_position:Vector2):
 	var hex_position:Vector2 = pixel_to_hex(new_component_position)
@@ -70,7 +92,7 @@ func place_component(component:StructureComponent, new_component_position:Vector
 		if component.type == Global.ComponentType.WEAPON or component.type == Global.ComponentType.ENGINE:
 			return null
 	var current_hex_position_with_offset = pixel_to_hex(component.global_position) - mapping_offset
-	if current_hex_position_with_offset.x < occupied_tiles.size() and current_hex_position_with_offset.y < occupied_tiles[0].size():
+	if current_hex_position_with_offset.x < occupied_tiles.size() and current_hex_position_with_offset.y < occupied_tiles[0].size() and current_hex_position_with_offset.x >= 0 and current_hex_position_with_offset.y >= 0:
 		occupied_tiles[current_hex_position_with_offset.x][current_hex_position_with_offset.y] = false
 	return hex_to_pixel(hex_position)
 
@@ -98,7 +120,7 @@ func hex_corners(hex:Vector2):
 func hex_to_pixel(hex:Vector2):
 	var x = round(size * (1.75 * hex.x + 0.875 * hex.y))
 	var y = round(size * 1.5625 * hex.y)
-	return to_global(Vector2(x, y))
+	return Vector2(x, y) + global_position
 
 func pixel_to_hex(point:Vector2):
 	point = to_local(point)

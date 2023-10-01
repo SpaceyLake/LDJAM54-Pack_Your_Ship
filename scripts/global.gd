@@ -9,7 +9,7 @@ enum ComponentType {
 	CARGO
 }
 
-var camera = null
+var camera:Camera = null
 
 var rng = RandomNumberGenerator.new()
 

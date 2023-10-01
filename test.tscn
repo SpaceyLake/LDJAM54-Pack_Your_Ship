@@ -20,6 +20,8 @@ func _ready():
 [node name="Node2D" type="Node2D"]
 script = SubResource("GDScript_bu0gm")
 
+[node name="camera" parent="." instance=ExtResource("7_acphv")]
+
 [node name="Target" type="Sprite2D" parent="."]
 position = Vector2(-351, 120)
 texture = ExtResource("1_0g0xl")
@@ -49,5 +51,3 @@ position = Vector2(348, 187)
 target = NodePath("../Target")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("6_e8xti")]
-
-[node name="camera" parent="." instance=ExtResource("7_acphv")]

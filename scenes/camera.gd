@@ -1,4 +1,5 @@
 extends Node2D
+class_name Camera
 
 @export var shake_random_strength: float = 30.0
 @export var shake_decay_rate: float = 5.0
