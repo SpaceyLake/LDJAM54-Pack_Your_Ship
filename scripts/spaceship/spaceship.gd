@@ -66,26 +66,31 @@ func _ready():
 			match ship_tiles[x][y]:
 				Global.ComponentType.AMMO: 
 					var temp = standard_ammo.instantiate()
+					components[x][y] = temp
 					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.CARGO: 
 					var temp = standard_ammo.instantiate()
+					components[x][y] = temp
 					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.ENGINE: 
 					var temp = standard_engine.instantiate()
+					components[x][y] = temp
 					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.FUELCELL: 
 					var temp = standard_fuelcell.instantiate()
+					components[x][y] = temp
 					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.WEAPON: 
 					var temp = laser.instantiate()
+					components[x][y] = temp
 					occupied_tiles[x][y] = true
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
