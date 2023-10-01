@@ -1,22 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjghh4y5mjr57"]
+[gd_scene load_steps=3 format=3 uid="uid://cjghh4y5mjr57"]
 
 [ext_resource type="Script" path="res://scripts/spaceship/spaceship.gd" id="1_yhtvw"]
+[ext_resource type="AudioStream" uid="uid://bjtutu6k35dr6" path="res://assets/sound/motor.wav" id="2_m5l67"]
 
-[node name="Spaceship" type="Node2D"]
+[node name="Spaceship" type="Node2D" node_paths=PackedStringArray("audio")]
 scale = Vector2(0.995056, 1)
 script = ExtResource("1_yhtvw")
+audio = NodePath("AudioStreamPlayer")
 tiles_text = "normal(0,0)
-normal(-1,0)
-normal(1,0)
-normal(2,0)
-engine(-2,0)
+normal(0,-1)
+normal(0,1)
+weapon(0,-2)
+engine(-1,0)
 engine(-1,-1)
+normal(-1,1)
 engine(-2,1)
-weapon(0, -1)
-weapon(1,-1)
-weapon(-1,1)
-weapon(0,1)
+weapon(-2,2)
+normal(1,0)
+normal(1,-1)
 weapon(1,1)
-weapon(2,-1)"
+weapon(2,-1)
+normal(2,0)
+weapon(3,0)"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_m5l67")
+stream_paused = true
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

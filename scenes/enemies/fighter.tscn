@@ -1,18 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://ie4ecgtqe5qh"]
+[gd_scene load_steps=9 format=3 uid="uid://ie4ecgtqe5qh"]
 
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="1_vvwg6"]
 [ext_resource type="Script" path="res://scripts/enemies/fighter.gd" id="1_w7qwx"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_4ajxa"]
 [ext_resource type="PackedScene" uid="uid://c4jfm1323p4ld" path="res://scenes/enemies/fighter_projectile.tscn" id="2_lm72w"]
 [ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="4_iv8m4"]
+[ext_resource type="AudioStream" uid="uid://ghjf50gvtcgb" path="res://assets/sound/enemy.wav" id="6_8k7x2"]
+[ext_resource type="AudioStream" uid="uid://dvysxdh1xuqr5" path="res://assets/sound/explosion_medium.wav" id="7_rhsdl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ntjqi"]
 size = Vector2(32, 32)
 
-[node name="Fighter" type="Node2D" node_paths=PackedStringArray("health")]
+[node name="Fighter" type="Node2D" node_paths=PackedStringArray("hurtbox", "health", "fire_audio", "death_audio")]
 script = ExtResource("1_w7qwx")
 projectile = ExtResource("2_lm72w")
+hurtbox = NodePath("HurtboxComponent2D")
 health = NodePath("HealthComponent")
+fire_audio = NodePath("AudioStreamPlayer")
+death_audio = NodePath("AudioStreamPlayer2")
 
 [node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 2
@@ -39,5 +44,11 @@ position = Vector2(10, -13)
 position = Vector2(10, 13)
 
 [node name="AttackTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_8k7x2")
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_rhsdl")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

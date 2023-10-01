@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://6lop8w4ul5u2"]
+[gd_scene load_steps=8 format=3 uid="uid://6lop8w4ul5u2"]
 
 [ext_resource type="Script" path="res://scenes/components/fuelcells/standard_fuelcell.gd" id="1_xm4se"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_vajeu"]
@@ -6,14 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://d2qjavnwdc6tq" path="res://assets/components/component_fuel_tank_1.png" id="4_tg71l"]
 [ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="5_ls7xf"]
 [ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="6_ejvtu"]
+[ext_resource type="AudioStream" uid="uid://cj7cx773tcw28" path="res://assets/sound/explosion_big.wav" id="7_tg750"]
 
-[node name="standard_fuelcell" type="Node2D" node_paths=PackedStringArray("fuel_bar", "health", "sprite")]
+[node name="standard_fuelcell" type="Node2D" node_paths=PackedStringArray("fuel_bar", "hurt_box", "health", "sprite", "death_audio")]
 script = ExtResource("1_xm4se")
 fuel_storage = 300.0
 fuel_max_storage = 300.0
 fuel_bar = NodePath("Sprite2D/FuelBar")
+hurt_box = NodePath("HurtboxComponent2D")
 health = NodePath("HealthComponent")
 sprite = NodePath("Sprite2D")
+death_audio = NodePath("AudioStreamPlayer")
 
 [node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("2_vajeu")
@@ -50,3 +53,6 @@ tint_progress = Color(0.246094, 0.777344, 0.46875, 1)
 [node name="Handle" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_ejvtu")]
 z_index = 10
 parent = NodePath("..")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_tg750")

@@ -34,4 +34,5 @@ theme_override_fonts/font = ExtResource("3_n5lkc")
 text = "QUIT"
 
 [connection signal="button_up" from="StartButton" to="." method="_on_start_button_button_up"]
+[connection signal="button_up" from="OptionsButton" to="." method="_on_options_button_button_up"]
 [connection signal="button_up" from="QuitButton" to="." method="_on_quit_button_button_up"]

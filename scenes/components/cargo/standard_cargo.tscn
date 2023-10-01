@@ -1,25 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3j203vd1up5t"]
+[gd_scene load_steps=7 format=3 uid="uid://d3j203vd1up5t"]
 
 [ext_resource type="Script" path="res://scenes/components/cargo/standard_cargo.gd" id="1_wujxh"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="1_xhmxs"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_uk8ps"]
 [ext_resource type="Texture2D" uid="uid://b3yqkc1ibtb81" path="res://assets/components/component_cargo_1.png" id="4_t03v4"]
 [ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="5_bfqg6"]
+[ext_resource type="AudioStream" uid="uid://cj7cx773tcw28" path="res://assets/sound/explosion_big.wav" id="6_kewky"]
 
-[node name="standard_cargo" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
+[node name="standard_cargo" type="Node2D" node_paths=PackedStringArray("hurt_box", "health", "sprite", "death_audio")]
 script = ExtResource("1_wujxh")
 value = 100.0
 destination_distance = 2
+hurt_box = NodePath("HurtboxComponent2D")
 health = NodePath("HealthComponent")
 weight = 50.0
 sprite = NodePath("Sprite2D")
+death_audio = NodePath("AudioStreamPlayer")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("1_xhmxs")
 current_health = 10.0
 
-[node name="HurtboxComponent2D" type="Area2D" parent="."]
+[node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("2_uk8ps")
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtboxComponent2D"]
 polygon = PackedVector2Array(0, -31, 27, -17, 27, 17, 0, 31, -27, 17, -27, -17)
@@ -31,3 +35,6 @@ texture = ExtResource("4_t03v4")
 [node name="Handle" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_bfqg6")]
 z_index = 10
 parent = NodePath("..")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_kewky")

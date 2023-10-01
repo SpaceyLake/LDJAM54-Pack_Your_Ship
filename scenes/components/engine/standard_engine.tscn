@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfs7nlt3ju04q"]
+[gd_scene load_steps=11 format=3 uid="uid://dfs7nlt3ju04q"]
 
 [ext_resource type="Script" path="res://scenes/components/engine/standard_engine.gd" id="1_rlowa"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_57tly"]
@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cjf7gttg4ggrf" path="res://assets/BigCircle.svg" id="6_14nfi"]
 [ext_resource type="Texture2D" uid="uid://tc37opw7tyxy" path="res://assets/alerts/alert_out_of_fuel.png" id="8_krobg"]
 [ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="9_7pscj"]
+[ext_resource type="AudioStream" uid="uid://cj7cx773tcw28" path="res://assets/sound/explosion_big.wav" id="10_5aqtl"]
 
-[node name="standard_engine" type="Node2D" node_paths=PackedStringArray("fuel_bar", "out_of_fuel", "particles", "health", "sprite")]
+[node name="standard_engine" type="Node2D" node_paths=PackedStringArray("fuel_bar", "out_of_fuel", "particles", "hurt_box", "health", "sprite", "death_audio")]
 script = ExtResource("1_rlowa")
 fuel_drain = 60.0
 fuel_storage = 60.0
@@ -20,9 +21,11 @@ force_max = 100.0
 fuel_bar = NodePath("Sprite2D/FuelBar")
 out_of_fuel = NodePath("out_of_fuel")
 particles = NodePath("GPUParticles2D")
+hurt_box = NodePath("HurtboxComponent2D")
 health = NodePath("HealthComponent")
 weight = 20.0
 sprite = NodePath("Sprite2D")
+death_audio = NodePath("AudioStreamPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -72,3 +75,6 @@ texture = ExtResource("8_krobg")
 [node name="Handle" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("9_7pscj")]
 z_index = 10
 parent = NodePath("..")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_5aqtl")
