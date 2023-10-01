@@ -24,19 +24,19 @@ func _on_spawn_timer_timeout():
 	var position = Vector2.ZERO
 	if spawnside == 0:
 		position.y = - 32 - get_viewport().get_visible_rect().size.y/2
-		position.x = randi_range(-32 - get_viewport().get_visible_rect().size.x/2, 0)
+		position.x = randi_range(-32 - int(get_viewport().get_visible_rect().size.x/2.0), 0)
 	elif spawnside == 1:
 		position.x = -32 - get_viewport().get_visible_rect().size.x/2
-		position.y = randi_range(-32 - get_viewport().get_visible_rect().size.y/2 , get_viewport().get_visible_rect().size.y / 2 + 32)
+		position.y = randi_range(-32 - int(get_viewport().get_visible_rect().size.y/2.0), int(get_viewport().get_visible_rect().size.y / 2.0) + 32)
 	elif spawnside == 2:
 		position.y = 32 + get_viewport().size.y/2
-		position.x = randi_range(-32 - get_viewport().get_visible_rect().size.x/2, 0)
+		position.x = randi_range(-32 - int(get_viewport().get_visible_rect().size.x/2.0), 0)
 	var goal = Vector2.ZERO
-	goal.x = position.x + randi_range(160, get_viewport().get_visible_rect().size.x/2 - 96 - position.x)
+	goal.x = position.x + randi_range(160, int(get_viewport().get_visible_rect().size.x/2.0) - 96 - position.x)
 	if position.y > spaceship.global_position.y:
-		goal.y = randi_range(int(spaceship.global_position.y) - 160, get_viewport().get_visible_rect().size.y/2 - 160)
+		goal.y = randi_range(int(spaceship.global_position.y) - 160, int(get_viewport().get_visible_rect().size.y/2.0) - 160)
 	else:
-		goal.y = randi_range(-get_viewport().get_visible_rect().size.y/2 + 160, int(spaceship.global_position.y) + 160)
+		goal.y = randi_range(int(-get_viewport().get_visible_rect().size.y/2.0) + 160, int(spaceship.global_position.y) + 160)
 	position += Global.camera.global_position
 	goal += Global.camera.global_position
 	var tries = 0
