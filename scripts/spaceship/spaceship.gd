@@ -2,8 +2,6 @@
 extends HexStructure
 class_name SpaceShip
 
-signal recalculate_speed
-
 @export var enemies_node:Node
 
 @onready var standard_ammo = preload("res://scenes/components/ammo/standard_ammo.tscn")
@@ -12,9 +10,7 @@ signal recalculate_speed
 @onready var standard_fuelcell = preload("res://scenes/components/fuelcells/standard_fuelcell.tscn")
 @onready var laser = preload("res://scenes/components/weapons/laser.tscn")
 
-var structures : Array
 var speed : int
-var components: Array
 
 func _input(event):
 	if event.is_action_pressed("interact"):
@@ -50,14 +46,20 @@ func try_place_component(component:StructureComponent, new_component_position:Ve
 		return null
 	return place_component(component, hex_position, hex_index)
 
-func calculate_speed():
-	var weight = 0
-	var force = 0
-	for structure in structures:
-		weight += structure.weight()
-		if structure is EngineComponent:
-			force += structure.force()
-	return force / weight
+func place_component(component:StructureComponent, hex_position:Vector2, hex_index:Vector2):
+	var new_position = super(component, hex_position, hex_index)
+	update_neighbors()
+	return new_position
+
+func remove_component(component:StructureComponent):
+	super(component)
+	update_neighbors()
+
+func update_neighbors():
+	for x in component_map.size():
+		for y in component_map[0].size():
+			if component_map[x][y] != null:
+				component_map[x][y].get_neighbors()
 
 func get_closest_component_position(point:Vector2):
 	var hex_point = pixel_to_hex(point)
@@ -74,9 +76,6 @@ func get_closest_component_position(point:Vector2):
 	if closest_index == null:
 		return global_position
 	return hex_to_pixel(closest_index + mapping_offset)
-
-func _on_recalculate_speed():
-	speed = calculate_speed()
 
 func _on_child_entered_tree(node):
 	if node is StructureComponent:
