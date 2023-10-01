@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5wog3bayx8tu"]
+[gd_scene load_steps=4 format=3 uid="uid://b5wog3bayx8tu"]
 
 [ext_resource type="PackedScene" uid="uid://cwmt88khbkvfv" path="res://scenes/camera.tscn" id="1_intob"]
 [ext_resource type="Script" path="res://scenes/ui/start_screen.gd" id="1_j1f6w"]
+[ext_resource type="FontFile" uid="uid://4cpcn6w2jpxf" path="res://assets/fonts/5x5font.png" id="3_n5lkc"]
 
 [node name="start_screen" type="Node2D"]
 script = ExtResource("1_j1f6w")
@@ -13,21 +14,24 @@ offset_left = -44.0
 offset_top = -16.0
 offset_right = 49.0
 offset_bottom = 15.0
-text = "Start game"
+theme_override_fonts/font = ExtResource("3_n5lkc")
+text = "START GAME"
 
 [node name="OptionsButton" type="Button" parent="."]
 offset_left = -44.0
 offset_top = 25.0
 offset_right = 49.0
 offset_bottom = 56.0
-text = "Options"
+theme_override_fonts/font = ExtResource("3_n5lkc")
+text = "OPTIONS"
 
 [node name="QuitButton" type="Button" parent="."]
 offset_left = -44.0
 offset_top = 69.0
 offset_right = 49.0
 offset_bottom = 100.0
-text = "Quit"
+theme_override_fonts/font = ExtResource("3_n5lkc")
+text = "QUIT"
 
 [connection signal="button_up" from="StartButton" to="." method="_on_start_button_button_up"]
 [connection signal="button_up" from="QuitButton" to="." method="_on_quit_button_button_up"]
