@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5wog3bayx8tu"]
+
+[ext_resource type="PackedScene" uid="uid://cwmt88khbkvfv" path="res://scenes/camera.tscn" id="1_intob"]
+[ext_resource type="Script" path="res://scenes/ui/start_screen.gd" id="1_j1f6w"]
+
+[node name="start_screen" type="Node2D"]
+script = ExtResource("1_j1f6w")
+
+[node name="camera" parent="." instance=ExtResource("1_intob")]
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = -44.0
+offset_top = -16.0
+offset_right = 49.0
+offset_bottom = 15.0
+text = "Start game"
+
+[node name="OptionsButton" type="Button" parent="."]
+offset_left = -44.0
+offset_top = 25.0
+offset_right = 49.0
+offset_bottom = 56.0
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="."]
+offset_left = -44.0
+offset_top = 69.0
+offset_right = 49.0
+offset_bottom = 100.0
+text = "Quit"
+
+[connection signal="button_up" from="StartButton" to="." method="_on_start_button_button_up"]
+[connection signal="button_up" from="QuitButton" to="." method="_on_quit_button_button_up"]
