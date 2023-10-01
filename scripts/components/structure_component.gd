@@ -21,7 +21,7 @@ func place(new_position:Vector2):
 	global_position = corrected_position
 
 func get_neighbors():
-	spaceship.get_neighbors(self)
+	neighbors = spaceship.get_neighbors(self)
 
 func on_death():
 	print(name+": DIED of type " + Global.ComponentType.keys()[type])
