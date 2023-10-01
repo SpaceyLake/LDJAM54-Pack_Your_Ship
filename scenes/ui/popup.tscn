@@ -1,22 +1,193 @@
-[gd_scene load_steps=2 format=3 uid="uid://bq0xj3o16d83b"]
+[gd_scene load_steps=12 format=3 uid="uid://bq0xj3o16d83b"]
 
 [ext_resource type="Script" path="res://scenes/ui/popup.gd" id="1_me7tn"]
+[ext_resource type="Texture2D" uid="uid://b50734bv46ohs" path="res://assets/gui/gui_popup_background.png" id="2_uafhr"]
+[ext_resource type="Texture2D" uid="uid://bo8ubsidhjag0" path="res://assets/gui/gui_popup_captain.png" id="3_u1dn0"]
+[ext_resource type="Texture2D" uid="uid://cyc10w2lwfsx1" path="res://assets/gui/gui_buttons_next_cancel.png" id="4_8wnub"]
+[ext_resource type="Texture2D" uid="uid://djq61e3gini3c" path="res://assets/gui/gui_popup_ninepatch.png" id="4_egboa"]
+[ext_resource type="FontFile" uid="uid://d0gsfbmg5eeah" path="res://assets/fonts/5x5fontx2.png" id="5_aq2ex"]
 
-[node name="popup" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ya8cf"]
+size = Vector2(30, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0v1wf"]
+size = Vector2(30, 30)
+
+[sub_resource type="Animation" id="Animation_bvi4x"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("moving:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("moving:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("moving/Captain:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.501961, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("moving/NinePatchRect:size:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(256, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_2mot4"]
+resource_name = "popup"
+length = 3.0
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("moving:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("moving:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -64, -0.2, -53, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("moving/Captain:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(2, 2.05, 2.2, 2.4, 2.55, 2.7, 2.8, 2.9, 2.95, 3)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("moving/NinePatchRect:size:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(16, -0.25, 0, 0.5, 0, 256, -0.5, 0, 0.25, 0),
+"times": PackedFloat32Array(1, 2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wq6pu"]
+_data = {
+"RESET": SubResource("Animation_bvi4x"),
+"popup": SubResource("Animation_2mot4")
+}
+
+[node name="popup" type="Node2D" node_paths=PackedStringArray("timer", "text_holder", "animation_player")]
 script = ExtResource("1_me7tn")
+timer = NodePath("Timer")
+text_holder = NodePath("moving/NinePatchRect/RichTextLabel")
+animation_player = NodePath("AnimationPlayer")
 
-[node name="Button" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="moving" type="Node2D" parent="."]
 
-[node name="TextEdit" type="TextEdit" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
-editable = false
+[node name="Background" type="Sprite2D" parent="moving"]
+position = Vector2(32, 32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_uafhr")
+metadata/_edit_lock_ = true
 
-[node name="CloseButton" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="Captain" type="Sprite2D" parent="moving"]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(32, 32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_u1dn0")
 
-[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
-[connection signal="button_up" from="CloseButton" to="." method="_on_close_button_button_up"]
+[node name="Buttons" type="Sprite2D" parent="moving"]
+position = Vector2(87, 32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_8wnub")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="moving"]
+offset_left = 110.0
+offset_right = 366.0
+offset_bottom = 64.0
+texture = ExtResource("4_egboa")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="RichTextLabel" type="RichTextLabel" parent="moving/NinePatchRect"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 250.0
+offset_bottom = 58.0
+theme_override_fonts/normal_font = ExtResource("5_aq2ex")
+theme_override_fonts/bold_font = ExtResource("5_aq2ex")
+theme_override_fonts/italics_font = ExtResource("5_aq2ex")
+theme_override_fonts/bold_italics_font = ExtResource("5_aq2ex")
+theme_override_fonts/mono_font = ExtResource("5_aq2ex")
+bbcode_enabled = true
+scroll_active = false
+scroll_following = true
+shortcut_keys_enabled = false
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Area2DNext" type="Area2D" parent="moving"]
+collision_layer = 2147483648
+collision_mask = 2147483648
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="moving/Area2DNext"]
+position = Vector2(87, 15)
+shape = SubResource("RectangleShape2D_ya8cf")
+
+[node name="Area2DClose" type="Area2D" parent="moving"]
+collision_layer = 2147483649
+collision_mask = 2147483649
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="moving/Area2DClose"]
+position = Vector2(87, 49)
+shape = SubResource("RectangleShape2D_0v1wf")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wq6pu")
+}
