@@ -72,7 +72,7 @@ func get_closest_component_position(point:Vector2):
 					shortest_distance = distance
 					closest_index = Vector2(x,y)
 	if closest_index == null:
-		return null
+		return global_position
 	return hex_to_pixel(closest_index + mapping_offset)
 
 func _on_recalculate_speed():

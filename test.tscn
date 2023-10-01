@@ -22,6 +22,7 @@ script = SubResource("GDScript_bu0gm")
 [node name="camera" parent="." instance=ExtResource("7_acphv")]
 
 [node name="Progressbar" type="TextureProgressBar" parent="camera"]
+z_index = 1000
 anchors_preset = -1
 anchor_right = 0.932
 anchor_bottom = 0.571

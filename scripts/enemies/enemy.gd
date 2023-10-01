@@ -12,7 +12,7 @@ func _ready():
 
 func setup(new_goal:Vector2, new_target:Vector2):
 	self.goal = new_goal
-	self.target = target
+	self.target = new_target
 
 func on_death():
 	enemy_killed_signal.emit(self)
