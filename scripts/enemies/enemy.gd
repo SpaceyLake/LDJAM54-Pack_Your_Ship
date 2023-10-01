@@ -9,7 +9,7 @@ signal enemy_killed_signal(enemy)
 @export var health: HealthComponent
 
 func _ready():
-	health.health_depleted.connect(Callable(self, "on_death"))
+	health.health_depleted.connect(on_death)
 
 func setup(new_goal:Vector2, new_spaceship:SpaceShip):
 	self.goal = new_goal

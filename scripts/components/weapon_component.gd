@@ -70,12 +70,15 @@ func ammo_cell_out_of_fuel(ammo_cell:AmmoComponent):
 func get_neighbors():
 	super()
 	ammo_cells.clear()
+	for ammo_cell in ammo_cells:
+		ammo_cell.out_of_ammo.disconnect(ammo_cell_out_of_fuel)
 	get_ammo()
 
 func get_ammo():
 	for neighbor in neighbors:
 		if neighbor != null and neighbor.type == Global.ComponentType.AMMO:
-			neighbor.out_of_ammo.connect(Callable(self,"ammo_cell_out_of_fuel"))
+			if not neighbor.out_of_ammo.is_connected(ammo_cell_out_of_fuel):
+				neighbor.out_of_ammo.connect(ammo_cell_out_of_fuel)
 			ammo_cells.append(neighbor)
 
 func fire_gun():

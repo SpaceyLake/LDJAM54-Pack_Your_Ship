@@ -11,6 +11,7 @@ extends Enemy
 var muzzle:int
 
 func _ready():
+	super()
 	muzzle = randi_range(0, 1)
 
 func _process(delta):
@@ -20,9 +21,11 @@ func _process(delta):
 	if target == null:
 		target = spaceship.get_closest_component(goal)
 		if target == null:
+			attackTimer.stop()
 			return
 	if target.health.current_health <= 0:
-		target == null
+		target = null
+		attackTimer.stop()
 		return
 	if global_position == goal and global_rotation:
 		global_rotation = move_toward(global_rotation, (target.global_position - global_position).angle(), rotation_velocity * delta)

@@ -68,11 +68,10 @@ func _on_spawn_timer_timeout():
 			add_child(enemy)
 			enemy.global_position = position
 			enemy.setup(goal, spaceship)
-			enemy.enemy_killed_signal.connect(Callable(self,"_on_enemy_killed"))
+			enemy.enemy_killed_signal.connect(_on_enemy_killed)
 			enemies.append(enemy)
 			break
 	spawn_timer.start(rng.randf_range(5 * spawnrate, 15 * spawnrate))
-
 
 func _on_enemy_killed(enemy:Enemy):
 	enemies.erase(enemy)

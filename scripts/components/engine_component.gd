@@ -54,6 +54,8 @@ func _process(delta):
 func get_neighbors():
 	super()
 	fuelcells.clear()
+	for fuelcell in fuelcells:
+		fuelcell.out_of_fuel.disconnect(fuelcell_out_of_fuel)
 	get_fuelcells()
 
 func deactivate():
@@ -71,7 +73,8 @@ func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 func get_fuelcells():
 	for neighbor in neighbors:
 		if neighbor != null and neighbor.type == Global.ComponentType.FUELCELL:
-			neighbor.out_of_fuel.connect(Callable(self, "fuelcell_out_of_fuel"))
+			if not neighbor.out_of_fuel.is_connected(fuelcell_out_of_fuel):
+				neighbor.out_of_fuel.connect(fuelcell_out_of_fuel)
 			fuelcells.append(neighbor)
 
 func on_death():
