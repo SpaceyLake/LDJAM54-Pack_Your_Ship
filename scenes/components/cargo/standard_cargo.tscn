@@ -1,11 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3j203vd1up5t"]
+[gd_scene load_steps=5 format=3 uid="uid://d3j203vd1up5t"]
 
 [ext_resource type="Script" path="res://scenes/components/cargo/standard_cargo.gd" id="1_wujxh"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="1_xhmxs"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_uk8ps"]
 [ext_resource type="Texture2D" uid="uid://b3yqkc1ibtb81" path="res://assets/components/component_cargo_1.png" id="4_t03v4"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_mqk56"]
 
 [node name="standard_cargo" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
 script = ExtResource("1_wujxh")
@@ -21,8 +19,8 @@ script = ExtResource("1_xhmxs")
 [node name="HurtboxComponent2D" type="Area2D" parent="."]
 script = ExtResource("2_uk8ps")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D"]
-shape = SubResource("CircleShape2D_mqk56")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtboxComponent2D"]
+polygon = PackedVector2Array(0, -31, 27, -17, 27, 17, 0, 31, -27, 17, -27, -17)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

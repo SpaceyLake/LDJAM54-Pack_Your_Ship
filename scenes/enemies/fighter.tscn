@@ -7,17 +7,22 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ntjqi"]
 
-[node name="Fighter" type="Node2D"]
+[node name="Fighter" type="Node2D" node_paths=PackedStringArray("health")]
 script = ExtResource("1_w7qwx")
+health = NodePath("HealthComponent")
 
-[node name="HurtboxComponent2D" type="Area2D" parent="."]
+[node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("2_4ajxa")
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D"]
 shape = SubResource("RectangleShape2D_ntjqi")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("1_vvwg6")
+max_health = 1.0
 
 [node name="PirateFighter" type="Sprite2D" parent="."]
 scale = Vector2(0.3125, 0.3125)

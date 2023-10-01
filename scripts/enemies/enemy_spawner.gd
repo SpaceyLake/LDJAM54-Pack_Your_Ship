@@ -1,7 +1,5 @@
 extends Node
 
-signal enemy_killed(enemy:Enemy)
-
 @export_range(0, 1, 0.001) var spawnrate:float = 0
 @export var enemy_scenes:Array[PackedScene]
 @export var enemy_likeliness:Array[float]
@@ -69,12 +67,14 @@ func _on_spawn_timer_timeout():
 			enemy = enemy_scenes[i].instantiate()
 			add_child(enemy)
 			enemy.global_position = position
-			enemy.setup(goal, enemy_killed)
+			enemy.setup(goal)
+			enemy.enemy_killed_signal.connect(Callable(self,"_on_enemy_killed"))
 			enemies.append(enemy)
 			break
 	spawn_timer.start(rng.randf_range(5 * spawnrate, 15 * spawnrate))
 
 
 func _on_enemy_killed(enemy:Enemy):
+	print("WORKS")
 	enemies.erase(enemy)
 	enemy.queue_free()

@@ -12,8 +12,11 @@ class_name WeaponComponent
 @export var barrel_rotation_speed: float
 @export var animation_player: AnimationPlayer
 @export var ammo_bar: TextureProgressBar
+@export var ray: RayCast2D
+
 var fire:bool = false
 var ammo_cells: Array
+var enemies: Array
 
 func _ready():
 	super()
@@ -29,6 +32,11 @@ func _process(delta):
 	if target != null:
 		targeting.target = target
 		targeting.rotate_towards_target(delta)
+	else:
+		select_target()
+		if target != null:
+			targeting.target = target
+			targeting.rotate_towards_target(delta)
 	fire_gun()
 
 func rotate_towards_mouse(delta):
@@ -56,10 +64,10 @@ func get_ammo():
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		fire_gun()
+		print(str(enemies.size()))
 
 func fire_gun():
-	if fire and not animation_player.is_playing():
+	if fire and not animation_player.is_playing() and not ray.is_colliding():
 		var proj = projectile.instantiate()
 		add_child(proj)
 		proj.global_position = turret_muzzel.global_position
@@ -68,6 +76,18 @@ func fire_gun():
 		
 		if ammo_bar != null:
 			ammo_bar.value = ammo_storage/ammo_max_storage
+	
+	if fire and ray.is_colliding():
+		target = null
+
+func select_target():
+	enemies.clear()
+	for enemy in spaceship.enemies_node.enemies:
+		enemies.append(enemy)
+	
+	if enemies.size():
+		enemies.sort_custom(func(a,b): return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position))
+		target = enemies[0]
 
 func aiming():
 	fire = false

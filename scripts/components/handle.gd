@@ -5,7 +5,7 @@ var mouse_position:Vector2
 var holding:bool = false
 var held_offset:Vector2
 var previous_position
-@onready var parent:StructureComponent = get_parent()
+@export var parent:StructureComponent #= get_parent()
 var shadow:StructureComponent
 
 func is_held():
