@@ -62,7 +62,7 @@ func _ready():
 #	if current_hex_position_with_offset.x < component_map.size() and current_hex_position_with_offset.y < component_map[0].size() and current_hex_position_with_offset.x >= 0 and current_hex_position_with_offset.y >= 0:
 #		component_map[current_hex_position_with_offset.x][current_hex_position_with_offset.y] = component
 #	return hex_to_pixel(hex_position)
-func try_place(component:StructureComponent, new_component_position:Vector2):
+func try_place_component(component:StructureComponent, new_component_position:Vector2):
 	var hex_position:Vector2 = pixel_to_hex(new_component_position)
 	var hex_index = hex_position - mapping_offset
 	if not tile_free(hex_index):
@@ -74,6 +74,8 @@ func tile_free(hex_index:Vector2):
 		return false
 	if hex_index.y < 0 or hex_index.y >= component_map[0].size():
 		return false
+	if structure_map[hex_index.x][hex_index.y] == null:
+		return false
 	if component_map[hex_index.x][hex_index.y] != null:
 		return false
 	return true
@@ -81,7 +83,8 @@ func tile_free(hex_index:Vector2):
 func match_component_type(type:Global.ComponentType, hex_index:Vector2):
 	if type != structure_map[hex_index.x][hex_index.y]:
 		if type == Global.ComponentType.WEAPON or type == Global.ComponentType.ENGINE:
-			return null
+			return false
+	return true
 
 func place_component(component:StructureComponent, hex_position:Vector2, hex_index:Vector2):
 	if not component.get_parent() == self:
@@ -98,8 +101,7 @@ func remove_component(component:StructureComponent):
 
 func hex_corners(hex:Vector2):
 	var hex_position = hex_to_pixel(hex)
-	var corners:Array
-	var r = size*sqrt(3)/2
+	var corners:Array = []
 	var angles:Array = [-30, -90, 210, 150, 90, 30]
 
 	for angle_deg in angles:
@@ -154,4 +156,4 @@ func axial_to_cube(hex:Vector2):
 func _draw():
 	for tile in tiles:
 		draw_set_transform(Vector2.ZERO, 0, Vector2(0.5, 0.5))
-		draw_texture(tile.texture, tile.position)
+		draw_texture(tile.texture, tile.draw_position)
