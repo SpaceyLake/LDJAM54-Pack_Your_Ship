@@ -67,12 +67,22 @@ func _input(event):
 		print(str(enemies.size()))
 
 func fire_gun():
-	if fire and not animation_player.is_playing() and not ray.is_colliding():
+	if ammo_storage < ammo_max_storage and ammo_cells.size() > 0:
+		ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)
+		ammo_storage += ammo_cells[0].drain_fuel(ammo_max_storage-ammo_storage)
+	
+	if fire and not animation_player.is_playing() and not ray.is_colliding() and ammo_storage > 0:
 		var proj = projectile.instantiate()
 		add_child(proj)
 		proj.global_position = turret_muzzel.global_position
 		proj.target = Vector2(1,0).rotated(turret.global_rotation) #target.global_position - global_position
 		animation_player.play("fire")
+		
+		if ammo_cells.size():
+			ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)
+			ammo_cells[0].drain_ammo(1)
+		elif ammo_storage > 0:
+			ammo_storage -= 1
 		
 		if ammo_bar != null:
 			ammo_bar.value = ammo_storage/ammo_max_storage

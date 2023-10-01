@@ -9,6 +9,7 @@ signal force_change(old_force, new_force)
 @export var force: float
 @export var force_max: float
 @export var fuel_bar: TextureProgressBar
+@export var particles: GPUParticles2D
 var fuelcells: Array
 
 func _ready():
@@ -34,8 +35,15 @@ func _process(delta):
 		var old = force
 		force = 0
 		force_change.emit(old, force)
+	
 	if fuel_bar != null:
 		fuel_bar.value = fuel_storage/fuel_max_storage
+	
+	if particles != null:
+		if force > 0:
+			particles.emitting = true
+		else:
+			particles.emitting = false
 
 func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 	fuelcells.remove_at(fuelcells.find(fuelcell))
