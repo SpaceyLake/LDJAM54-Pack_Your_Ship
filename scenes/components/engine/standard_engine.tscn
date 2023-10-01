@@ -1,30 +1,25 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfs7nlt3ju04q"]
+[gd_scene load_steps=8 format=3 uid="uid://dfs7nlt3ju04q"]
 
 [ext_resource type="Script" path="res://scenes/components/engine/standard_engine.gd" id="1_rlowa"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_57tly"]
-[ext_resource type="Texture2D" uid="uid://d2xc6fwp5sx1d" path="res://assets/tiles/tile_normal.png" id="2_bksyf"]
 [ext_resource type="Texture2D" uid="uid://50ysefracsm" path="res://assets/components/component_engine_1.png" id="2_cl6pp"]
 [ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="3_di7rp"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="3_kw3up"]
 [ext_resource type="Material" uid="uid://cpgd87sn3sj1l" path="res://materials/particles/engine_flame.tres" id="5_50bie"]
 [ext_resource type="Texture2D" uid="uid://cjf7gttg4ggrf" path="res://assets/BigCircle.svg" id="6_14nfi"]
 
-[node name="standard_engine" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
+[node name="standard_engine" type="Node2D" node_paths=PackedStringArray("fuel_bar", "particles", "health", "sprite")]
 script = ExtResource("1_rlowa")
 fuel_drain = 60.0
 fuel_storage = 30.0
 fuel_max_storage = 30.0
 force = 100.0
 force_max = 100.0
+fuel_bar = NodePath("Sprite2D/FuelBar")
+particles = NodePath("GPUParticles2D")
 health = NodePath("HealthComponent")
 weight = 20.0
 sprite = NodePath("Sprite2D")
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(13, 0)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_bksyf")
-offset = Vector2(-26, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
