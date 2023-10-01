@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dp5sjk1125yxd"]
+[gd_scene load_steps=16 format=3 uid="uid://dp5sjk1125yxd"]
 
 [ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="1_0g0xl"]
 [ext_resource type="PackedScene" uid="uid://bq0xj3o16d83b" path="res://scenes/ui/popup.tscn" id="3_fkivk"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cwmt88khbkvfv" path="res://scenes/camera.tscn" id="7_acphv"]
 [ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="7_snx33"]
 [ext_resource type="PackedScene" uid="uid://pnhhd10wghol" path="res://scenes/Spacestation/spacestation.tscn" id="8_c2y8a"]
+[ext_resource type="AudioStream" uid="uid://d3wqfbtvae20b" path="res://assets/music/song.wav" id="10_lliwq"]
 
 [sub_resource type="GDScript" id="GDScript_bu0gm"]
 script/source = "extends Node2D
@@ -100,19 +101,6 @@ script = ExtResource("5_ljtar")
 
 [node name="Spaceship" parent="." node_paths=PackedStringArray("enemies_node") instance=ExtResource("5_rikf0")]
 enemies_node = NodePath("../EnemySpawner")
-tiles_text = "normal(0,0)
-normal(-1,0)
-normal(1,0)
-ammo(2,0)
-engine(-2,0)
-engine(-1,-1)
-engine(-2,1)
-normal(0, -1)
-normal(1,-1)
-normal(-1,1)
-normal(0,1)
-weapon(1,1)
-normal(2,-1)"
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("space_ship") instance=ExtResource("6_e8xti")]
 space_ship = NodePath("../Spaceship")
@@ -125,3 +113,7 @@ spaceship = NodePath("../Spaceship")
 libraries = {
 "": SubResource("AnimationLibrary_0gpfw")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_lliwq")
+autoplay = true
