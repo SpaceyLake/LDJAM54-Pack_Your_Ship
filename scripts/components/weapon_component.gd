@@ -81,7 +81,7 @@ func fire_gun():
 			ammo_storage -= 1
 		
 		if ammo_bar != null:
-			ammo_bar.value = ammo_storage/ammo_max_storage
+			ammo_bar.value = float(ammo_storage)/float(ammo_max_storage)
 	
 	if fire and ray.is_colliding():
 		target = null

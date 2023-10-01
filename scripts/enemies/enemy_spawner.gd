@@ -34,9 +34,9 @@ func _on_spawn_timer_timeout():
 	var goal = Vector2.ZERO
 	goal.x = position.x + randi_range(96, get_viewport().size.x/2 - 96 - position.x)
 	if position.y > spaceship.global_position.y:
-		goal.y = randi_range(spaceship.global_position.y - 90, get_viewport().size.y/2 + 96)
+		goal.y = randi_range(int(spaceship.global_position.y) - 90, get_viewport().size.y/2 + 96)
 	else:
-		goal.y = randi_range(-get_viewport().size.y/2 - 96, spaceship.global_position.y + 90)
+		goal.y = randi_range(-get_viewport().size.y/2 - 96, int(spaceship.global_position.y) + 90)
 	position += Global.camera.global_position
 	goal += Global.camera.global_position
 	var tries = 0
