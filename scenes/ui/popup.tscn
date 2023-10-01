@@ -1,11 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://bq0xj3o16d83b"]
+[gd_scene load_steps=19 format=3 uid="uid://bq0xj3o16d83b"]
 
 [ext_resource type="Script" path="res://scenes/ui/popup.gd" id="1_me7tn"]
+[ext_resource type="AudioStream" uid="uid://jckjdrljr5d3" path="res://assets/sound/blipSelect_0.wav" id="2_tikt3"]
 [ext_resource type="Texture2D" uid="uid://b50734bv46ohs" path="res://assets/gui/gui_popup_background.png" id="2_uafhr"]
+[ext_resource type="AudioStream" uid="uid://b5yf1qlacae7p" path="res://assets/sound/blipSelect_1.wav" id="3_rf5g6"]
 [ext_resource type="Texture2D" uid="uid://bo8ubsidhjag0" path="res://assets/gui/gui_popup_captain.png" id="3_u1dn0"]
 [ext_resource type="Texture2D" uid="uid://cyc10w2lwfsx1" path="res://assets/gui/gui_buttons_next_cancel.png" id="4_8wnub"]
 [ext_resource type="Texture2D" uid="uid://djq61e3gini3c" path="res://assets/gui/gui_popup_ninepatch.png" id="4_egboa"]
+[ext_resource type="AudioStream" uid="uid://7y04t7xbo51g" path="res://assets/sound/blipSelect_2.wav" id="4_rq7gb"]
+[ext_resource type="AudioStream" uid="uid://4voyifeedb8q" path="res://assets/sound/blipSelect_3.wav" id="5_2xalx"]
 [ext_resource type="FontFile" uid="uid://d0gsfbmg5eeah" path="res://assets/fonts/5x5fontx2.png" id="5_aq2ex"]
+[ext_resource type="AudioStream" uid="uid://d2a5vanp7p0hs" path="res://assets/sound/blipSelect_4.wav" id="6_pb8u2"]
+[ext_resource type="AudioStream" uid="uid://cokq0ei8dqtk3" path="res://assets/sound/blipSelect_5.wav" id="7_ra7xv"]
+[ext_resource type="AudioStream" uid="uid://cdqyd1l5hulyh" path="res://assets/sound/blipSelect_6.wav" id="8_8c7xm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ya8cf"]
 size = Vector2(30, 30)
@@ -120,6 +127,7 @@ script = ExtResource("1_me7tn")
 timer = NodePath("Timer")
 text_holder = NodePath("moving/NinePatchRect/RichTextLabel")
 animation_player = NodePath("AnimationPlayer")
+audios = Array[AudioStream]([ExtResource("2_tikt3"), ExtResource("3_rf5g6"), ExtResource("4_rq7gb"), ExtResource("5_2xalx"), ExtResource("6_pb8u2"), ExtResource("7_ra7xv"), ExtResource("8_8c7xm")])
 
 [node name="moving" type="Node2D" parent="."]
 
@@ -191,3 +199,5 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_wq6pu")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
