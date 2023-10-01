@@ -48,12 +48,10 @@ func try_place_component(component:StructureComponent, new_component_position:Ve
 
 func place_component(component:StructureComponent, hex_position:Vector2, hex_index:Vector2):
 	var new_position = super(component, hex_position, hex_index)
-	update_neighbors()
 	return new_position
 
 func remove_component(component:StructureComponent):
 	super(component)
-	update_neighbors()
 
 func update_neighbors():
 	for x in component_map.size():
@@ -61,21 +59,20 @@ func update_neighbors():
 			if component_map[x][y] != null:
 				component_map[x][y].get_neighbors()
 
-func get_closest_component_position(point:Vector2):
+func get_closest_component(point:Vector2):
 	var hex_point = pixel_to_hex(point)
 	var hex_index = hex_point - mapping_offset
 	var shortest_distance = -1
-	var closest_index = null
+	var closest_component = null
 	for x in component_map.size():
 		for y in component_map[0].size():
 			if component_map[x][y] != null:
-				var distance = hex_index.distance_squared_to(Vector2(x,y))
-				if shortest_distance == -1 or distance < shortest_distance:
-					shortest_distance = distance
-					closest_index = Vector2(x,y)
-	if closest_index == null:
-		return global_position
-	return hex_to_pixel(closest_index + mapping_offset)
+				if component_map[x][y].health.current_health > 0:
+					var distance = hex_index.distance_squared_to(Vector2(x,y))
+					if shortest_distance == -1 or distance < shortest_distance:
+						shortest_distance = distance
+						closest_component = component_map[x][y]
+	return closest_component
 
 func _on_child_entered_tree(node):
 	if node is StructureComponent:

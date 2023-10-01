@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dp5sjk1125yxd"]
+[gd_scene load_steps=14 format=3 uid="uid://dp5sjk1125yxd"]
 
 [ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="1_0g0xl"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="4_74slv"]
@@ -15,6 +15,44 @@ script/source = "extends Node2D
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kn5r0"]
+
+[sub_resource type="Animation" id="Animation_ixpoi"]
+resource_name = "Spacestation_in"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(923, 262), Vector2(227, 262), Vector2(80, 262), Vector2(0, 262)]
+}
+
+[sub_resource type="Animation" id="Animation_wadm3"]
+resource_name = "Spacestation_out"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 262), Vector2(-132, 262), Vector2(-956, 262)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0gpfw"]
+_data = {
+"Spacestation_in": SubResource("Animation_ixpoi"),
+"Spacestation_out": SubResource("Animation_wadm3")
+}
 
 [node name="TestScene" type="Node2D"]
 script = SubResource("GDScript_bu0gm")
@@ -76,5 +114,10 @@ normal(2,-1)"
 space_ship = NodePath("../Spaceship")
 
 [node name="Spacestation" parent="." node_paths=PackedStringArray("spaceship") instance=ExtResource("8_c2y8a")]
-position = Vector2(-2, 262)
+position = Vector2(0, 262)
 spaceship = NodePath("../Spaceship")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Spacestation"]
+libraries = {
+"": SubResource("AnimationLibrary_0gpfw")
+}

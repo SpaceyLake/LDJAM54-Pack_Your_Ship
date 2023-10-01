@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ie4ecgtqe5qh"]
+[gd_scene load_steps=7 format=3 uid="uid://ie4ecgtqe5qh"]
 
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="1_vvwg6"]
 [ext_resource type="Script" path="res://scripts/enemies/fighter.gd" id="1_w7qwx"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_4ajxa"]
+[ext_resource type="PackedScene" uid="uid://c4jfm1323p4ld" path="res://scenes/enemies/fighter_projectile.tscn" id="2_lm72w"]
 [ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="4_iv8m4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ntjqi"]
@@ -10,6 +11,7 @@ size = Vector2(32, 32)
 
 [node name="Fighter" type="Node2D" node_paths=PackedStringArray("health")]
 script = ExtResource("1_w7qwx")
+projectile = ExtResource("2_lm72w")
 health = NodePath("HealthComponent")
 
 [node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
@@ -24,7 +26,18 @@ shape = SubResource("RectangleShape2D_ntjqi")
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("1_vvwg6")
 max_health = 1.0
+current_health = 1.0
 
 [node name="PirateFighter" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_iv8m4")
+
+[node name="MuzzleL" type="Node2D" parent="."]
+position = Vector2(10, -13)
+
+[node name="MuzzleR" type="Node2D" parent="."]
+position = Vector2(10, 13)
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

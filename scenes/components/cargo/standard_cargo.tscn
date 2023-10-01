@@ -16,6 +16,7 @@ sprite = NodePath("Sprite2D")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("1_xhmxs")
+current_health = 10.0
 
 [node name="HurtboxComponent2D" type="Area2D" parent="."]
 script = ExtResource("2_uk8ps")

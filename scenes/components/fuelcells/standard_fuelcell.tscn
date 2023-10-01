@@ -24,6 +24,7 @@ polygon = PackedVector2Array(0, -31, 27, -17, 27, 17, 0, 31, -27, 17, -27, -17)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_uqv5g")
+current_health = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

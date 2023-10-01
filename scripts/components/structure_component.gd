@@ -22,13 +22,14 @@ func place(new_position:Vector2):
 	if corrected_position == null:
 		return
 	global_position = corrected_position
-	get_neighbors()
+	spaceship.update_neighbors()
 
 func get_neighbors():
+	neighbors.clear()
 	if get_parent() == spaceship:
 		neighbors = spaceship.get_neighbors(self)
 	else:
-		neighbors = []
+		neighbors.clear()
 
 func on_death():
 	print(name+": DIED of type " + Global.ComponentType.keys()[type])

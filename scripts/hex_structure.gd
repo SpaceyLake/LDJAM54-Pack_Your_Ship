@@ -96,8 +96,8 @@ func get_neighbors(component:StructureComponent):
 	var neighbors:Array = []
 	for offset in neighbors_offset:
 		var neighbor_index = hex_index + offset
-		if neighbor_index.x > 0 and neighbor_index.x < component_map.size():
-			if neighbor_index.y > 0 and neighbor_index.y < component_map[0].size():
+		if neighbor_index.x >= 0 and neighbor_index.x < component_map.size():
+			if neighbor_index.y >= 0 and neighbor_index.y < component_map[0].size():
 				if component_map[neighbor_index.x][neighbor_index.y] != null:
 					neighbors.append(component_map[neighbor_index.x][neighbor_index.y])
 	return neighbors

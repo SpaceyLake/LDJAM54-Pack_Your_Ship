@@ -5,7 +5,7 @@ signal health_depleted
 signal on_damage(damage)
 
 @export var max_health: float = 10.0
-var current_health: float
+@export var current_health: float
 
 func damage(Damage:float):
 	current_health -= Damage
