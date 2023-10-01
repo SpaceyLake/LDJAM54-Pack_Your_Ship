@@ -12,6 +12,7 @@ class_name WeaponComponent
 @export var barrel_rotation_speed: float
 @export var animation_player: AnimationPlayer
 @export var ammo_bar: TextureProgressBar
+@export var out_of_ammo: Sprite2D
 @export var ray: RayCast2D
 
 var fire:bool = false
@@ -23,12 +24,14 @@ func _ready():
 	type = Global.ComponentType.WEAPON
 	targeting.not_ready_to_fire.connect(Callable(self, "aiming"))
 	targeting.ready_to_fire.connect(Callable(self, "aimed"))
-	get_ammo()
 	
 	for ammo_cell in ammo_cells:
 		ammo_cell.out_of_ammo.connect(Callable(self, "ammo_cell_out_of_fuel"))
 
 func _process(delta):
+	if ammo_cells.is_empty():
+		get_neigbhors()
+		get_ammo()
 	if target != null:
 		targeting.target = target
 		targeting.rotate_towards_target(delta)
@@ -59,13 +62,14 @@ func ammo_cell_out_of_fuel(ammo_cell:AmmoComponent):
 
 func get_ammo():
 	for neighbor in neighbors:
-		if neighbor.type == Global.ComponentType.AMMO:
+		if neighbor != null and neighbor.type == Global.ComponentType.AMMO:
+			neighbor.out_of_ammo.connect(Callable(self,"ammo_cell_out_of_fuel"))
 			ammo_cells.append(neighbor)
 
 func fire_gun():
 	if ammo_storage < ammo_max_storage and ammo_cells.size() > 0:
 		ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)
-		ammo_storage += ammo_cells[0].drain_fuel(ammo_max_storage-ammo_storage)
+		ammo_storage += ammo_cells[0].drain_ammo(ammo_max_storage-ammo_storage)
 	
 	if fire and not animation_player.is_playing() and not ray.is_colliding() and ammo_storage > 0:
 		var proj = projectile.instantiate()
@@ -85,6 +89,11 @@ func fire_gun():
 	
 	if fire and ray.is_colliding():
 		target = null
+	
+	if ammo_storage < 1: 
+		out_of_ammo.visible = true
+	else: 
+		out_of_ammo.visible = false
 
 func select_target():
 	enemies.clear()

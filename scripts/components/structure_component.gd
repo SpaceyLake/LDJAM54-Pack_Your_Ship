@@ -24,5 +24,15 @@ func place(new_position:Vector2):
 		return
 	global_position = corrected_position
 
+func get_neigbhors():
+	for x in range(-1,2):
+		for y in range(-1,2):
+			var offset_x = x+pos.x
+			var offset_y = y+pos.y
+			if offset_x > 0 and offset_x < spaceship.components.size():
+				if offset_y > 0 and offset_y < spaceship.components[x].size():
+					if not (x == 0 and y == 0) and spaceship.components[offset_x][offset_y] != null:
+						neighbors.append(spaceship.components[offset_x][offset_y])
+
 func on_death():
 	print(name+": DIED of type " + Global.ComponentType.keys()[type])

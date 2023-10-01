@@ -1,13 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://cub6m24x8hwio"]
+[gd_scene load_steps=7 format=3 uid="uid://cub6m24x8hwio"]
 
 [ext_resource type="Script" path="res://scenes/components/ammo/standard_ammo.gd" id="1_fm13y"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_a8tme"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="3_um73m"]
+[ext_resource type="Texture2D" uid="uid://bbe51ks2ip2sc" path="res://assets/components/component_ammo_1.png" id="4_omjoq"]
+[ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="5_mjm47"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_msfuh"]
 
-[node name="standard_ammo" type="Node2D" node_paths=PackedStringArray("health", "sprite")]
+[node name="standard_ammo" type="Node2D" node_paths=PackedStringArray("fuel_bar", "health", "sprite")]
 script = ExtResource("1_fm13y")
+ammo_storage = 5
+ammo_max_storage = 5
+fuel_bar = NodePath("Sprite2D/FuelBar")
 health = NodePath("HealthComponent")
 sprite = NodePath("Sprite2D")
 
@@ -22,3 +27,23 @@ shape = SubResource("CircleShape2D_msfuh")
 script = ExtResource("3_um73m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_omjoq")
+
+[node name="FuelBar" type="TextureProgressBar" parent="Sprite2D"]
+anchors_preset = -1
+anchor_left = 0.079
+anchor_top = 0.455
+anchor_right = 0.795
+anchor_bottom = 0.571
+offset_left = -14.112
+offset_top = -38.24
+offset_right = -65.76
+offset_bottom = -45.088
+rotation = -1.5708
+max_value = 1.0
+step = 0.01
+value = 1.0
+nine_patch_stretch = true
+texture_progress = ExtResource("5_mjm47")
+tint_progress = Color(0.628906, 0.933594, 0.472656, 1)

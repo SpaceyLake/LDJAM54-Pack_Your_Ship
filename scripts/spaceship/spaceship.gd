@@ -37,6 +37,8 @@ func _ready():
 			type = Global.ComponentType.ENGINE
 		elif tile_split[0].strip_escapes().to_lower() == "weapon":
 			type = Global.ComponentType.WEAPON
+		elif tile_split[0].strip_escapes().to_lower() == "ammo":
+			type = Global.ComponentType.AMMO
 		else:
 			type = Global.ComponentType.NONE
 		if tile_position.x < mapping_offset.x:
