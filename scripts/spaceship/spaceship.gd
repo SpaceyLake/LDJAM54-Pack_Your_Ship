@@ -63,34 +63,32 @@ func _ready():
 	for x in ship_tiles.size():
 		var y_size = ship_tiles[x].size()
 		for y in y_size:
-			var x_hex = x-ship_tiles.size()/2
-			var y_hex = y-y_size/2
 			match ship_tiles[x][y]:
 				Global.ComponentType.AMMO: 
 					var temp = standard_ammo.instantiate()
 					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.CARGO: 
 					var temp = standard_ammo.instantiate()
 					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.ENGINE: 
 					var temp = standard_engine.instantiate()
 					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.FUELCELL: 
 					var temp = standard_fuelcell.instantiate()
 					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.WEAPON: 
 					var temp = laser.instantiate()
 					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -155,8 +153,7 @@ func calculate_speed():
 
 func hex_corners(hex:Vector2):
 	var hex_position = hex_to_pixel(hex)
-	var corners:Array
-	var r = size*sqrt(3)/2
+	var corners:Array = []
 	var angles:Array = [-30, -90, 210, 150, 90, 30]
 
 	for angle_deg in angles:
