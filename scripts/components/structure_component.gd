@@ -21,4 +21,4 @@ func place(new_position:Vector2):
 	global_position = corrected_position
 
 func on_death():
-	print(name+": DIED")
+	print(name+": DIED of type " + Global.ComponentType.keys()[type])

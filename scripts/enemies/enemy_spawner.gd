@@ -75,6 +75,5 @@ func _on_spawn_timer_timeout():
 
 
 func _on_enemy_killed(enemy:Enemy):
-	print("WORKS")
 	enemies.erase(enemy)
 	enemy.queue_free()
