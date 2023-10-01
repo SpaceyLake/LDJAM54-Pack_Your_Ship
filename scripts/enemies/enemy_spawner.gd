@@ -60,6 +60,10 @@ func _on_spawn_timer_timeout():
 		tries += 1
 	while spaceship.on_ship(goal):
 		goal.y += move_toward(goal.y, position.y, 90)
+	var target = spaceship.get_closest_component_position(goal)
+	print(target)
+	if target == null:
+		target = goal
 	var rnd_enemy = rng.randi_range(0, total_likeliness - 1)
 	var enemy:Enemy
 	for i in enemy_likeliness.size():
@@ -67,7 +71,7 @@ func _on_spawn_timer_timeout():
 			enemy = enemy_scenes[i].instantiate()
 			add_child(enemy)
 			enemy.global_position = position
-			enemy.setup(goal)
+			enemy.setup(goal, target)
 			enemy.enemy_killed_signal.connect(Callable(self,"_on_enemy_killed"))
 			enemies.append(enemy)
 			break

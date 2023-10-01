@@ -10,7 +10,6 @@ class_name StructureComponent
 @export var neighbors: Array
 @export var debug: bool = false
 @onready var spacestation = get_parent() if get_parent() is Spacestation else null
-@onready var parent = spacestation
 @onready var spaceship = null if spacestation == null else spacestation.spaceship
 
 func _ready():
@@ -23,9 +22,13 @@ func place(new_position:Vector2):
 	if corrected_position == null:
 		return
 	global_position = corrected_position
+	get_neighbors()
 
 func get_neighbors():
-	neighbors = spaceship.get_neighbors(self)
+	if get_parent() == spaceship:
+		neighbors = spaceship.get_neighbors(self)
+	else:
+		neighbors = []
 
 func on_death():
 	print(name+": DIED of type " + Global.ComponentType.keys()[type])

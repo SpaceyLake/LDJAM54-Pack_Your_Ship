@@ -59,6 +59,22 @@ func calculate_speed():
 			force += structure.force()
 	return force / weight
 
+func get_closest_component_position(point:Vector2):
+	var hex_point = pixel_to_hex(point)
+	var hex_index = hex_point - mapping_offset
+	var shortest_distance = -1
+	var closest_index = null
+	for x in component_map.size():
+		for y in component_map[0].size():
+			if component_map[x][y] != null:
+				var distance = hex_index.distance_squared_to(Vector2(x,y))
+				if shortest_distance == -1 or distance < shortest_distance:
+					shortest_distance = distance
+					closest_index = Vector2(x,y)
+	if closest_index == null:
+		return null
+	return hex_to_pixel(closest_index + mapping_offset)
+
 func _on_recalculate_speed():
 	speed = calculate_speed()
 
