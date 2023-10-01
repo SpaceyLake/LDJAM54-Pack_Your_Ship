@@ -17,8 +17,12 @@ func show_popup():
 		text_holder.text = text[0]
 		text.remove_at(0)
 	else:
-		visible = false
+		queue_free()
 
 
 func _on_button_button_up():
 	show_popup()
+
+
+func _on_close_button_button_up():
+	queue_free()

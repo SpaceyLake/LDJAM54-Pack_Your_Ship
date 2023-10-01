@@ -14,4 +14,9 @@ offset_right = 8.0
 offset_bottom = 8.0
 editable = false
 
+[node name="CloseButton" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
 [connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="CloseButton" to="." method="_on_close_button_button_up"]
