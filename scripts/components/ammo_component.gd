@@ -17,7 +17,6 @@ func drain_ammo(amount:int):
 		if amount > ammo_storage:
 			return ammo_storage
 	ammo_storage -= amount
-	print(ammo_storage)
 	
 	if fuel_bar != null:
 		fuel_bar.value = float(ammo_storage)/float(ammo_max_storage)
