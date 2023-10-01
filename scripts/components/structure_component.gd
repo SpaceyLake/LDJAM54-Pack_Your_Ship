@@ -12,27 +12,16 @@ class_name StructureComponent
 @onready var spaceship:SpaceShip = get_parent() if get_parent() is SpaceShip else null
 
 func _ready():
-	for x in spaceship.components.size():
-		for y in spaceship.components[x].size():
-			if spaceship.components[x][y] == self:
-				pos = Vector2(x,y)
 	health.health_depleted.connect(Callable(self, "on_death"))
 
 func place(new_position:Vector2):
-	var corrected_position = spaceship.place_component(self, new_position)
+	var corrected_position = spaceship.try_place_component(self, new_position)
 	if corrected_position == null:
 		return
 	global_position = corrected_position
 
-func get_neigbhors():
-	for x in range(-1,2):
-		for y in range(-1,2):
-			var offset_x = x+pos.x
-			var offset_y = y+pos.y
-			if offset_x > 0 and offset_x < spaceship.components.size():
-				if offset_y > 0 and offset_y < spaceship.components[x].size():
-					if not (x == 0 and y == 0) and spaceship.components[offset_x][offset_y] != null:
-						neighbors.append(spaceship.components[offset_x][offset_y])
+func get_neighbors():
+	spaceship.get_neighbors(self)
 
 func on_death():
 	print(name+": DIED of type " + Global.ComponentType.keys()[type])

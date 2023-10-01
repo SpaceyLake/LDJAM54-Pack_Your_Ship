@@ -36,6 +36,7 @@ shape = SubResource("CircleShape2D_kn5r0")
 script = ExtResource("5_ljtar")
 
 [node name="Spaceship" parent="." node_paths=PackedStringArray("enemies_node") instance=ExtResource("5_rikf0")]
+enemies_node = NodePath("../EnemySpawner")
 tiles_text = "normal(0,0)
 normal(-1,0)
 normal(1,0)
@@ -49,7 +50,6 @@ normal(-1,1)
 normal(0,1)
 weapon(1,1)
 normal(2,-1)"
-enemies_node = NodePath("../EnemySpawner")
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("space_ship") instance=ExtResource("6_e8xti")]
 space_ship = NodePath("../Spaceship")

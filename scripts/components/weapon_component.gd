@@ -30,7 +30,7 @@ func _ready():
 
 func _process(delta):
 	if ammo_cells.is_empty():
-		get_neigbhors()
+		get_neighbors()
 		get_ammo()
 	if target != null:
 		targeting.target = target
@@ -97,12 +97,13 @@ func fire_gun():
 
 func select_target():
 	enemies.clear()
-	for enemy in spaceship.enemies_node.enemies:
-		enemies.append(enemy)
-	
-	if enemies.size():
-		enemies.sort_custom(func(a,b): return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position))
-		target = enemies[0]
+	return
+#	for enemy in spaceship.enemies_node.enemies:
+#		enemies.append(enemy)
+#
+#	if enemies.size():
+#		enemies.sort_custom(func(a,b): return a.global_position.distance_to(global_position) < b.global_position.distance_to(global_position))
+#		target = enemies[0]
 
 func aiming():
 	fire = false

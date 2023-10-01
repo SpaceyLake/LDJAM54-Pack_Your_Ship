@@ -24,6 +24,8 @@ func _ready():
 			type = Global.ComponentType.ENGINE
 		elif tile_split[0].strip_escapes().to_lower() == "weapon":
 			type = Global.ComponentType.WEAPON
+		elif tile_split[0].strip_escapes().to_lower() == "ammo":
+			type = Global.ComponentType.AMMO
 		else:
 			type = Global.ComponentType.NONE
 		if tile_position.x < mapping_offset.x:
@@ -62,6 +64,7 @@ func _ready():
 #	if current_hex_position_with_offset.x < component_map.size() and current_hex_position_with_offset.y < component_map[0].size() and current_hex_position_with_offset.x >= 0 and current_hex_position_with_offset.y >= 0:
 #		component_map[current_hex_position_with_offset.x][current_hex_position_with_offset.y] = component
 #	return hex_to_pixel(hex_position)
+
 func try_place_component(component:StructureComponent, new_component_position:Vector2):
 	var hex_position:Vector2 = pixel_to_hex(new_component_position)
 	var hex_index = hex_position - mapping_offset
@@ -85,10 +88,14 @@ func match_component_type(type:Global.ComponentType, hex_index:Vector2):
 		if type == Global.ComponentType.WEAPON or type == Global.ComponentType.ENGINE:
 			return false
 	return true
-
+#
 func place_component(component:StructureComponent, hex_position:Vector2, hex_index:Vector2):
 	if not component.get_parent() == self:
 		component.get_parent().remove_component(component)
+	else:
+		var current_hex_position:Vector2 = pixel_to_hex(component.global_position)
+		var current_hex_index = current_hex_position - mapping_offset
+		component_map[current_hex_index.x][current_hex_index.y] = null
 	add_child(component)
 	component_map[hex_index.x][hex_index.y] = component
 	return hex_to_pixel(hex_position)
@@ -98,6 +105,19 @@ func remove_component(component:StructureComponent):
 	var hex_index = hex_position - mapping_offset
 	component_map[hex_index.x][hex_index.y] = null
 	remove_child(component)
+
+func get_neighbors(component:StructureComponent):
+	var hex_position = pixel_to_hex(component.global_position)
+	var hex_index = hex_position - mapping_offset
+	var neighbors_offset:Array = [Vector2(-1, 0), Vector2(-1, 1), Vector2(0, -1), Vector2(0, 1), Vector2(1, -1), Vector2(1, 0)]
+	var neighbors:Array = []
+	for offset in neighbors_offset:
+		var neighbor_index = hex_index + offset
+		if neighbor_index.x > 0 and neighbor_index.x < component_map.size():
+			if neighbor_index.y > 0 and neighbor_index.y < component_map[0].size():
+				if component_map[neighbor_index.x][neighbor_index.y] != null:
+					neighbors.append(component_map[neighbor_index.x][neighbor_index.y])
+	return neighbors
 
 func hex_corners(hex:Vector2):
 	var hex_position = hex_to_pixel(hex)

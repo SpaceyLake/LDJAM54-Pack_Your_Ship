@@ -1,11 +1,9 @@
 @tool
-extends Node2D
+extends HexStructure
 class_name SpaceShip
 
 signal recalculate_speed
 
-@export var size:int = 32
-@export_multiline var tiles_text:String = ""
 @export var enemies_node:Node
 
 @onready var standard_ammo = preload("res://scenes/components/ammo/standard_ammo.tscn")
@@ -16,81 +14,41 @@ signal recalculate_speed
 
 var structures : Array
 var speed : int
-var tiles : Array
-var ship_tiles : Array
 var components: Array
-var occupied_tiles : Array
-var mapping_offset : Vector2
-var mapping_max : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var tile_strings = tiles_text.rsplit("\n", false)
-	for tile_string in tile_strings:
-		tile_string = tile_string.rstrip(")")
-		var tile_split = tile_string.rsplit("(")
-		var tile_position : Vector2 = str_to_var("Vector2(" + tile_split[1] + ")")
-		var type:Global.ComponentType
-		if tile_split[0].strip_escapes().to_lower() == "uni":
-			type = Global.ComponentType.NONE
-		elif tile_split[0].strip_escapes().to_lower() == "engine":
-			type = Global.ComponentType.ENGINE
-		elif tile_split[0].strip_escapes().to_lower() == "weapon":
-			type = Global.ComponentType.WEAPON
-		elif tile_split[0].strip_escapes().to_lower() == "ammo":
-			type = Global.ComponentType.AMMO
-		else:
-			type = Global.ComponentType.NONE
-		if tile_position.x < mapping_offset.x:
-			mapping_offset.x = tile_position.x
-		if tile_position.y < mapping_offset.y:
-			mapping_offset.y = tile_position.y
-		if tile_position.x > mapping_max.x:
-			mapping_max.x = tile_position.x
-		if tile_position.y > mapping_max.y:
-			mapping_max.y = tile_position.y
-		tiles.append(ShipTile.new(type, hex_to_pixel(tile_position), tile_position, global_position))
-	mapping_max += Vector2.ONE
-	for x in mapping_max.x - mapping_offset.x:
-		ship_tiles.append([])
-		occupied_tiles.append([])
-		components.append([])
-		for y in mapping_max.y - mapping_offset.y:
-			ship_tiles[x].append(null)
-			occupied_tiles[x].append(false)
-			components[x].append(null)
-	for tile in tiles:
-		var tile_with_offset = tile.hex_position - mapping_offset
-		ship_tiles[tile_with_offset.x][tile_with_offset.y] = tile.type
-	for x in ship_tiles.size():
-		var y_size = ship_tiles[x].size()
+	super()
+	for x in structure_map.size():
+		var y_size = structure_map[x].size()
 		for y in y_size:
-			match ship_tiles[x][y]:
+			match structure_map[x][y]:
 				Global.ComponentType.AMMO: 
 					var temp = standard_ammo.instantiate()
-					occupied_tiles[x][y] = true
+					component_map[x][y] = temp
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.CARGO: 
 					var temp = standard_ammo.instantiate()
-					occupied_tiles[x][y] = true
+					component_map[x][y] = temp
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.ENGINE: 
 					var temp = standard_engine.instantiate()
-					occupied_tiles[x][y] = true
+					component_map[x][y] = temp
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.FUELCELL: 
 					var temp = standard_fuelcell.instantiate()
-					occupied_tiles[x][y] = true
+					component_map[x][y] = temp
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.WEAPON: 
 					var temp = laser.instantiate()
-					occupied_tiles[x][y] = true
+					component_map[x][y] = temp
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
+					return
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -110,9 +68,9 @@ func _input(event):
 
 func on_ship(point:Vector2):
 	var hex_point = pixel_to_hex(point) - mapping_offset
-	if hex_point.x >= ship_tiles.size() or hex_point.y >= ship_tiles[0].size() or hex_point.x < 0 or hex_point.y < 0:
+	if hex_point.x >= structure_map.size() or hex_point.y >= structure_map[0].size() or hex_point.x < 0 or hex_point.y < 0:
 		return false
-	if ship_tiles[hex_point.x][hex_point.y] != null:
+	if structure_map[hex_point.x][hex_point.y] != null:
 		return true
 	return false
 
@@ -129,24 +87,12 @@ func crosses_ship(start_point:Vector2, goal_point:Vector2):
 func ccw(vec_a:Vector2, vec_b:Vector2, vec_c:Vector2):
 	return (vec_c.y - vec_a.y) * (vec_b.x - vec_a.x) > (vec_b.y - vec_a.y) * (vec_c.x - vec_a.x)
 
-func place_component(component:StructureComponent, new_component_position:Vector2):
+func try_place_component(component:StructureComponent, new_component_position:Vector2):
 	var hex_position:Vector2 = pixel_to_hex(new_component_position)
-	var hex_position_with_offset = hex_position - mapping_offset
-	if hex_position_with_offset.x < 0 or hex_position_with_offset.x > occupied_tiles.size():
+	var hex_index = hex_position - mapping_offset
+	if not tile_free(hex_index) or not match_component_type(component.type, hex_index):
 		return null
-	if hex_position_with_offset.y < 0 or hex_position_with_offset.y > occupied_tiles.size():
-		return null
-	if hex_position_with_offset.x >= ship_tiles.size() or hex_position_with_offset.y >= ship_tiles[0].size():
-		return null
-	if occupied_tiles[hex_position_with_offset.x][hex_position_with_offset.y] == true:
-		return null
-	if component.type != ship_tiles[hex_position_with_offset.x][hex_position_with_offset.y]:
-		if component.type == Global.ComponentType.WEAPON or component.type == Global.ComponentType.ENGINE:
-			return null
-	var current_hex_position_with_offset = pixel_to_hex(component.global_position) - mapping_offset
-	if current_hex_position_with_offset.x < occupied_tiles.size() and current_hex_position_with_offset.y < occupied_tiles[0].size() and current_hex_position_with_offset.x >= 0 and current_hex_position_with_offset.y >= 0:
-		occupied_tiles[current_hex_position_with_offset.x][current_hex_position_with_offset.y] = false
-	return hex_to_pixel(hex_position)
+	return place_component(component, hex_position, hex_index)
 
 func calculate_speed():
 	var weight = 0
@@ -157,66 +103,6 @@ func calculate_speed():
 			force += structure.force()
 	return force / weight
 
-func hex_corners(hex:Vector2):
-	var hex_position = hex_to_pixel(hex)
-	var corners:Array = []
-	var angles:Array = [-30, -90, 210, 150, 90, 30]
-
-	for angle_deg in angles:
-		var angle_rad = deg_to_rad(angle_deg)
-		var corner = hex_position + Vector2(cos(angle_rad), sin(angle_rad)) * size
-		corners.append(corner.round())
-	return corners
-
-func hex_to_pixel(hex:Vector2):
-	var x = round(size * (1.75 * hex.x + 0.875 * hex.y))
-	var y = round(size * 1.5625 * hex.y)
-	return Vector2(x, y) + global_position
-
-func pixel_to_hex(point:Vector2):
-	point = to_local(point)
-	var x = (sqrt(3)/3 * point.x - 1./3 * point.y) / size
-	var y = (2./3 * point.y) / size
-	return axial_round(Vector2(x,y))
-
-func axial_round(hex:Vector2):
-	return cube_to_axial(cube_round(axial_to_cube(hex)))
-
-func cube_round(frac:Vector3):
-	var x = round(frac.x)
-	var y = round(frac.y)
-	var z = round(frac.z)
-
-	var x_diff = abs(x - frac.x)
-	var y_diff = abs(y - frac.y)
-	var z_diff = abs(z - frac.z)
-
-	if x_diff > y_diff and x_diff > z_diff:
-		x = -y-z
-	elif y_diff > z_diff:
-		y = -x-z
-	else:
-		z = -x-y
-
-	return Vector3(x, y, z)
-
-func cube_to_axial(cube:Vector3):
-	var x = cube.x
-	var y = cube.y
-	return Vector2(x, y)
-
-func axial_to_cube(hex:Vector2):
-	var x = hex.x
-	var y = hex.y
-	var z = -x-y
-	return Vector3(x, y, z)
-
-
 func _on_recalculate_speed():
 	speed = calculate_speed()
-
-func _draw():
-	for tile in tiles:
-		draw_set_transform(Vector2.ZERO, 0, Vector2(0.5, 0.5))
-		draw_texture(tile.texture, tile.draw_position)
 

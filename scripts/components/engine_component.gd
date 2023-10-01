@@ -23,7 +23,7 @@ func _ready():
 
 func _process(delta):
 	if fuelcells.is_empty():
-		get_neigbhors()
+		get_neighbors()
 		get_fuelcells()
 	
 	if fuel_storage < fuel_max_storage and fuelcells.size() > 0:
