@@ -12,7 +12,6 @@ enum ComponentType {
 var camera: Camera = null
 var popup: PopupDialog = null
 
-var camera:Camera = null
 var shake = true
 var sound:float = 1.0
 
