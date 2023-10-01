@@ -11,8 +11,8 @@
 
 [node name="standard_ammo" type="Node2D" node_paths=PackedStringArray("fuel_bar", "health", "sprite")]
 script = ExtResource("1_fm13y")
-ammo_storage = 5
-ammo_max_storage = 5
+ammo_storage = 40
+ammo_max_storage = 40
 fuel_bar = NodePath("Sprite2D/FuelBar")
 health = NodePath("HealthComponent")
 sprite = NodePath("Sprite2D")

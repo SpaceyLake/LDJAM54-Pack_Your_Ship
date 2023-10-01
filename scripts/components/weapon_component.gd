@@ -95,7 +95,7 @@ func fire_gun():
 			ammo_bar.value = float(ammo_storage)/float(ammo_max_storage)
 	
 	if fire and ray.is_colliding():
-		target = null
+		target = enemies.pick_random()
 	
 	if ammo_storage < 1: 
 		out_of_ammo.visible = true
