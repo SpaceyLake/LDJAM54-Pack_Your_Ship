@@ -62,10 +62,6 @@ func get_ammo():
 		if neighbor.type == Global.ComponentType.AMMO:
 			ammo_cells.append(neighbor)
 
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		print(str(enemies.size()))
-
 func fire_gun():
 	if ammo_storage < ammo_max_storage and ammo_cells.size() > 0:
 		ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)
@@ -85,7 +81,7 @@ func fire_gun():
 			ammo_storage -= 1
 		
 		if ammo_bar != null:
-			ammo_bar.value = ammo_storage/ammo_max_storage
+			ammo_bar.value = float(ammo_storage)/float(ammo_max_storage)
 	
 	if fire and ray.is_colliding():
 		target = null

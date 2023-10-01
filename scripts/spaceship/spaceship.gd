@@ -63,38 +63,47 @@ func _ready():
 	for x in ship_tiles.size():
 		var y_size = ship_tiles[x].size()
 		for y in y_size:
-			var x_hex = x-ship_tiles.size()/2
-			var y_hex = y-y_size/2
 			match ship_tiles[x][y]:
 				Global.ComponentType.AMMO: 
 					var temp = standard_ammo.instantiate()
+					components[x][y] = temp
+					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.CARGO: 
 					var temp = standard_ammo.instantiate()
+					components[x][y] = temp
+					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.ENGINE: 
 					var temp = standard_engine.instantiate()
+					components[x][y] = temp
+					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.FUELCELL: 
 					var temp = standard_fuelcell.instantiate()
+					components[x][y] = temp
+					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 				Global.ComponentType.WEAPON: 
 					var temp = laser.instantiate()
+					components[x][y] = temp
+					occupied_tiles[x][y] = true
 					add_child(temp)
-					temp.global_position = hex_to_pixel(Vector2(x_hex,y_hex))
+					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		crosses_ship(Vector2.ONE * 300, get_global_mouse_position())
-		tiles = []
-		ship_tiles = []
-		_ready()
-		queue_redraw()
+#func _process(delta):
+#	if Input.is_action_just_pressed("ui_accept"):
+#		crosses_ship(Vector2.ONE * 300, get_global_mouse_position())
+#		tiles = []
+#		ship_tiles = []
+#		occupied_tiles = []
+#		_ready()
+#		queue_redraw()
 
 func _input(event):
 	if event.is_action_pressed("interact"):
@@ -126,6 +135,10 @@ func ccw(vec_a:Vector2, vec_b:Vector2, vec_c:Vector2):
 func place_component(component:StructureComponent, new_component_position:Vector2):
 	var hex_position:Vector2 = pixel_to_hex(new_component_position)
 	var hex_position_with_offset = hex_position - mapping_offset
+	if hex_position_with_offset.x < 0 or hex_position_with_offset.x > occupied_tiles.size():
+		return null
+	if hex_position_with_offset.y < 0 or hex_position_with_offset.y > occupied_tiles.size():
+		return null
 	if hex_position_with_offset.x >= ship_tiles.size() or hex_position_with_offset.y >= ship_tiles[0].size():
 		return null
 	if occupied_tiles[hex_position_with_offset.x][hex_position_with_offset.y] == true:
@@ -149,8 +162,7 @@ func calculate_speed():
 
 func hex_corners(hex:Vector2):
 	var hex_position = hex_to_pixel(hex)
-	var corners:Array
-	var r = size*sqrt(3)/2
+	var corners:Array = []
 	var angles:Array = [-30, -90, 210, 150, 90, 30]
 
 	for angle_deg in angles:

@@ -9,9 +9,13 @@ class_name StructureComponent
 @export var sprite: Sprite2D
 @export var neighbors: Array
 @export var debug: bool = false
-@onready var spaceship:SpaceShip = get_parent()
+@onready var spaceship:SpaceShip = get_parent() if get_parent() is SpaceShip else null
 
 func _ready():
+	for x in spaceship.components.size():
+		for y in spaceship.components[x].size():
+			if spaceship.components[x][y] == self:
+				pos = Vector2(x,y)
 	health.health_depleted.connect(Callable(self, "on_death"))
 
 func place(new_position:Vector2):

@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="4_iv8m4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ntjqi"]
+size = Vector2(32, 32)
 
 [node name="Fighter" type="Node2D" node_paths=PackedStringArray("health")]
 script = ExtResource("1_w7qwx")
@@ -25,5 +26,5 @@ script = ExtResource("1_vvwg6")
 max_health = 1.0
 
 [node name="PirateFighter" type="Sprite2D" parent="."]
-scale = Vector2(0.3125, 0.3125)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_iv8m4")

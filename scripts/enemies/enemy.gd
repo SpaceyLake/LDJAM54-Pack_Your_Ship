@@ -9,8 +9,8 @@ signal enemy_killed_signal(enemy)
 func _ready():
 	health.health_depleted.connect(Callable(self, "on_death"))
 
-func setup(goal:Vector2):
-	self.goal = goal
+func setup(new_goal:Vector2):
+	self.goal = new_goal
 
 func on_death():
 	enemy_killed_signal.emit(self)
