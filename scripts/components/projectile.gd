@@ -8,6 +8,7 @@ class_name Projectile
 @export var particel_trail: GPUParticles2D
 @export var particel_explode: GPUParticles2D
 @export var timer:Timer
+@export var hit_audio:AudioStreamPlayer
 
 func _ready():
 	attack.hit.connect(Callable(self,"on_hit"))
@@ -22,6 +23,7 @@ func remove():
 
 func on_hit():
 	timer.start(1)
+	hit_audio.play(0)
 	if particel_trail != null:
 		particel_trail.set_emitting(false)
 	if particel_explode != null:

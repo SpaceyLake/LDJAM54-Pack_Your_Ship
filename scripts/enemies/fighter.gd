@@ -40,5 +40,5 @@ func fire():
 	add_child(proj)
 	proj.global_position = muzzles[muzzle].global_position
 	muzzle = int(fmod(muzzle + 1, 2))
-	audio.play(0)
+	fire_audio.play(0)
 	proj.target = Vector2(1,0)

@@ -5,7 +5,7 @@ class_name WeaponComponent
 @export var projectile: PackedScene
 @export var ammo_storage: int
 @export var ammo_max_storage: int
-@export var target: Node2D
+@export var target: Enemy
 @export var targeting: TargetingComponent2D
 @export var turret: Node2D
 @export var turret_muzzel: Marker2D
@@ -14,7 +14,7 @@ class_name WeaponComponent
 @export var ammo_bar: TextureProgressBar
 @export var out_of_ammo: Sprite2D
 @export var ray: RayCast2D
-@export var audio:AudioStreamPlayer
+@export var fire_audio:AudioStreamPlayer
 
 var fire:bool = false
 var ammo_cells: Array
@@ -34,6 +34,8 @@ func _process(delta):
 	if ammo_cells.is_empty():
 		get_neighbors()
 		get_ammo()
+	if target != null and target.health.current_health <= 0:
+		target = null
 	if target != null:
 		targeting.target = target
 		targeting.rotate_towards_target(delta)
@@ -93,7 +95,7 @@ func fire_gun():
 		proj.global_position = turret_muzzel.global_position
 		proj.target = Vector2(1,0).rotated(turret.global_rotation) #target.global_position - global_position
 		animation_player.play("fire")
-		audio.play(0)
+		fire_audio.play(0)
 		
 		if ammo_cells.size():
 			ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cub6m24x8hwio"]
+[gd_scene load_steps=9 format=3 uid="uid://cub6m24x8hwio"]
 
 [ext_resource type="Script" path="res://scenes/components/ammo/standard_ammo.gd" id="1_fm13y"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="2_a8tme"]
@@ -6,16 +6,19 @@
 [ext_resource type="Texture2D" uid="uid://bbe51ks2ip2sc" path="res://assets/components/component_ammo_1.png" id="4_omjoq"]
 [ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="5_mjm47"]
 [ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="6_06e11"]
+[ext_resource type="AudioStream" uid="uid://cj7cx773tcw28" path="res://assets/sound/explosion_big.wav" id="7_r100x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_msfuh"]
 
-[node name="standard_ammo" type="Node2D" node_paths=PackedStringArray("fuel_bar", "health", "sprite")]
+[node name="standard_ammo" type="Node2D" node_paths=PackedStringArray("fuel_bar", "hurt_box", "health", "sprite", "death_audio")]
 script = ExtResource("1_fm13y")
 ammo_storage = 40
 ammo_max_storage = 40
 fuel_bar = NodePath("Sprite2D/FuelBar")
+hurt_box = NodePath("HurtboxComponent2D")
 health = NodePath("HealthComponent")
 sprite = NodePath("Sprite2D")
+death_audio = NodePath("AudioStreamPlayer")
 
 [node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("2_a8tme")
@@ -53,3 +56,6 @@ tint_progress = Color(0.628906, 0.933594, 0.472656, 1)
 [node name="Handle" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_06e11")]
 z_index = 10
 parent = NodePath("..")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_r100x")
