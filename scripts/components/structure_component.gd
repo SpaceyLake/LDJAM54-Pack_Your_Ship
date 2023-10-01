@@ -13,7 +13,7 @@ class_name StructureComponent
 @onready var spaceship = null if spacestation == null else spacestation.spaceship
 
 func _ready():
-	health.health_depleted.connect(Callable(self, "on_death"))
+	health.health_depleted.connect(on_death)
 
 func place(new_position:Vector2):
 	var corrected_position = spaceship.try_place_component(self, new_position)

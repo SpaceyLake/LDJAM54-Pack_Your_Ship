@@ -7,6 +7,7 @@ var spaceship:SpaceShip
 signal enemy_killed_signal(enemy)
 
 @export var health: HealthComponent
+@export var audio: AudioStreamPlayer
 
 func _ready():
 	health.health_depleted.connect(on_death)

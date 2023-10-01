@@ -45,7 +45,7 @@ func _on_spawn_timer_timeout():
 		if goal.distance_squared_to(other_enemy.goal) < 64*64:
 			if goal.x > (get_viewport().get_visible_rect().size.x/2 + Global.camera.global_position.x) - 160:
 				goal.x -= 64
-			elif goal.x < 96:
+			elif goal.x < -(get_viewport().get_visible_rect().size.x/2 + Global.camera.global_position.x) + 160:
 				goal.x -= 64
 			else:
 				goal.x += 64 * sign(float(rng.randi_range(0, 1)) - 0.5)
@@ -60,6 +60,14 @@ func _on_spawn_timer_timeout():
 		tries += 1
 	while spaceship.on_ship(goal) or spaceship.on_ship((spaceship.global_position - goal).normalized() * 64 + goal):
 		goal.y += move_toward(goal.y, position.y, 64)
+	if goal.x > Global.camera.global_position.x + get_viewport().get_visible_rect().size.x/2 - 64:
+		goal.x = Global.camera.global_position.x + get_viewport().get_visible_rect().size.x/2 - 64
+	if goal.x < -1 * (Global.camera.global_position.x + get_viewport().get_visible_rect().size.x/2 - 64):
+		goal.x = -1 * (Global.camera.global_position.x + get_viewport().get_visible_rect().size.x/2 - 64)
+	if goal.y > Global.camera.global_position.y + get_viewport().get_visible_rect().size.y/2 - 64:
+		goal.y = Global.camera.global_position.y + get_viewport().get_visible_rect().size.y/2 - 64
+	if goal.y < -1 * (Global.camera.global_position.y + get_viewport().get_visible_rect().size.y/2 - 64):
+		goal.y = -1 * (Global.camera.global_position.y + get_viewport().get_visible_rect().size.y/2 - 64)
 	var rnd_enemy = rng.randi_range(0, total_likeliness - 1)
 	var enemy:Enemy
 	for i in enemy_likeliness.size():

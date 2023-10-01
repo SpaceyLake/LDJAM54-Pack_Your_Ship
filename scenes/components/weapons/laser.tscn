@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ctetuxeiw1hul"]
+[gd_scene load_steps=17 format=3 uid="uid://ctetuxeiw1hul"]
 
 [ext_resource type="Script" path="res://scenes/components/weapons/laser.gd" id="1_v6cd5"]
 [ext_resource type="PackedScene" uid="uid://e2x7um1dl5xp" path="res://scenes/components/projectiles/laser_projectile.tscn" id="2_17bwn"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b6f1qorrglo3f" path="res://scenes/components/handle.tscn" id="10_4oir4"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="11_2cu1h"]
 [ext_resource type="Texture2D" uid="uid://7h7e1no82hi8" path="res://assets/alerts/alert_out_of_ammo.png" id="12_7lvkl"]
+[ext_resource type="AudioStream" uid="uid://crskqjmhjv81s" path="res://assets/sound/turret.wav" id="13_kkpsv"]
 
 [sub_resource type="Animation" id="Animation_je1oh"]
 length = 0.001
@@ -107,7 +108,7 @@ _data = {
 "fire": SubResource("Animation_xke1w")
 }
 
-[node name="laser" type="Node2D" node_paths=PackedStringArray("targeting", "turret", "turret_muzzel", "animation_player", "ammo_bar", "out_of_ammo", "ray", "health", "sprite")]
+[node name="laser" type="Node2D" node_paths=PackedStringArray("targeting", "turret", "turret_muzzel", "animation_player", "ammo_bar", "out_of_ammo", "ray", "audio", "health", "sprite")]
 z_index = 10
 script = ExtResource("1_v6cd5")
 projectile = ExtResource("2_17bwn")
@@ -120,6 +121,7 @@ animation_player = NodePath("AnimationPlayer")
 ammo_bar = NodePath("turret/turret_sprite/AmmoBar")
 out_of_ammo = NodePath("out_of_ammo")
 ray = NodePath("turret/muzzel/RayCast2D")
+audio = NodePath("AudioStreamPlayer")
 type = 2
 health = NodePath("HealthComponent")
 sprite = NodePath("base")
@@ -203,3 +205,6 @@ polygon = PackedVector2Array(0, -31, 27, -17, 27, 17, 0, 31, -27, 17, -27, -17)
 visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_7lvkl")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_kkpsv")

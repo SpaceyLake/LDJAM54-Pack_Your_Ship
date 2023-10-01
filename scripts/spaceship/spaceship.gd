@@ -3,6 +3,7 @@ extends HexStructure
 class_name SpaceShip
 
 @export var enemies_node:Node
+@export var audio:AudioStreamPlayer
 
 @onready var standard_ammo = preload("res://scenes/components/ammo/standard_ammo.tscn")
 @onready var standard_cargo = preload("res://scenes/components/cargo/standard_cargo.tscn")
@@ -10,7 +11,11 @@ class_name SpaceShip
 @onready var standard_fuelcell = preload("res://scenes/components/fuelcells/standard_fuelcell.tscn")
 @onready var laser = preload("res://scenes/components/weapons/laser.tscn")
 
-var speed : int
+var speed : float
+
+func _ready():
+	super()
+	audio.play(0)
 
 func _input(event):
 	if event.is_action_pressed("interact"):

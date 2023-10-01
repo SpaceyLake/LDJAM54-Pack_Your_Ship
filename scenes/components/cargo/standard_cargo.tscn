@@ -18,8 +18,9 @@ sprite = NodePath("Sprite2D")
 script = ExtResource("1_xhmxs")
 current_health = 10.0
 
-[node name="HurtboxComponent2D" type="Area2D" parent="."]
+[node name="HurtboxComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("2_uk8ps")
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtboxComponent2D"]
 polygon = PackedVector2Array(0, -31, 27, -17, 27, 17, 0, 31, -27, 17, -27, -17)
