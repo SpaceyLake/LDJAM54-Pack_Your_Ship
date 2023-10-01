@@ -48,16 +48,12 @@ func _ready():
 					component_map[x][y] = temp
 					add_child(temp)
 					temp.global_position = hex_to_pixel(Vector2(x+mapping_offset.x,y+mapping_offset.y))
-					return
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	if Input.is_action_just_pressed("ui_accept"):
 #		crosses_ship(Vector2.ONE * 300, get_global_mouse_position())
-#		tiles = []
-#		ship_tiles = []
-#		occupied_tiles = []
-#		_ready()
+#		super._ready()
 #		queue_redraw()
 
 func _input(event):
