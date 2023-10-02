@@ -44,7 +44,7 @@ func on_death():
 	print(name+": DIED of type " + Global.ComponentType.keys()[type])
 
 func activate():
-	pass
+	set_process(true)
 
 func deactivate():
-	pass
+	set_process(false)

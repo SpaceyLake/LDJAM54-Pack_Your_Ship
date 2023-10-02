@@ -10,8 +10,8 @@
 
 [node name="standard_fuelcell" type="Node2D" node_paths=PackedStringArray("fuel_bar", "hurt_box", "health", "sprite", "death_audio")]
 script = ExtResource("1_xm4se")
-fuel_storage = 300.0
-fuel_max_storage = 300.0
+fuel_storage = 3000.0
+fuel_max_storage = 3000.0
 fuel_bar = NodePath("Sprite2D/FuelBar")
 hurt_box = NodePath("HurtboxComponent2D")
 health = NodePath("HealthComponent")

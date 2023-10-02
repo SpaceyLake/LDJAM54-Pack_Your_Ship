@@ -13,6 +13,8 @@ signal enemy_killed_signal(enemy)
 
 func _ready():
 	health.health_depleted.connect(on_death)
+	fire_audio.volume_db = Global.sound
+	death_audio.volume_db = Global.sound
 
 func setup(new_goal:Vector2, new_spaceship:SpaceShip):
 	self.goal = new_goal

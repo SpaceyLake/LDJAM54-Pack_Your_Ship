@@ -4,6 +4,7 @@ extends Node
 @export var enemy_scenes:Array[PackedScene]
 @export var enemy_likeliness:Array[float]
 @export var space_ship:SpaceShip
+@export var active:bool = false
 
 @onready var spawn_timer = $SpawnTimer
 @onready var spaceship:SpaceShip = get_parent().get_node("Spaceship")
@@ -71,7 +72,7 @@ func _on_spawn_timer_timeout():
 	var rnd_enemy = rng.randi_range(0, total_likeliness - 1)
 	var enemy:Enemy
 	for i in enemy_likeliness.size():
-		if rnd_enemy <= enemy_likeliness[i]:
+		if rnd_enemy <= enemy_likeliness[i] and active:
 			enemy = enemy_scenes[i].instantiate()
 			add_child(enemy)
 			enemy.global_position = position

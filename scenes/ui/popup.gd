@@ -69,13 +69,13 @@ func _on_timer_timeout():
 		writing = false
 		timer.start(text_delay)
 
-func _on_button_next(viewport, event, shape_index):
+func _on_button_next(_viewport, event, _shape_index):
 	if (event is InputEventMouseButton && event.is_released()):
 		if writing:
 			text_holder.visible_ratio = 1
 		else:
 			next_text()
 
-func _on_button_close(viewport, event, shape_index):
+func _on_button_close(_viewport, event, _shape_index):
 	if (event is InputEventMouseButton && event.is_released()):
 		close()

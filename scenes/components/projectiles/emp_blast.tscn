@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://utwvm2pr3gge"]
+
+[ext_resource type="Script" path="res://scenes/components/projectiles/emp_blast.gd" id="1_2ds40"]
+[ext_resource type="Texture2D" uid="uid://cjf7gttg4ggrf" path="res://assets/BigCircle.svg" id="2_7kcr1"]
+[ext_resource type="Script" path="res://addons/composition/scripts/attack_component.gd" id="3_2o7lp"]
+[ext_resource type="Material" uid="uid://c1u3tqhnqwthv" path="res://materials/particles/enemy_laser_projectile_explode.tres" id="4_o6rnn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xeued"]
+radius = 173.142
+
+[node name="emp_blast" type="Node2D" node_paths=PackedStringArray("sprite", "particel_explode", "timer")]
+script = ExtResource("1_2ds40")
+sprite = NodePath("Sprite2D")
+particel_explode = NodePath("GPUParticles2D")
+timer = NodePath("Timer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_7kcr1")
+
+[node name="AttackComponent2D" type="Area2D" parent="."]
+script = ExtResource("3_2o7lp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent2D"]
+shape = SubResource("CircleShape2D_xeued")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0, 0.254902, 1, 0.968627)
+self_modulate = Color(0, 1, 1, 1)
+scale = Vector2(1.81, 1.81)
+process_material = ExtResource("4_o6rnn")
+lifetime = 3.5
+explosiveness = 0.72
+randomness = 0.25
+trail_lifetime = 5.14
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0

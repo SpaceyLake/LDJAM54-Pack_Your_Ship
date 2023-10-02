@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dp5sjk1125yxd"]
+[gd_scene load_steps=16 format=3 uid="uid://dp5sjk1125yxd"]
 
 [ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="1_0g0xl"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="4_74slv"]
@@ -8,11 +8,82 @@
 [ext_resource type="PackedScene" uid="uid://cwmt88khbkvfv" path="res://scenes/camera.tscn" id="7_acphv"]
 [ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="7_snx33"]
 [ext_resource type="PackedScene" uid="uid://pnhhd10wghol" path="res://scenes/Spacestation/spacestation.tscn" id="8_c2y8a"]
+[ext_resource type="Texture2D" uid="uid://735tpj420ov1" path="res://assets/gui/gui_button_start.png" id="10_4notg"]
 [ext_resource type="AudioStream" uid="uid://d3wqfbtvae20b" path="res://assets/music/song.wav" id="10_lliwq"]
 
 [sub_resource type="GDScript" id="GDScript_bu0gm"]
 script/source = "extends Node2D
 
+@onready var audio = $AudioStreamPlayer
+@onready var spawner = $EnemySpawner
+@onready var ship = $Spaceship
+@onready var ship_animation = $Spacestation/AnimationPlayer
+@onready var depart_button = $DepartButton
+@onready var progress = $camera/Progressbar
+
+var docked:bool = true
+var current_path:Array
+var temp_num = 0
+var current_distance: float = 0.0
+var goal_distance: float = 0.0
+var current_name: String = \"\"
+
+func _ready():
+	if audio != null:
+		audio.volume_db = Global.sound
+	generate_path(5)
+	next_station()
+	set_process(false)
+
+func _process(delta):
+	current_distance -= ship.get_speed() * delta
+	if progress != null:
+		progress.value = (goal_distance-current_distance)/goal_distance
+	if current_distance <= 0:
+		arrive()
+
+func depart():
+	docked = false
+	ship.activate_components()
+	depart_button.visible = false
+	ship_animation.play(\"Spacestation_out\")
+
+func arrive():
+	set_process(false)
+	ship.deactivate_components()
+	docked = true
+	ship_animation.play(\"Spacestation_in\")
+
+func generate_name():
+	pass
+
+func next_station():
+	if current_path.size():
+		current_distance = current_path[0][0]
+		goal_distance = current_path[0][0]
+		current_name = current_path[0][1]
+		current_path.remove_at(0)
+		generate_path(1)
+	else:
+		print(\"NO STATIONS... WHY THO\")
+		print(\"YOU WIN... I GUESS?\")
+
+func generate_path(amount:int):
+	for n in amount:
+		current_path.append([randf_range(100.0,500.0), \"SPACESTATION \"+str(temp_num)])
+		temp_num += 1
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == \"Spacestation_in\":
+		depart_button.visible = true
+	if anim_name == \"Spacestation_out\":
+		set_process(true)
+		spawner.active = true
+
+
+func _on_depart_button_button_up():
+	depart()
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kn5r0"]
@@ -113,3 +184,13 @@ libraries = {
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_lliwq")
 autoplay = true
+
+[node name="DepartButton" type="Button" parent="."]
+offset_left = 354.0
+offset_top = 225.0
+offset_right = 562.0
+offset_bottom = 301.0
+icon = ExtResource("10_4notg")
+
+[connection signal="animation_finished" from="Spacestation/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="button_up" from="DepartButton" to="." method="_on_depart_button_button_up"]
