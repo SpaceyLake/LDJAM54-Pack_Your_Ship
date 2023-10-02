@@ -1,10 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5wog3bayx8tu"]
+[gd_scene load_steps=22 format=3 uid="uid://b5wog3bayx8tu"]
 
 [ext_resource type="PackedScene" uid="uid://cwmt88khbkvfv" path="res://scenes/camera.tscn" id="1_intob"]
 [ext_resource type="Script" path="res://scenes/ui/start_screen.gd" id="1_j1f6w"]
 [ext_resource type="Texture2D" uid="uid://735tpj420ov1" path="res://assets/gui/gui_button_start.png" id="3_b8mq0"]
 [ext_resource type="Texture2D" uid="uid://b4wfbx75c3pk" path="res://assets/gui/gui_button_options.png" id="4_bvfyd"]
 [ext_resource type="Texture2D" uid="uid://bq8cinfq22jjc" path="res://assets/gui/gui_button_exit.png" id="5_pou0p"]
+[ext_resource type="Texture2D" uid="uid://dbuvd6boqnxss" path="res://assets/gui/gui_title.png" id="6_ysqj8"]
+[ext_resource type="Texture2D" uid="uid://dfh38jbg70jnn" path="res://assets/space_ship_1.png" id="7_7a35t"]
+[ext_resource type="Texture2D" uid="uid://c2qb8mcgyblkp" path="res://assets/tiles/tile_weapon.png" id="8_qys48"]
+[ext_resource type="Texture2D" uid="uid://d2xc6fwp5sx1d" path="res://assets/tiles/tile_normal.png" id="9_uro3k"]
+[ext_resource type="Texture2D" uid="uid://b0s5hly0ml5l5" path="res://assets/tiles/tile_engine.png" id="10_gci2h"]
+[ext_resource type="Texture2D" uid="uid://50ysefracsm" path="res://assets/components/component_engine_1.png" id="11_a2tve"]
+[ext_resource type="Texture2D" uid="uid://d2qjavnwdc6tq" path="res://assets/components/component_fuel_tank_1.png" id="12_32whh"]
+[ext_resource type="Texture2D" uid="uid://dufogs3qr7aoq" path="res://assets/components/component_turret_laser_base_1.png" id="13_7rhve"]
+[ext_resource type="Texture2D" uid="uid://bbe51ks2ip2sc" path="res://assets/components/component_ammo_1.png" id="14_x7k4p"]
+[ext_resource type="Texture2D" uid="uid://b3yqkc1ibtb81" path="res://assets/components/component_cargo_1.png" id="15_txjfm"]
+[ext_resource type="Texture2D" uid="uid://c1ysqp05cjn15" path="res://assets/components/component_turret_laser_cannon_1.png" id="16_gmoni"]
+[ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="17_rwnpn"]
+[ext_resource type="Texture2D" uid="uid://dsr7vstfrtym5" path="res://assets/pirates/ships/pirate_bomber.png" id="18_t24jy"]
+[ext_resource type="Texture2D" uid="uid://b8n0ft128837y" path="res://assets/pirates/ships/pirate_missileray.png" id="19_qpbbo"]
+[ext_resource type="Texture2D" uid="uid://bjb4cyyksvdn7" path="res://assets/pirates/ships/pirate_scout.png" id="20_mdw3t"]
+[ext_resource type="Texture2D" uid="uid://2jemrqbstdbd" path="res://assets/space_staton_1.png" id="21_teun0"]
 
 [node name="start_screen" type="Node2D"]
 script = ExtResource("1_j1f6w")
@@ -42,6 +58,489 @@ offset_top = 66.0
 offset_right = 80.0
 offset_bottom = 134.0
 flat = true
+
+[node name="SpaceStaton1" type="Sprite2D" parent="."]
+position = Vector2(218, 223)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("21_teun0")
+
+[node name="GuiTitle" type="Sprite2D" parent="."]
+position = Vector2(0, -200)
+texture = ExtResource("6_ysqj8")
+
+[node name="SpaceShip1" type="Sprite2D" parent="."]
+position = Vector2(-357, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_7a35t")
+
+[node name="TileWeapon" type="Sprite2D" parent="."]
+position = Vector2(-243, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_qys48")
+
+[node name="TileWeapon2" type="Sprite2D" parent="."]
+position = Vector2(-327, 79)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_qys48")
+
+[node name="TileWeapon3" type="Sprite2D" parent="."]
+position = Vector2(-467, 29)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_qys48")
+
+[node name="TileWeapon4" type="Sprite2D" parent="."]
+position = Vector2(-327, 179)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_qys48")
+
+[node name="TileWeapon5" type="Sprite2D" parent="."]
+position = Vector2(-467, 229)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_qys48")
+
+[node name="TileNormal" type="Sprite2D" parent="."]
+position = Vector2(-299, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal2" type="Sprite2D" parent="."]
+position = Vector2(-383, 179)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal3" type="Sprite2D" parent="."]
+position = Vector2(-355, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal4" type="Sprite2D" parent="."]
+position = Vector2(-383, 79)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal5" type="Sprite2D" parent="."]
+position = Vector2(-439, 79)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal6" type="Sprite2D" parent="."]
+position = Vector2(-411, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal8" type="Sprite2D" parent="."]
+position = Vector2(149, 176)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal9" type="Sprite2D" parent="."]
+position = Vector2(121, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal10" type="Sprite2D" parent="."]
+position = Vector2(205, 176)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal11" type="Sprite2D" parent="."]
+position = Vector2(177, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal12" type="Sprite2D" parent="."]
+position = Vector2(233, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal22" type="Sprite2D" parent="."]
+position = Vector2(289, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal23" type="Sprite2D" parent="."]
+position = Vector2(261, 276)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal24" type="Sprite2D" parent="."]
+position = Vector2(345, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal25" type="Sprite2D" parent="."]
+position = Vector2(317, 276)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal26" type="Sprite2D" parent="."]
+position = Vector2(373, 276)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal13" type="Sprite2D" parent="."]
+position = Vector2(149, 275)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal14" type="Sprite2D" parent="."]
+position = Vector2(205, 275)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal15" type="Sprite2D" parent="."]
+position = Vector2(429, 176)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal16" type="Sprite2D" parent="."]
+position = Vector2(401, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal17" type="Sprite2D" parent="."]
+position = Vector2(485, 176)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal18" type="Sprite2D" parent="."]
+position = Vector2(457, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal19" type="Sprite2D" parent="."]
+position = Vector2(513, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal20" type="Sprite2D" parent="."]
+position = Vector2(429, 275)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal21" type="Sprite2D" parent="."]
+position = Vector2(485, 275)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileNormal7" type="Sprite2D" parent="."]
+position = Vector2(-439, 179)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_uro3k")
+
+[node name="TileEngine" type="Sprite2D" parent="."]
+position = Vector2(-467, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_gci2h")
+
+[node name="TileEngine2" type="Sprite2D" parent="."]
+position = Vector2(-495, 79)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_gci2h")
+
+[node name="TileEngine3" type="Sprite2D" parent="."]
+position = Vector2(-495, 179)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_gci2h")
+
+[node name="ComponentEngine1" type="Sprite2D" parent="."]
+position = Vector2(-508, 79)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_a2tve")
+
+[node name="ComponentEngine2" type="Sprite2D" parent="."]
+position = Vector2(-508, 179)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_a2tve")
+
+[node name="ComponentEngine3" type="Sprite2D" parent="."]
+position = Vector2(-480, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_a2tve")
+
+[node name="ComponentEngine4" type="Sprite2D" parent="."]
+position = Vector2(164, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_a2tve")
+
+[node name="ComponentEngine5" type="Sprite2D" parent="."]
+position = Vector2(192, 275)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_a2tve")
+
+[node name="ComponentFuelTank1" type="Sprite2D" parent="."]
+position = Vector2(-439, 179)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_32whh")
+
+[node name="ComponentFuelTank3" type="Sprite2D" parent="."]
+position = Vector2(149, 176)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_32whh")
+
+[node name="ComponentFuelTank4" type="Sprite2D" parent="."]
+position = Vector2(318, 276)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_32whh")
+
+[node name="ComponentFuelTank6" type="Sprite2D" parent="."]
+position = Vector2(401, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_32whh")
+
+[node name="ComponentFuelTank7" type="Sprite2D" parent="."]
+position = Vector2(485, 275)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_32whh")
+
+[node name="ComponentFuelTank5" type="Sprite2D" parent="."]
+position = Vector2(233, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_32whh")
+
+[node name="ComponentFuelTank2" type="Sprite2D" parent="."]
+position = Vector2(-439, 79)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_32whh")
+
+[node name="ComponentTurretLaserBase1" type="Sprite2D" parent="."]
+position = Vector2(-243, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_7rhve")
+
+[node name="ComponentTurretLaserBase2" type="Sprite2D" parent="."]
+position = Vector2(-327, 79)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_7rhve")
+
+[node name="ComponentTurretLaserBase6" type="Sprite2D" parent="."]
+position = Vector2(289, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_7rhve")
+
+[node name="ComponentTurretLaserBase7" type="Sprite2D" parent="."]
+position = Vector2(345, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_7rhve")
+
+[node name="ComponentTurretLaserBase3" type="Sprite2D" parent="."]
+position = Vector2(-327, 179)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_7rhve")
+
+[node name="ComponentTurretLaserBase4" type="Sprite2D" parent="."]
+position = Vector2(-467, 29)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_7rhve")
+
+[node name="ComponentTurretLaserBase5" type="Sprite2D" parent="."]
+position = Vector2(-467, 229)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_7rhve")
+
+[node name="ComponentAmmo1" type="Sprite2D" parent="."]
+position = Vector2(-299, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_x7k4p")
+
+[node name="ComponentAmmo2" type="Sprite2D" parent="."]
+position = Vector2(429, 176)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_x7k4p")
+
+[node name="ComponentAmmo3" type="Sprite2D" parent="."]
+position = Vector2(485, 176)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_x7k4p")
+
+[node name="ComponentAmmo4" type="Sprite2D" parent="."]
+position = Vector2(373, 276)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_x7k4p")
+
+[node name="ComponentCargo1" type="Sprite2D" parent="."]
+position = Vector2(-383, 79)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_txjfm")
+
+[node name="ComponentCargo2" type="Sprite2D" parent="."]
+position = Vector2(-355, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_txjfm")
+
+[node name="ComponentCargo5" type="Sprite2D" parent="."]
+position = Vector2(205, 176)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_txjfm")
+
+[node name="ComponentCargo6" type="Sprite2D" parent="."]
+position = Vector2(261, 276)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_txjfm")
+
+[node name="ComponentCargo7" type="Sprite2D" parent="."]
+position = Vector2(457, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_txjfm")
+
+[node name="ComponentCargo9" type="Sprite2D" parent="."]
+position = Vector2(429, 275)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_txjfm")
+
+[node name="ComponentCargo8" type="Sprite2D" parent="."]
+position = Vector2(513, 226)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_txjfm")
+
+[node name="ComponentCargo3" type="Sprite2D" parent="."]
+position = Vector2(-411, 129)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_txjfm")
+
+[node name="ComponentCargo4" type="Sprite2D" parent="."]
+position = Vector2(-383, 179)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_txjfm")
+
+[node name="ComponentTurretLaserCannon1" type="Sprite2D" parent="."]
+position = Vector2(-243, 129)
+rotation = -0.523599
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_gmoni")
+offset = Vector2(20, 0)
+
+[node name="ComponentTurretLaserCannon4" type="Sprite2D" parent="."]
+position = Vector2(-327, 179)
+rotation = 0.523599
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_gmoni")
+offset = Vector2(20, 0)
+
+[node name="ComponentTurretLaserCannon5" type="Sprite2D" parent="."]
+position = Vector2(-467, 229)
+rotation = 0.785398
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_gmoni")
+offset = Vector2(20, 0)
+
+[node name="ComponentTurretLaserCannon2" type="Sprite2D" parent="."]
+position = Vector2(-327, 79)
+rotation = -1.24442
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_gmoni")
+offset = Vector2(20, 0)
+
+[node name="ComponentTurretLaserCannon6" type="Sprite2D" parent="."]
+position = Vector2(289, 226)
+rotation = -1.57079
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_gmoni")
+offset = Vector2(20, 0)
+
+[node name="ComponentTurretLaserCannon7" type="Sprite2D" parent="."]
+position = Vector2(345, 226)
+rotation = -1.57079
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_gmoni")
+offset = Vector2(20, 0)
+
+[node name="ComponentTurretLaserCannon3" type="Sprite2D" parent="."]
+position = Vector2(-467, 29)
+rotation = -2.0944
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_gmoni")
+offset = Vector2(20, 0)
+
+[node name="PirateFighter" type="Sprite2D" parent="."]
+position = Vector2(-540, -115)
+rotation = 1.0472
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_rwnpn")
+
+[node name="PirateFighter2" type="Sprite2D" parent="."]
+position = Vector2(-277, -78)
+rotation = 1.9635
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_rwnpn")
+
+[node name="PirateFighter6" type="Sprite2D" parent="."]
+position = Vector2(315, -94)
+rotation = 2.87979
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_rwnpn")
+
+[node name="PirateFighter7" type="Sprite2D" parent="."]
+position = Vector2(352, 21)
+rotation = 2.48709
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_rwnpn")
+
+[node name="PirateFighter3" type="Sprite2D" parent="."]
+position = Vector2(-116, 66)
+rotation = 2.68432
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_rwnpn")
+
+[node name="PirateFighter4" type="Sprite2D" parent="."]
+position = Vector2(-129, 262)
+rotation = 3.60061
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_rwnpn")
+
+[node name="PirateFighter5" type="Sprite2D" parent="."]
+position = Vector2(-371, 313)
+rotation = 3.88859
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_rwnpn")
+
+[node name="PirateBomber" type="Sprite2D" parent="."]
+position = Vector2(-395, -110)
+rotation = 0.328122
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("18_t24jy")
+
+[node name="PirateBomber2" type="Sprite2D" parent="."]
+position = Vector2(431, -161)
+rotation = 2.68432
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("18_t24jy")
+
+[node name="PirateBomber3" type="Sprite2D" parent="."]
+position = Vector2(492, 14)
+rotation = 2.87979
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("18_t24jy")
+
+[node name="PirateMissileray" type="Sprite2D" parent="."]
+position = Vector2(-477, -164)
+rotation = 0.261799
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("19_qpbbo")
+
+[node name="PirateMissileray2" type="Sprite2D" parent="."]
+position = Vector2(398, -62)
+rotation = 2.81347
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("19_qpbbo")
+
+[node name="PirateMissileray3" type="Sprite2D" parent="."]
+position = Vector2(471, -87)
+rotation = 2.55167
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("19_qpbbo")
+
+[node name="PirateScout" type="Sprite2D" parent="."]
+position = Vector2(-537, 286)
+rotation = -0.326377
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_mdw3t")
+
+[node name="PirateScout2" type="Sprite2D" parent="."]
+position = Vector2(250, -13)
+rotation = 2.87979
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_mdw3t")
 
 [connection signal="button_up" from="StartButton" to="." method="_on_start_button_button_up"]
 [connection signal="button_up" from="OptionsButton" to="." method="_on_options_button_button_up"]
