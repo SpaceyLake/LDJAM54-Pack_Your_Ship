@@ -12,6 +12,9 @@ class_name Spacestation
 
 func _ready():
 	super()
+	generate_components()
+
+func generate_components():
 	for x in structure_map.size():
 		for y in structure_map[x].size():
 			if structure_map[x][y] != null and fmod(x, 2) == 0:

@@ -17,6 +17,7 @@ script/source = "extends Node2D
 @onready var audio = $AudioStreamPlayer
 @onready var spawner = $EnemySpawner
 @onready var ship = $Spaceship
+@onready var station = $Spacestation
 @onready var ship_animation = $Spacestation/AnimationPlayer
 @onready var depart_button = $DepartButton
 @onready var progress = $camera/Progressbar
@@ -50,7 +51,6 @@ func game_over():
 
 func depart():
 	docked = false
-	ship.activate_components()
 	depart_button.visible = false
 	ship_animation.play(\"Spacestation_out\")
 
@@ -89,8 +89,10 @@ func _on_animation_player_animation_finished(anim_name):
 		depart_button.visible = true
 		
 	if anim_name == \"Spacestation_out\":
+		station.generate_components()
 		set_process(true)
-		spawner.active = true
+		ship.activate_components()
+		#spawner.active = true
 
 
 func _on_depart_button_button_up():
