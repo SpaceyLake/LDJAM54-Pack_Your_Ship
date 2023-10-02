@@ -1,15 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://dp5sjk1125yxd"]
+[gd_scene load_steps=18 format=3 uid="uid://dp5sjk1125yxd"]
 
 [ext_resource type="Texture2D" uid="uid://8m7sbvudnvds" path="res://assets/pirates/ships/pirate_fighter.png" id="1_0g0xl"]
 [ext_resource type="Script" path="res://addons/composition/scripts/hurtbox_component.gd" id="4_74slv"]
 [ext_resource type="Script" path="res://addons/composition/scripts/health_component.gd" id="5_ljtar"]
 [ext_resource type="PackedScene" uid="uid://cjghh4y5mjr57" path="res://scenes/spaceship/spaceship.tscn" id="5_rikf0"]
 [ext_resource type="PackedScene" uid="uid://dhm2374yx1fne" path="res://scenes/enemies/enemy_spawner.tscn" id="6_e8xti"]
+[ext_resource type="Texture2D" uid="uid://ce543wkh31vrp" path="res://assets/gui/gui_button_launch.png" id="7_0r5bp"]
 [ext_resource type="PackedScene" uid="uid://cwmt88khbkvfv" path="res://scenes/camera.tscn" id="7_acphv"]
-[ext_resource type="Texture2D" uid="uid://cp50s0yjjcrq2" path="res://assets/white_pixel.png" id="7_snx33"]
 [ext_resource type="PackedScene" uid="uid://pnhhd10wghol" path="res://scenes/Spacestation/spacestation.tscn" id="8_c2y8a"]
-[ext_resource type="Texture2D" uid="uid://735tpj420ov1" path="res://assets/gui/gui_button_start.png" id="10_4notg"]
+[ext_resource type="Texture2D" uid="uid://cbi6mjjdws06g" path="res://assets/gui/gui_progress_bar.png" id="10_bmtlc"]
 [ext_resource type="AudioStream" uid="uid://d3wqfbtvae20b" path="res://assets/music/song.wav" id="10_lliwq"]
+[ext_resource type="FontFile" uid="uid://d0gsfbmg5eeah" path="res://assets/fonts/5x5fontx2.png" id="11_vdykt"]
+[ext_resource type="Texture2D" uid="uid://drlnl5msdp24n" path="res://assets/gui/gui_progress_bar_border.png" id="12_vgmhs"]
 
 [sub_resource type="GDScript" id="GDScript_bu0gm"]
 script/source = "extends Node2D
@@ -37,6 +39,17 @@ func _ready():
 	next_station()
 	ship.dead.connect(Callable(self,\"game_over\"))
 	set_process(false)
+	
+	Global.popup_queue_test(\"GREETINGS HUMAN! THIS IS YOUR CAPTAIN M4RV1N SPEAKING!\")
+	Global.popup_queue_test(\"WE HAVE A TIGHT SCHEDULE TO KEEP SO GET TO LOADING MY SHIP!\")
+	Global.popup_queue_test(\"CLICK AND DRAG ITEMS FROM THE SPACESTATION TO THE SHIP!\")
+	Global.popup_queue_test(\"I NEED [color=green]ENGINES[/color] TO MOVE AND [color=red]TURRETS[/color] TO GET RID OF [color=red][wave]SPACE PIRATES!\")
+	Global.popup_queue_test(\"[color=green]ENGINES[/color] AND [color=red]TURRETS[/color] ONLY FUNCTION ON THEIR RESPECTIVE TILES!\")
+	Global.popup_queue_test(\"[color=green]ENGINES[/color] REQUIRE NEARBY FUELCELLS AND [color=red]TURRETS[/color]REQUIRE AMMO!\")
+	Global.popup_queue_test(\"BE SURE TO LOAD AS MUCH CARGO AS POSSIBLE OTHERWISE I WILL NEVER BE [color=yellow][wave]RICH!\")
+	Global.popup_queue_test(\"BUT MAKE SURE WE DON'T GET STRANDED WITHOUT FUEL OR AMMO!\")
+	Global.popup_queue_test(\"THERE IS NO ROADSIDE ASSISTANCE IN [wave]SPACE!!!\")
+	
 
 func _process(delta):
 	current_distance -= ship.get_speed() * delta
@@ -103,6 +116,9 @@ func _on_animation_player_animation_finished(anim_name):
 func _on_depart_button_button_up():
 	if ship.has_engine():
 		depart()
+	else:
+		Global.popup_queue_test(\"WITHOUT [color=green]ENGINES[/color] THIS SHIP IS JUST A PIECE OF FANCY DEBRI!\")
+		Global.popup_queue_test(\"AND EVEN I CAN'T DRIVE THAT!\")
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kn5r0"]
@@ -183,11 +199,12 @@ stream = ExtResource("10_lliwq")
 autoplay = true
 
 [node name="DepartButton" type="Button" parent="."]
-offset_left = 354.0
-offset_top = 225.0
+offset_left = 426.0
+offset_top = 259.0
 offset_right = 562.0
 offset_bottom = 301.0
-icon = ExtResource("10_4notg")
+icon = ExtResource("7_0r5bp")
+flat = true
 
 [node name="Spaceship" parent="." node_paths=PackedStringArray("enemies_node") instance=ExtResource("5_rikf0")]
 position = Vector2(-28, 0)
@@ -195,33 +212,47 @@ enemies_node = NodePath("../EnemySpawner")
 
 [node name="camera" parent="." instance=ExtResource("7_acphv")]
 
-[node name="Progressbar" type="TextureProgressBar" parent="camera"]
-z_index = 1000
-anchors_preset = -1
-anchor_right = 0.932
-anchor_bottom = 0.571
-offset_left = -439.0
-offset_top = -282.0
-offset_right = -421.0
-offset_bottom = 677.0
-rotation = -1.5708
-max_value = 1.0
-step = 0.01
-value = 1.0
-fill_mode = 2
-nine_patch_stretch = true
-texture_progress = ExtResource("7_snx33")
-tint_progress = Color(0.628906, 0.933594, 0.472656, 1)
-
 [node name="Label" type="Label" parent="camera"]
 z_index = 1000
 offset_left = -552.0
 offset_top = -302.0
 offset_right = -470.0
 offset_bottom = -276.0
+theme_override_fonts/font = ExtResource("11_vdykt")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Progressbar" type="TextureProgressBar" parent="camera/Label"]
+z_index = 1000
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.932
+anchor_bottom = 0.571
+offset_left = 113.0
+offset_top = 20.0
+offset_right = 995.576
+offset_bottom = 13.154
+max_value = 1.0
+step = 0.01
+value = 1.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_progress = ExtResource("10_bmtlc")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="camera"]
+offset_left = -443.0
+offset_top = -286.0
+offset_right = 524.0
+offset_bottom = -270.0
+texture = ExtResource("12_vgmhs")
+patch_margin_left = 8
+patch_margin_top = 6
+patch_margin_right = 8
+patch_margin_bottom = 6
 
 [connection signal="animation_finished" from="Spacestation/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="button_up" from="DepartButton" to="." method="_on_depart_button_button_up"]
