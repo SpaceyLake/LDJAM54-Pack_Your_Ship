@@ -223,26 +223,6 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Progressbar" type="TextureProgressBar" parent="camera/Label"]
-z_index = 1000
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.932
-anchor_bottom = 0.571
-offset_left = 113.0
-offset_top = 20.0
-offset_right = 995.576
-offset_bottom = 13.154
-max_value = 1.0
-step = 0.01
-value = 1.0
-nine_patch_stretch = true
-stretch_margin_left = 4
-stretch_margin_top = 4
-stretch_margin_right = 4
-stretch_margin_bottom = 4
-texture_progress = ExtResource("10_bmtlc")
-
 [node name="NinePatchRect" type="NinePatchRect" parent="camera"]
 offset_left = -443.0
 offset_top = -286.0
@@ -253,6 +233,26 @@ patch_margin_left = 8
 patch_margin_top = 6
 patch_margin_right = 8
 patch_margin_bottom = 6
+
+[node name="Progressbar" type="TextureProgressBar" parent="camera/NinePatchRect"]
+z_index = 1000
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.932
+anchor_bottom = 0.571
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 61.756
+offset_bottom = 2.864
+max_value = 1.0
+step = 0.01
+value = 1.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_progress = ExtResource("10_bmtlc")
 
 [connection signal="animation_finished" from="Spacestation/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="button_up" from="DepartButton" to="." method="_on_depart_button_button_up"]
