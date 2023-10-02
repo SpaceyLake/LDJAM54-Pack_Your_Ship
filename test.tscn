@@ -52,6 +52,7 @@ func arrive():
 	set_process(false)
 	ship.deactivate_components()
 	docked = true
+	next_station()
 	ship_animation.play(\"Spacestation_in\")
 
 func generate_name():
@@ -70,16 +71,19 @@ func next_station():
 
 func generate_path(amount:int):
 	for n in amount:
-		current_path.append([randf_range(100.0,500.0), \"SPACESTATION \"+str(temp_num)])
+		current_path.append([randf_range(1.0,10.0), \"SPACESTATION \"+str(temp_num)])
 		temp_num += 1
 
+func calculate_time() -> float:
+	return current_distance/ship.get_speed() # ish rätt
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == \"Spacestation_in\":
 		depart_button.visible = true
+		
 	if anim_name == \"Spacestation_out\":
 		set_process(true)
-		spawner.active = true
+		#spawner.active = true
 
 
 func _on_depart_button_button_up():
