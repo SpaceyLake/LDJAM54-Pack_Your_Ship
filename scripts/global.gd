@@ -13,7 +13,7 @@ var camera: Camera = null
 var popup: PopupDialog = null
 
 var shake = true
-var sound:float = 1.0
+var sound:float = 0.0
 
 var rng = RandomNumberGenerator.new()
 

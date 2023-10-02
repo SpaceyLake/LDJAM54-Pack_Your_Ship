@@ -1,6 +1,8 @@
 extends Node2D
 class_name StructureComponent
 
+signal destroyed
+
 @export var type: Global.ComponentType
 @export var hurt_box: HurtboxComponent2D
 @export var health: HealthComponent
@@ -42,9 +44,11 @@ func on_death():
 	Global.screen_shake(30)
 	death_audio.play(0)
 	print(name+": DIED of type " + Global.ComponentType.keys()[type])
+	destroyed.emit()
+	queue_free()
 
 func activate():
-	pass
+	set_process(true)
 
 func deactivate():
-	pass
+	set_process(false)

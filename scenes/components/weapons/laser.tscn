@@ -113,6 +113,7 @@ _data = {
 z_index = 10
 script = ExtResource("1_v6cd5")
 projectile = ExtResource("2_17bwn")
+ammo_drain = 1
 ammo_storage = 5
 ammo_max_storage = 5
 targeting = NodePath("TargetingComponent2D")

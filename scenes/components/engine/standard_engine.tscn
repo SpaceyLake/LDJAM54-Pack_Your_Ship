@@ -13,7 +13,7 @@
 
 [node name="standard_engine" type="Node2D" node_paths=PackedStringArray("fuel_bar", "out_of_fuel", "particles", "hurt_box", "health", "sprite", "death_audio")]
 script = ExtResource("1_rlowa")
-fuel_drain = 60.0
+fuel_drain = 20.0
 fuel_storage = 60.0
 fuel_max_storage = 60.0
 force = 100.0

@@ -3,6 +3,7 @@ class_name WeaponComponent
 
 @export var distance: float
 @export var projectile: PackedScene
+@export var ammo_drain: int
 @export var ammo_storage: int
 @export var ammo_max_storage: int
 @export var target: Enemy
@@ -29,6 +30,8 @@ func _ready():
 	
 	for ammo_cell in ammo_cells:
 		ammo_cell.out_of_ammo.connect(Callable(self, "ammo_cell_out_of_fuel"))
+	
+	fire_audio.volume_db = Global.sound
 
 func _process(delta):
 	if ammo_cells.is_empty():
@@ -84,12 +87,30 @@ func get_ammo():
 				neighbor.out_of_ammo.connect(ammo_cell_out_of_fuel)
 			ammo_cells.append(neighbor)
 
-func fire_gun():
+func fill_ammo_storage():
 	if ammo_storage < ammo_max_storage and ammo_cells.size() > 0:
 		ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)
 		ammo_storage += ammo_cells[0].drain_ammo(ammo_max_storage-ammo_storage)
+
+func drain_ammo(amount):
+	if ammo_cells.size():
+		ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)
+		ammo_cells[0].drain_ammo(amount)
+	elif ammo_storage > 0:
+		ammo_storage -= amount
+
+func is_out_of_ammo():
+	if ammo_storage < ammo_drain: 
+		out_of_ammo.visible = true
+		return true
+	else: 
+		out_of_ammo.visible = false
+		return false
+
+func fire_gun():
+	fill_ammo_storage()
 	
-	if fire and not animation_player.is_playing() and not ray.is_colliding() and ammo_storage > 0:
+	if fire and not animation_player.is_playing() and not ray.is_colliding() and not ammo_storage < ammo_drain:
 		var proj = projectile.instantiate()
 		add_child(proj)
 		proj.global_position = turret_muzzel.global_position
@@ -97,11 +118,7 @@ func fire_gun():
 		animation_player.play("fire")
 		fire_audio.play(0)
 		
-		if ammo_cells.size():
-			ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)
-			ammo_cells[0].drain_ammo(1)
-		elif ammo_storage > 0:
-			ammo_storage -= 1
+		drain_ammo(ammo_drain)
 		
 		if ammo_bar != null:
 			ammo_bar.value = float(ammo_storage)/float(ammo_max_storage)
@@ -109,10 +126,7 @@ func fire_gun():
 	if fire and ray.is_colliding():
 		target = null
 	
-	if ammo_storage < 1: 
-		out_of_ammo.visible = true
-	else: 
-		out_of_ammo.visible = false
+	is_out_of_ammo()
 
 func select_target():
 	enemies.clear()

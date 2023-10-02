@@ -2,16 +2,10 @@
 extends HexStructure
 class_name SpaceShip
 
+signal dead
+
 @export var enemies_node:Node
 @export var audio:AudioStreamPlayer
-
-@onready var standard_ammo = preload("res://scenes/components/ammo/standard_ammo.tscn")
-@onready var standard_cargo = preload("res://scenes/components/cargo/standard_cargo.tscn")
-@onready var standard_engine = preload("res://scenes/components/engine/standard_engine.tscn")
-@onready var standard_fuelcell = preload("res://scenes/components/fuelcells/standard_fuelcell.tscn")
-@onready var laser = preload("res://scenes/components/weapons/laser.tscn")
-
-var speed : float
 
 func _ready():
 	super()
@@ -58,11 +52,62 @@ func place_component(component:StructureComponent, hex_position:Vector2, hex_ind
 func remove_component(component:StructureComponent):
 	super(component)
 
+func get_weight() -> float:
+	var weight = 100.0
+	for x in component_map.size():
+		for y in component_map[0].size():
+			if component_map[x][y] != null:
+				weight += component_map[x][y].weight
+	return weight
+
+func component_lost():
+	if not alive():
+		dead.emit()
+
+func alive():
+	var alive: int = 0
+	for x in component_map.size():
+		for y in component_map[0].size():
+			if component_map[x][y] != null and component_map[x][y].type == Global.ComponentType.ENGINE:
+				if component_map[x][y].fuel_storage > 0:
+					alive += 1
+	if alive>0:
+		return true
+	return false
+
+func get_force():
+	var force = 0.0
+	for x in component_map.size():
+		for y in component_map[0].size():
+			if component_map[x][y] != null and component_map[x][y].type == Global.ComponentType.ENGINE:
+				force += component_map[x][y].force
+	return force
+
+func get_speed() -> float:
+	var speed = 0.0
+	speed = get_force() / get_weight()
+	return speed
+
+func activate_components():
+	for x in component_map.size():
+		for y in component_map[0].size():
+			if component_map[x][y] != null:
+				component_map[x][y].activate()
+
+func deactivate_components():
+	for x in component_map.size():
+		for y in component_map[0].size():
+			if component_map[x][y] != null:
+				component_map[x][y].deactivate()
+
 func update_neighbors():
 	for x in component_map.size():
 		for y in component_map[0].size():
 			if component_map[x][y] != null:
 				component_map[x][y].get_neighbors()
+				component_map[x][y].destroyed.connect(Callable(self,"component_lost"))
+				if component_map[x][y].type == Global.ComponentType.ENGINE:
+					component_map[x][y].force_change.connect(Callable(self,"component_lost"))
 
 func get_closest_component(point:Vector2):
 	var hex_point = pixel_to_hex(point)
@@ -81,4 +126,5 @@ func get_closest_component(point:Vector2):
 
 func _on_child_entered_tree(node):
 	if node is StructureComponent:
-		node.activate()
+		#node.activate() not needed with current implementation since they are activated on departure
+		pass
