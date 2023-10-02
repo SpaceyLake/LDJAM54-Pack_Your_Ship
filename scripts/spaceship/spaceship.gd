@@ -59,17 +59,18 @@ func get_weight() -> float:
 				weight += component_map[x][y].weight
 	return weight
 
-func component_lost():
-	if not alive():
+func component_lost(component):
+	if not alive(component):
 		dead.emit()
 
-func alive():
+func alive(component):
 	var alive: int = 0
 	for x in component_map.size():
 		for y in component_map[0].size():
-			if component_map[x][y] != null and component_map[x][y].type == Global.ComponentType.ENGINE:
+			if component_map[x][y] != null and component_map[x][y].type == Global.ComponentType.ENGINE and component_map[x][y] != component:
 				if component_map[x][y].fuel_storage > 0:
 					alive += 1
+	print(alive)
 	if alive>0:
 		return true
 	return false
@@ -129,3 +130,20 @@ func _on_child_entered_tree(node):
 	if node is StructureComponent:
 		#node.activate() not needed with current implementation since they are activated on departure
 		pass
+
+func has_engine():
+	for x in component_map.size():
+		for y in component_map[x].size():
+			if component_map[x][y] != null and component_map[x][y].type == Global.ComponentType.ENGINE:
+				return true
+	return false
+
+func deliver_cargo():
+	var cargo = 0
+	for x in component_map.size():
+		for y in component_map[x].size():
+			if component_map[x][y] != null and component_map[x][y].type == Global.ComponentType.CARGO:
+				component_map[x][y].queue_free()
+				component_map[x][y] = null
+				cargo += 1
+	return cargo

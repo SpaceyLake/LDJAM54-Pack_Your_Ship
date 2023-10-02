@@ -4,6 +4,7 @@ class_name Enemy
 var goal:Vector2
 var target:StructureComponent
 var spaceship:SpaceShip
+var fly = false
 signal enemy_killed_signal(enemy)
 
 @export var hurtbox: HurtboxComponent2D
@@ -15,6 +16,7 @@ func _ready():
 	health.health_depleted.connect(on_death)
 	fire_audio.volume_db = Global.sound
 	death_audio.volume_db = Global.sound
+	fly = false
 
 func setup(new_goal:Vector2, new_spaceship:SpaceShip):
 	self.goal = new_goal

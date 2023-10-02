@@ -1,6 +1,6 @@
 extends Enemy
 
-@export var velocity = 500
+@export var velocity = 350
 @export var rotation_velocity = 10
 @export var projectile: PackedScene
 @onready var muzzle_l = $MuzzleL
@@ -18,6 +18,9 @@ func _process(delta):
 	if global_position != goal:
 		global_rotation = (goal - global_position).angle()
 		global_position = global_position.move_toward(goal, velocity*delta)
+	elif fly:
+		enemy_killed_signal.emit(self)
+		remove()
 	if target == null:
 		target = spaceship.get_closest_component(goal)
 		if target == null:

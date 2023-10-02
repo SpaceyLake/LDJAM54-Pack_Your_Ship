@@ -82,5 +82,12 @@ func _on_spawn_timer_timeout():
 			break
 	spawn_timer.start(rng.randf_range(5 * spawnrate, 15 * spawnrate))
 
+func fly():
+	for enemy in enemies:
+		enemy.goal = Vector2(enemy.global_position.x, Global.camera.global_position.y + (get_viewport().get_visible_rect().size.y/2 + 200)*sign(enemy.global_position.y - spaceship.global_position.y))
+		enemy.fly = true
+		enemy.target = null
+		enemy.attackTimer.stop()
+
 func _on_enemy_killed(enemy:Enemy):
 	enemies.erase(enemy)

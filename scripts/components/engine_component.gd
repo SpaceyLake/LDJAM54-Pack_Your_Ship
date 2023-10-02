@@ -37,7 +37,7 @@ func _process(delta):
 	else:
 		fuel_storage = 0
 		force = 0
-		force_change.emit()
+		force_change.emit(null)
 	
 	if fuel_bar != null:
 		fuel_bar.value = fuel_storage/fuel_max_storage
@@ -61,14 +61,15 @@ func deactivate():
 	set_process(false)
 	particles.emitting = false
 	force = 0
-	force_change.emit()
+	if active:
+		force_change.emit(null)
 
 func activate():
 	if super():
 		particles.emitting = true
 		if fuelcells.size() or fuel_storage > 0:
 			force = force_max
-			force_change.emit()
+			force_change.emit(null)
 
 func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 	fuelcells.remove_at(fuelcells.find(fuelcell))
