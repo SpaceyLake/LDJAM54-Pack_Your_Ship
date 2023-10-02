@@ -23,11 +23,6 @@ func _ready():
 func _exit():
 	Global.popup = null
 
-#DEBUG TEST CODE!!!
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		queue_text("HELLO HUMAN THIS IS YOUR CAPTAIN M4RV1N SPEAKING!!!")
-
 func queue_text(new_text: String):
 	if !open:
 		_open()
