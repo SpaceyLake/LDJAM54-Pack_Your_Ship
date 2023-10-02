@@ -23,7 +23,7 @@ var end = preload(\"res://scenes/ui/end.tscn\")
 @onready var station = $Spacestation
 @onready var ship_animation = $Spacestation/AnimationPlayer
 @onready var depart_button = $DepartButton
-@onready var progress = $camera/Progressbar
+@onready var progress = $camera/NinePatchRect/Progressbar
 
 var docked:bool = true
 var current_path:Array
@@ -114,7 +114,7 @@ func _on_animation_player_animation_finished(anim_name):
 		station.generate_components()
 		set_process(true)
 		ship.activate_components()
-		#spawner.active = true
+		spawner.active = true
 
 
 func _on_depart_button_button_up():
