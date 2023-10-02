@@ -2,6 +2,8 @@
 extends HexStructure
 class_name SpaceShip
 
+signal dead
+
 @export var enemies_node:Node
 @export var audio:AudioStreamPlayer
 
@@ -58,6 +60,21 @@ func get_weight() -> float:
 				weight += component_map[x][y].weight
 	return weight
 
+func component_lost():
+	if not alive():
+		dead.emit()
+
+func alive():
+	var alive: int = 0
+	for x in component_map.size():
+		for y in component_map[0].size():
+			if component_map[x][y] != null and component_map[x][y].type == Global.ComponentType.ENGINE:
+				if component_map[x][y].fuel_storage > 0:
+					alive += 1
+	if alive>0:
+		return true
+	return false
+
 func get_force():
 	var force = 0.0
 	for x in component_map.size():
@@ -88,6 +105,9 @@ func update_neighbors():
 		for y in component_map[0].size():
 			if component_map[x][y] != null:
 				component_map[x][y].get_neighbors()
+				component_map[x][y].destroyed.connect(Callable(self,"component_lost"))
+				if component_map[x][y].type == Global.ComponentType.ENGINE:
+					component_map[x][y].force_change.connect(Callable(self,"component_lost"))
 
 func get_closest_component(point:Vector2):
 	var hex_point = pixel_to_hex(point)

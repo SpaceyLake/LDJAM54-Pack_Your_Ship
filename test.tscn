@@ -33,6 +33,7 @@ func _ready():
 		audio.volume_db = Global.sound
 	generate_path(5)
 	next_station()
+	ship.dead.connect(Callable(self,\"game_over\"))
 	set_process(false)
 
 func _process(delta):
@@ -41,6 +42,11 @@ func _process(delta):
 		progress.value = (goal_distance-current_distance)/goal_distance
 	if current_distance <= 0:
 		arrive()
+
+
+## TODO called when out of engines
+func game_over():
+	print(\"DEAD\")
 
 func depart():
 	docked = false
@@ -51,6 +57,7 @@ func depart():
 func arrive():
 	set_process(false)
 	ship.deactivate_components()
+	spawner.active = false
 	docked = true
 	next_station()
 	ship_animation.play(\"Spacestation_in\")
@@ -71,7 +78,7 @@ func next_station():
 
 func generate_path(amount:int):
 	for n in amount:
-		current_path.append([randf_range(1.0,10.0), \"SPACESTATION \"+str(temp_num)])
+		current_path.append([randf_range(60.0,120.0), \"SPACESTATION \"+str(temp_num)])
 		temp_num += 1
 
 func calculate_time() -> float:
@@ -83,7 +90,7 @@ func _on_animation_player_animation_finished(anim_name):
 		
 	if anim_name == \"Spacestation_out\":
 		set_process(true)
-		#spawner.active = true
+		spawner.active = true
 
 
 func _on_depart_button_button_up():
@@ -174,6 +181,7 @@ script = ExtResource("5_ljtar")
 enemies_node = NodePath("../EnemySpawner")
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("space_ship") instance=ExtResource("6_e8xti")]
+spawnrate = 1.0
 space_ship = NodePath("../Spaceship")
 
 [node name="Spacestation" parent="." node_paths=PackedStringArray("spaceship") instance=ExtResource("8_c2y8a")]

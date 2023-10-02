@@ -1,7 +1,7 @@
 extends StructureComponent
 class_name EngineComponent
 
-signal force_change(old_force, new_force)
+signal force_change
 
 @export var fuel_drain: float
 @export var fuel_storage: float
@@ -38,7 +38,7 @@ func _process(delta):
 		fuel_storage = 0
 		var old = force
 		force = 0
-		force_change.emit(old, force)
+		force_change.emit()
 	
 	if fuel_bar != null:
 		fuel_bar.value = fuel_storage/fuel_max_storage
