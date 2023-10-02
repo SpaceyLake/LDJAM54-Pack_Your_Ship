@@ -14,6 +14,7 @@
 [sub_resource type="GDScript" id="GDScript_bu0gm"]
 script/source = "extends Node2D
 
+var end = preload(\"res://scenes/ui/end.tscn\")
 @onready var audio = $AudioStreamPlayer
 @onready var spawner = $EnemySpawner
 @onready var ship = $Spaceship
@@ -29,6 +30,7 @@ var current_distance: float = 0.0
 var goal_distance: float = 0.0
 var current_name: String = \"\"
 var delivered_cargo = 0
+var end_scene = null
 
 func _ready():
 	if audio != null:
@@ -48,7 +50,10 @@ func _process(delta):
 
 ## TODO called when out of engines
 func game_over():
-	print(\"DEAD\")
+	if end_scene == null:
+		end_scene = end.instantiate()
+		add_child(end_scene)
+		end_scene.set_score(delivered_cargo)
 
 func depart():
 	docked = false
@@ -60,7 +65,6 @@ func arrive():
 	ship.deactivate_components()
 	delivered_cargo += ship.deliver_cargo()
 	$camera/Label.text = str(delivered_cargo)
-	print(delivered_cargo)
 	spawner.active = false
 	spawner.fly()
 	docked = true
