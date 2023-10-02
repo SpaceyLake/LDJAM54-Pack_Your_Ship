@@ -16,7 +16,7 @@ func _input(event):
 		mouse_position = event.position
 		if holding:
 			shadow.global_position = mouse_position - held_offset
-	if event is InputEventMouseButton and event.is_pressed() and mouse_on:
+	if event is InputEventMouseButton and event.is_pressed() and mouse_on and event.button_index == MOUSE_BUTTON_LEFT:
 		previous_position = parent.global_position
 		held_offset = mouse_position - parent.global_position
 		shadow = parent.duplicate()
@@ -25,7 +25,7 @@ func _input(event):
 		shadow.global_position = mouse_position - held_offset
 		shadow.modulate = 0xFFFFFF7F
 		shadow.set_process(false)
-	if event is InputEventMouseButton and not event.is_pressed() and holding:
+	if event is InputEventMouseButton and not event.is_pressed() and holding and event.button_index == MOUSE_BUTTON_LEFT:
 		parent.place(shadow.global_position)
 		holding = false
 		shadow.queue_free()

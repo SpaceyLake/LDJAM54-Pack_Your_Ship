@@ -36,7 +36,6 @@ func _process(delta):
 		fuel_storage -= fuel_drain * delta
 	else:
 		fuel_storage = 0
-		var old = force
 		force = 0
 		force_change.emit()
 	
@@ -61,10 +60,15 @@ func get_neighbors():
 func deactivate():
 	set_process(false)
 	particles.emitting = false
+	force = 0
+	force_change.emit()
 
 func activate():
-	set_process(true)
-	particles.emitting = true
+	if super():
+		particles.emitting = true
+		if fuelcells.size() or fuel_storage > 0:
+			force = force_max
+			force_change.emit()
 
 func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
 	fuelcells.remove_at(fuelcells.find(fuelcell))

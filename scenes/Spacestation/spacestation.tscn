@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://pnhhd10wghol"]
+[gd_scene load_steps=3 format=3 uid="uid://pnhhd10wghol"]
 
 [ext_resource type="Script" path="res://scripts/spacestation/spacestation.gd" id="1_4mw16"]
+[ext_resource type="Texture2D" uid="uid://2jemrqbstdbd" path="res://assets/space_staton_1.png" id="2_wae3e"]
 
 [node name="Spacestation" type="Node2D"]
 script = ExtResource("1_4mw16")
@@ -23,5 +24,10 @@ normal(-2,-2)
 normal(-1,-2)
 normal(4,-2)
 normal(3,-2)"
+
+[node name="SpaceStaton1" type="Sprite2D" parent="."]
+position = Vector2(-99, -53)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_wae3e")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

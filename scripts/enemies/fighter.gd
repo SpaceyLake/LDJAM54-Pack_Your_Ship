@@ -35,10 +35,14 @@ func _process(delta):
 func _on_attack_timer_timeout():
 	fire()
 
+func on_death():
+	attackTimer.stop()
+	super()
+
 func fire():
 	var proj = projectile.instantiate()
-	add_child(proj)
+	get_parent().add_child(proj)
 	proj.global_position = muzzles[muzzle].global_position
-	muzzle = int(fmod(muzzle + 1, 2))
 	fire_audio.play(0)
-	proj.target = Vector2(1,0)
+	proj.target = muzzles[muzzle].global_position.direction_to(target.global_position)
+	muzzle = int(fmod(muzzle + 1, 2))

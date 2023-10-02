@@ -15,6 +15,8 @@ signal destroyed
 @export var death_audio:AudioStreamPlayer
 @onready var spacestation = get_parent() if get_parent() is Spacestation else null
 @onready var spaceship = null if spacestation == null else spacestation.spaceship
+var standby = true
+var active = false
 
 func _ready():
 	health.health_depleted.connect(on_death)
@@ -47,8 +49,24 @@ func on_death():
 	destroyed.emit()
 	queue_free()
 
+func set_standby():
+	standby = true
+	if active:
+		deactivate()
+		active = true
+
+func release_stanby():
+	standby = false
+	if active:
+		activate()
+
 func activate():
-	set_process(true)
+	active = true
+	if not standby:
+		set_process(true)
+		return true
+	return false
 
 func deactivate():
+	active = false
 	set_process(false)

@@ -50,28 +50,26 @@ func _ready():
 func try_place_component(component:StructureComponent, new_component_position:Vector2):
 	var hex_position:Vector2 = pixel_to_hex(new_component_position)
 	var hex_index = hex_position - mapping_offset
-	if not tile_free(hex_index):
+	if not on_structure(hex_index):
 		return null
 	return place_component(component, hex_position, hex_index)
 
-func tile_free(hex_index:Vector2):
+func on_structure(hex_index:Vector2):
 	if hex_index.x < 0 or hex_index.x >= component_map.size():
 		return false
 	if hex_index.y < 0 or hex_index.y >= component_map[0].size():
 		return false
 	if structure_map[hex_index.x][hex_index.y] == null:
 		return false
-	if component_map[hex_index.x][hex_index.y] != null:
-		return false
 	return true
 
 func match_component_type(type:Global.ComponentType, hex_index:Vector2):
 	if type != structure_map[hex_index.x][hex_index.y]:
-		if type == Global.ComponentType.WEAPON or type == Global.ComponentType.ENGINE:
-			return false
+		return false
 	return true
-#
+
 func place_component(component:StructureComponent, hex_position:Vector2, hex_index:Vector2):
+	var component_global_position = component.global_position
 	if not component.get_parent() == self:
 		component.get_parent().remove_component(component)
 		add_child(component)
@@ -79,8 +77,12 @@ func place_component(component:StructureComponent, hex_position:Vector2, hex_ind
 		var current_hex_position:Vector2 = pixel_to_hex(component.global_position)
 		var current_hex_index = current_hex_position - mapping_offset
 		component_map[current_hex_index.x][current_hex_index.y] = null
-	
+		
+	if component_map[hex_index.x][hex_index.y] != null:
+		component_map[hex_index.x][hex_index.y].place(component_global_position)
+		
 	component_map[hex_index.x][hex_index.y] = component
+	
 	return hex_to_pixel(hex_position)
 
 func remove_component(component:StructureComponent):

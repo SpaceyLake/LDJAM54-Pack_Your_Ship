@@ -142,6 +142,47 @@ _data = {
 [node name="TestScene" type="Node2D"]
 script = SubResource("GDScript_bu0gm")
 
+[node name="Target" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-351, 120)
+texture = ExtResource("1_0g0xl")
+
+[node name="HurtboxComponent2D" type="Area2D" parent="Target" node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_74slv")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Target/HurtboxComponent2D"]
+shape = SubResource("CircleShape2D_kn5r0")
+
+[node name="HealthComponent" type="Node" parent="Target"]
+script = ExtResource("5_ljtar")
+
+[node name="Spacestation" parent="." node_paths=PackedStringArray("spaceship") instance=ExtResource("8_c2y8a")]
+position = Vector2(0, 262)
+spaceship = NodePath("../Spaceship")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Spacestation"]
+libraries = {
+"": SubResource("AnimationLibrary_0gpfw")
+}
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("space_ship") instance=ExtResource("6_e8xti")]
+spawnrate = 1.0
+space_ship = NodePath("../Spaceship")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_lliwq")
+autoplay = true
+
+[node name="DepartButton" type="Button" parent="."]
+offset_left = 354.0
+offset_top = 225.0
+offset_right = 562.0
+offset_bottom = 301.0
+icon = ExtResource("10_4notg")
+
 [node name="camera" parent="." instance=ExtResource("7_acphv")]
 
 [node name="Progressbar" type="TextureProgressBar" parent="camera"]
@@ -162,49 +203,9 @@ nine_patch_stretch = true
 texture_progress = ExtResource("7_snx33")
 tint_progress = Color(0.628906, 0.933594, 0.472656, 1)
 
-[node name="Target" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-351, 120)
-texture = ExtResource("1_0g0xl")
-
-[node name="HurtboxComponent2D" type="Area2D" parent="Target" node_paths=PackedStringArray("health_component")]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("4_74slv")
-health_component = NodePath("../HealthComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Target/HurtboxComponent2D"]
-shape = SubResource("CircleShape2D_kn5r0")
-
-[node name="HealthComponent" type="Node" parent="Target"]
-script = ExtResource("5_ljtar")
-
 [node name="Spaceship" parent="." node_paths=PackedStringArray("enemies_node") instance=ExtResource("5_rikf0")]
+position = Vector2(-28, 0)
 enemies_node = NodePath("../EnemySpawner")
-
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("space_ship") instance=ExtResource("6_e8xti")]
-spawnrate = 1.0
-space_ship = NodePath("../Spaceship")
-
-[node name="Spacestation" parent="." node_paths=PackedStringArray("spaceship") instance=ExtResource("8_c2y8a")]
-position = Vector2(0, 262)
-spaceship = NodePath("../Spaceship")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Spacestation"]
-libraries = {
-"": SubResource("AnimationLibrary_0gpfw")
-}
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_lliwq")
-autoplay = true
-
-[node name="DepartButton" type="Button" parent="."]
-offset_left = 354.0
-offset_top = 225.0
-offset_right = 562.0
-offset_bottom = 301.0
-icon = ExtResource("10_4notg")
 
 [connection signal="animation_finished" from="Spacestation/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="button_up" from="DepartButton" to="." method="_on_depart_button_button_up"]

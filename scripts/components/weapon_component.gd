@@ -47,13 +47,8 @@ func _process(delta):
 		if target != null:
 			targeting.target = target
 			targeting.rotate_towards_target(delta)
-	fire_gun()
-
-func deactivate():
-	set_process(false)
-
-func activate():
-	set_process(true)
+	if target != null:
+		fire_gun()
 
 func rotate_towards_mouse(delta):
 	#if target != null:
@@ -93,7 +88,7 @@ func fill_ammo_storage():
 		ammo_storage += ammo_cells[0].drain_ammo(ammo_max_storage-ammo_storage)
 
 func drain_ammo(amount):
-	if ammo_cells.size():
+	if ammo_cells.size() > 0:
 		ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)
 		ammo_cells[0].drain_ammo(amount)
 	elif ammo_storage > 0:

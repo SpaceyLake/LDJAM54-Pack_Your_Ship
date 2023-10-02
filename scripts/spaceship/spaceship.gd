@@ -1,4 +1,3 @@
-@tool
 extends HexStructure
 class_name SpaceShip
 
@@ -9,6 +8,8 @@ signal dead
 
 func _ready():
 	super()
+	if audio != null:
+		audio.volume_db = Global.sound
 	audio.play(0)
 
 func _input(event):
@@ -39,18 +40,16 @@ func ccw(vec_a:Vector2, vec_b:Vector2, vec_c:Vector2):
 	return (vec_c.y - vec_a.y) * (vec_b.x - vec_a.x) > (vec_b.y - vec_a.y) * (vec_c.x - vec_a.x)
 
 func try_place_component(component:StructureComponent, new_component_position:Vector2):
-	var hex_position:Vector2 = pixel_to_hex(new_component_position)
-	var hex_index = hex_position - mapping_offset
-	if not tile_free(hex_index) or not match_component_type(component.type, hex_index):
-		return null
-	return place_component(component, hex_position, hex_index)
-
-func place_component(component:StructureComponent, hex_position:Vector2, hex_index:Vector2):
-	var new_position = super(component, hex_position, hex_index)
-	return new_position
-
-func remove_component(component:StructureComponent):
-	super(component)
+	var try = super(component, new_component_position)
+	if try != null:
+		var hex_position:Vector2 = pixel_to_hex(new_component_position)
+		var hex_index = hex_position - mapping_offset
+		if component.type == Global.ComponentType.ENGINE or component.type == Global.ComponentType.WEAPON:
+			if match_component_type(component.type, hex_index):
+				component.release_stanby()
+			else:
+				component.set_standby()
+	return try
 
 func get_weight() -> float:
 	var weight = 100.0
@@ -105,9 +104,11 @@ func update_neighbors():
 		for y in component_map[0].size():
 			if component_map[x][y] != null:
 				component_map[x][y].get_neighbors()
-				component_map[x][y].destroyed.connect(Callable(self,"component_lost"))
+				if not component_map[x][y].destroyed.is_connected(component_lost):
+					component_map[x][y].destroyed.connect(component_lost)
 				if component_map[x][y].type == Global.ComponentType.ENGINE:
-					component_map[x][y].force_change.connect(Callable(self,"component_lost"))
+					if not component_map[x][y].force_change.is_connected(component_lost):
+						component_map[x][y].force_change.connect(component_lost)
 
 func get_closest_component(point:Vector2):
 	var hex_point = pixel_to_hex(point)
