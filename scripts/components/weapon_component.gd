@@ -65,8 +65,9 @@ func rotate_towards_target(delta):
 		turret.global_rotation += sign(_diff) * min(barrel_rotation_speed * delta, abs(_diff))
 
 func ammo_cell_out_of_fuel(ammo_cell:AmmoComponent):
-	ammo_cells.remove_at(ammo_cells.find(ammo_cell))
-	ammo_cell.queue_free()
+	if ammo_cells.size() > 0:
+		ammo_cells.remove_at(ammo_cells.find(ammo_cell))
+		ammo_cell.queue_free()
 
 func get_neighbors():
 	super()
@@ -88,6 +89,7 @@ func fill_ammo_storage():
 		ammo_storage += ammo_cells[0].drain_ammo(ammo_max_storage-ammo_storage)
 
 func drain_ammo(amount):
+	get_neighbors()
 	if ammo_cells.size() > 0:
 		ammo_cells.sort_custom(func(a, b): return a.ammo_storage < b.ammo_storage)
 		ammo_cells[0].drain_ammo(amount)

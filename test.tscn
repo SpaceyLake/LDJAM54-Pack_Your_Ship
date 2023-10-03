@@ -33,6 +33,7 @@ var goal_distance: float = 0.0
 var current_name: String = \"\"
 var delivered_cargo = 0
 var end_scene = null
+var level = 0
 
 func _ready():
 	if audio != null:
@@ -44,7 +45,8 @@ func _ready():
 	
 	Global.popup_queue_test(\"GREETINGS HUMAN! THIS IS YOUR CAPTAIN M4RV1N SPEAKING!\")
 	Global.popup_queue_test(\"WE HAVE A TIGHT SCHEDULE TO KEEP SO GET TO LOADING MY SHIP!\")
-	Global.popup_queue_test(\"CLICK AND DRAG ITEMS FROM THE SPACESTATION TO THE SHIP!\")
+	Global.popup_queue_test(\"CLICK AND DRAG ITEMS FROM THE SPACE STATION TO THE SHIP!\")
+	Global.popup_queue_test(\"YOU CAN ALSO REARRANGE THE SHIP IN FLIGHT!\")
 	Global.popup_queue_test(\"I NEED [color=green]ENGINES[/color] TO MOVE AND [color=red]TURRETS[/color] TO GET RID OF [color=red][wave]SPACE PIRATES!\")
 	Global.popup_queue_test(\"[color=green]ENGINES[/color] AND [color=red]TURRETS[/color] ONLY FUNCTION ON THEIR RESPECTIVE TILES!\")
 	Global.popup_queue_test(\"[color=green]ENGINES[/color] REQUIRE NEARBY FUELCELLS AND [color=red]TURRETS[/color]REQUIRE AMMO!\")
@@ -64,9 +66,12 @@ func _process(delta):
 ## TODO called when out of engines
 func game_over():
 	if end_scene == null:
+		spawner.spawn_timer.stop()
+		spawner.fly()
 		end_scene = end.instantiate()
 		add_child(end_scene)
 		end_scene.set_score(delivered_cargo)
+		end_scene.z_index = 50000
 
 func depart():
 	docked = false
@@ -74,12 +79,14 @@ func depart():
 	ship_animation.play(\"Spacestation_out\")
 
 func arrive():
+	level += 1
 	set_process(false)
 	ship.deactivate_components()
 	delivered_cargo += ship.deliver_cargo()
 	$camera/Label.text = str(delivered_cargo)
 	spawner.active = false
 	spawner.fly()
+	spawner.set_level(level)
 	docked = true
 	next_station()
 	ship_animation.play(\"Spacestation_in\")
@@ -100,7 +107,10 @@ func next_station():
 
 func generate_path(amount:int):
 	for n in amount:
-		current_path.append([15.0, \"SPACESTATION \"+str(temp_num)])
+		var length = (level + 1) * 15.0
+		if level > 10:
+			length = randf_range(160, 180)
+		current_path.append([length, \"SPACESTATION \"+str(temp_num)])
 		temp_num += 1
 
 func calculate_time() -> float:
@@ -111,7 +121,7 @@ func _on_animation_player_animation_finished(anim_name):
 		depart_button.visible = true
 		
 	if anim_name == \"Spacestation_out\":
-		station.generate_components()
+		station.generate_components(level)
 		set_process(true)
 		ship.activate_components()
 		spawner.active = true
@@ -218,10 +228,10 @@ enemies_node = NodePath("../EnemySpawner")
 
 [node name="Label" type="Label" parent="camera"]
 z_index = 1000
-offset_left = -552.0
-offset_top = -302.0
-offset_right = -470.0
-offset_bottom = -276.0
+offset_left = -546.0
+offset_top = -292.0
+offset_right = -464.0
+offset_bottom = -266.0
 theme_override_fonts/font = ExtResource("11_vdykt")
 text = "0"
 horizontal_alignment = 1

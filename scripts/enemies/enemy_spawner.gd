@@ -12,13 +12,17 @@ extends Node
 var rng = RandomNumberGenerator.new()
 var enemies:Array[Enemy]
 var total_likeliness = 0
+var level = 0
 
 func _ready():
 	for i in enemy_likeliness.size():
 		total_likeliness += enemy_likeliness[i]
 		enemy_likeliness[i] = total_likeliness
-	spawn_timer.start(rng.randf_range(5 * spawnrate, 15 * spawnrate))
+	spawn_timer.start(rng.randf_range(3, 7))
 
+func set_level(next_level:int):
+	level = next_level
+	
 
 func _on_spawn_timer_timeout():
 	var spawnside = rng.randi_range(0, 2)
@@ -80,7 +84,7 @@ func _on_spawn_timer_timeout():
 			enemy.enemy_killed_signal.connect(_on_enemy_killed)
 			enemies.append(enemy)
 			break
-	spawn_timer.start(rng.randf_range(5 * spawnrate, 15 * spawnrate))
+	spawn_timer.start(rng.randf_range(3, 7)/pow(1.2, level))
 
 func fly():
 	for enemy in enemies:

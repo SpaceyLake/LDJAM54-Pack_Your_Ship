@@ -26,7 +26,8 @@ func _process(delta):
 	if fuel_storage < fuel_max_storage and fuelcells.size() > 0:
 		fuelcells.sort_custom(func(a, b): return a.fuel_storage < b.fuel_storage)
 		fuel_storage += fuelcells[0].drain_fuel(fuel_max_storage-fuel_storage)
-	
+	get_neighbors()
+	get_fuelcells()
 	if fuelcells.size():
 		force = force_max
 		fuelcells.sort_custom(func(a, b): return a.fuel_storage < b.fuel_storage)
@@ -58,11 +59,11 @@ func get_neighbors():
 	get_fuelcells()
 
 func deactivate():
-	set_process(false)
-	particles.emitting = false
-	force = 0
 	if active:
+		force = 0
 		force_change.emit(null)
+	particles.emitting = false
+	super()
 
 func activate():
 	if super():
@@ -72,8 +73,9 @@ func activate():
 			force_change.emit(null)
 
 func fuelcell_out_of_fuel(fuelcell:FuelCellComponent):
-	fuelcells.remove_at(fuelcells.find(fuelcell))
-	fuelcell.queue_free()
+	if fuelcells.size() > 0:
+		fuelcells.remove_at(fuelcells.find(fuelcell))
+		fuelcell.queue_free()
 
 func get_fuelcells():
 	for neighbor in neighbors:

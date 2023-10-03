@@ -9,7 +9,7 @@ class_name Spacestation
 @onready var components:Array = [standard_ammo, standard_cargo, standard_engine, standard_fuelcell, laser]
 @export var spaceship:SpaceShip
 const nr_tiles = 19
-const nr_cargo = 7
+const max_cargo = 7
 const min_engines = 2
 const max_engines = 3
 const min_turrets = 2
@@ -18,23 +18,35 @@ const min_fuel = 2
 const max_fuel = 6
 const min_ammo = 2
 const max_ammo = 6
-const free_slots = 2
 
 func _ready():
 	super()
-	generate_components()
+	generate_components(0)
 
-func generate_components():
+func generate_components(level:int):
 	for x in component_map.size():
 		for y in component_map[x].size():
 			if component_map[x][y] != null:
 				component_map[x][y].queue_free()
+	var nr_cargo = 2
+	var nr_engines = 1
+	var nr_turrets = 1
+	var nr_fuel = 1
+	var nr_ammo = 1
+	if level > 1:
+		var usable_tile = min(nr_tiles, level + 6)
+		var max = min(level + 2, max_cargo)
+		nr_cargo = max
+		var occupied = nr_cargo
+		nr_engines = randi_range(0, 2)
+		occupied += nr_engines
+		nr_turrets = randi_range(0, 2)
+		occupied += nr_turrets
+		nr_fuel = randi_range(min_fuel, min(max_fuel, usable_tile - occupied))
+		occupied += nr_fuel
+		nr_ammo = usable_tile - occupied
+	
 	var i = 0
-	var occupied = nr_cargo - free_slots
-	var nr_engines = randi_range(min_engines, min(max_engines, nr_tiles - occupied))
-	var nr_turrets = randi_range(min_turrets, min(max_turrets, nr_tiles - occupied))
-	var nr_fuel = randi_range(min_fuel, min(max_fuel, nr_tiles - occupied))
-	var nr_ammo = randi_range(min_ammo, max(max_ammo, nr_tiles - occupied))
 	for x in structure_map.size():
 		for y in structure_map[x].size():
 			if structure_map[x][y] != null:
